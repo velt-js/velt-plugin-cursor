@@ -1,0 +1,17 @@
+{
+  "name": "velt-plugins",
+  "owner": {
+    "name": "Velt",
+    "email": "support@velt.dev"
+  },
+  "metadata": {
+    "description": "Official Velt collaboration SDK plugins for Cursor"
+  },
+  "plugins": [
+    {
+      "name": "velt",
+      "source": "packages/cursor-velt",
+      "description": "Add real-time collaboration (comments, presence, cursors, CRDT editing, notifications) to React and Next.js apps."
+    }
+  ]
+}

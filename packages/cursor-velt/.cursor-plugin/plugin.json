@@ -26,5 +26,9 @@
     "notifications"
   ],
   "category": "developer-tools",
-  "tags": ["collaboration", "real-time", "sdk"]
+  "tags": ["collaboration", "real-time", "sdk"],
+  "skills": "./skills/",
+  "rules": "./rules/",
+  "agents": "./agents/",
+  "mcpServers": "mcp.json"
 }
