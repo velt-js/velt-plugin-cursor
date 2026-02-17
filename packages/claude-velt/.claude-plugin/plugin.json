@@ -1,0 +1,23 @@
+{
+  "name": "velt",
+  "description": "Add real-time collaboration (comments, presence, cursors, CRDT editing, notifications) to React and Next.js apps using the Velt SDK.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Velt",
+    "email": "support@velt.dev"
+  },
+  "homepage": "https://docs.velt.dev",
+  "repository": "https://github.com/velt-js/velt-plugin-framework",
+  "license": "MIT",
+  "keywords": [
+    "velt",
+    "collaboration",
+    "comments",
+    "presence",
+    "cursors",
+    "crdt",
+    "real-time",
+    "react",
+    "nextjs"
+  ]
+}

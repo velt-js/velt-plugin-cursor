@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "velt-installer": {
+      "command": "npx",
+      "args": ["-y", "@velt-js/mcp-installer"]
+    },
+    "velt-docs": {
+      "type": "http",
+      "url": "https://docs.velt.dev/mcp"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Velt Plugin</title>
+  <desc id="desc">Velt collaboration SDK plugin logo</desc>
+  <rect width="128" height="128" rx="20" fill="#0F172A"/>
+  <path d="M32 38L64 90L96 38" stroke="#3B82F6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="64" cy="90" r="6" fill="#3B82F6"/>
+</svg>
