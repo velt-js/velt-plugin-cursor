@@ -8,7 +8,7 @@
     "email": "support@velt.dev"
   },
   "homepage": "https://docs.velt.dev",
-  "repository": "https://github.com/velt-js/velt-plugin-framework",
+  "repository": "https://github.com/velt-js/velt-plugin",
   "license": "MIT",
   "logo": "assets/logo.svg",
   "keywords": [

@@ -1,4 +1,4 @@
-# Velt Plugin Framework
+# Velt Plugin
 
 A plugin framework that produces **two installable plugins** for the [Velt](https://velt.dev) collaboration SDK:
 
@@ -63,7 +63,7 @@ claude --plugin-dir packages/claude-velt
 ## Architecture
 
 ```
-velt-plugin-framework/
+velt-plugin/
 ├── packages/
 │   ├── shared/                     # Single source of truth
 │   │   ├── skills-src/             # Canonical skill content (8 skills)

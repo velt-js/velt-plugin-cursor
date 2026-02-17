@@ -1,8 +1,8 @@
 {
-  "name": "velt-plugin-framework",
+  "name": "velt-plugin",
   "version": "1.0.0",
   "private": true,
-  "description": "Plugin framework that produces Cursor and Claude Code plugins for the Velt collaboration SDK",
+  "description": "Cursor and Claude Code plugins for the Velt collaboration SDK",
   "type": "module",
   "scripts": {
     "sync": "node scripts/sync-agent-skills.mjs",
