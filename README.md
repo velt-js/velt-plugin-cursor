@@ -57,7 +57,7 @@ claude --plugin-dir packages/claude-velt
 ```bash
 # Inside Claude Code:
 /plugin marketplace add ./packages/claude-marketplace
-/plugin install velt@velt-plugins
+/plugin install velt@velt-plugin
 ```
 
 ## Architecture
