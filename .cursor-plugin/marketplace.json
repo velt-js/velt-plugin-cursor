@@ -5,7 +5,7 @@
     "email": "support@velt.dev"
   },
   "metadata": {
-    "description": "Official Velt collaboration SDK plugins for Cursor"
+    "description": "Official Velt collaboration SDK plugin for Cursor"
   },
   "plugins": [
     {

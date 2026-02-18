@@ -5,7 +5,7 @@
     "email": "support@velt.dev"
   },
   "metadata": {
-    "description": "Official Velt collaboration SDK plugins for Claude Code",
+    "description": "Official Velt collaboration SDK plugin for Claude Code",
     "version": "1.0.0"
   },
   "plugins": [
