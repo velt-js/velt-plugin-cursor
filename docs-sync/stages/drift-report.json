@@ -1,0 +1,442 @@
+[
+  {
+    "id": "drift-001",
+    "type": "stale_code_example",
+    "severity": "high",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-webhooks.md",
+    "ruleEvidence": {
+      "text": "const subscription = crdtElement.on('updateData', (data) => {\n      console.log('CRDT data changed:', data);\n    });",
+      "lineRange": [53, 55]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "const subscription = crdtElement.on(\"updateData\").subscribe((eventData) => {\n      console.log(\"[CRDT] event on data change: \", eventData);\n    });",
+      "lineRange": [539, 541]
+    },
+    "description": "Rule uses callback-style API `crdtElement.on('updateData', (data) => {...})` but docs show Observable-style API `crdtElement.on(\"updateData\").subscribe((eventData) => {...})`. The `on()` method returns an Observable, not a callback-accepting function.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-webhooks.md"
+  },
+  {
+    "id": "drift-002",
+    "type": "stale_code_example",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-webhooks.md",
+    "ruleEvidence": {
+      "text": "// Optional: customize debounce time (default 5000ms)\n    crdtElement.setWebhookDebounceTime(3000);",
+      "lineRange": [35, 36]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "The minimum debounce time is 5 seconds (5000ms). Setting a value lower than this will use 5 seconds as the default.",
+      "lineRange": [1243, 1243]
+    },
+    "description": "Rule shows `setWebhookDebounceTime(3000)` (3 seconds) as a valid example, but docs state the minimum debounce time is 5000ms. Values below 5000ms are clamped to 5 seconds. The rule example is misleading because 3000ms will silently become 5000ms.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-webhooks.md"
+  },
+  {
+    "id": "drift-003",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "import { useCrdtUtils } from \"@veltdev/react\";\n\nexport function YourComponent() {\n  const crdtUtils = useCrdtUtils();\n\n  useEffect(() => {\n    if (crdtUtils) {\n      crdtUtils.enableWebhook();\n      crdtUtils.setWebhookDebounceTime(10 * 1000);\n    }\n  }, [crdtUtils]);",
+      "lineRange": [1156, 1170]
+    },
+    "description": "Docs document the `useCrdtUtils()` React hook for webhook and activity debounce configuration, and the `useCrdtEventCallback()` hook for event subscriptions. No rule covers these hooks as the recommended React patterns for CRDT webhook and event management. The existing core-webhooks.md rule only shows the `client.getCrdtElement()` API pattern.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/react/core/core-crdt-utils-hook.md"
+  },
+  {
+    "id": "drift-004",
+    "type": "stale_code_example",
+    "severity": "high",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/react/core/core-store-create-react.md",
+    "ruleEvidence": {
+      "text": "| `value` | Current reactive store value |\n| `update` | Function to update the store |\n| `store` | Underlying store instance |\n| `saveVersion` | Save a named checkpoint |\n| `getVersions` | Get all saved versions |\n| `setStateFromVersion` | Restore from a version |",
+      "lineRange": [63, 69]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "const {\n  value,\n  versions,\n  store,\n  update,\n  saveVersion,\n  getVersions,\n  getVersionById,\n  restoreVersion,\n  setStateFromVersion,\n} = useVeltCrdtStore<string>({",
+      "lineRange": [281, 291]
+    },
+    "description": "Rule's Hook Returns table is missing three documented return values: `versions` (reactive property for all saved versions), `getVersionById` (fetch a specific version), and `restoreVersion` (convenience method that fetches and restores in one call, returning `Promise<boolean>`).",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/react/core/core-store-create-react.md"
+  },
+  {
+    "id": "drift-005",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "#### [on](/api-reference/sdk/api/api-methods#on)\n\nSubscribe to CRDT events. Currently supports the `updateData` event which fires when CRDT data changes.\n\n- Params: `eventType: \"updateData\"`\n- Returns: `Observable<CrdtUpdateDataEvent>`",
+      "lineRange": [498, 503]
+    },
+    "description": "Docs describe the `on('updateData')` event subscription API returning an Observable of `CrdtUpdateDataEvent` with detailed event structure (methodName, uniqueId, timestamp, source, payload with id, data, lastUpdatedBy, sessionId, lastUpdate). No dedicated rule covers this event subscription pattern or documents the event data structure.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-event-subscription.md"
+  },
+  {
+    "id": "drift-006",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "#### [destroy](/api-reference/sdk/api/api-methods#destroy)\n\nClean up resources when done with the store.\n\n... Manually destroy the store to clean up resources and listeners.\n\n- Returns: `void`\n\n```ts\nstore.destroy();\n```",
+      "lineRange": [469, 493]
+    },
+    "description": "Docs document the `destroy()` method for store cleanup and Yjs accessor methods: `getDoc()` (returns Y.Doc), `getProvider()` (returns Provider), `getText()` (returns Y.Text | null for text stores), and `getXml()` (returns Y.XmlFragment | null for xml stores). No dedicated rule covers these low-level Yjs accessors or the destroy lifecycle for the core store.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-store-lifecycle.md"
+  },
+  {
+    "id": "drift-007",
+    "type": "stale_api_signature",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-message-stream.md",
+    "ruleEvidence": {
+      "text": "| `saveSnapshot` | `(query: { id: string; state: number[]; vector: number[]; source?: string }) => Promise<void>` | Checkpoint the current Y.Doc state and vector clock |",
+      "lineRange": [110, 110]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "await crdtElement.saveSnapshot({\n  id: 'my-doc',\n  state: Y.encodeStateAsUpdate(ydoc),\n  vector: Y.encodeStateVector(ydoc),\n  source: 'tiptap',\n});",
+      "lineRange": [736, 741]
+    },
+    "description": "Rule's method signature table says `state` and `vector` are `number[]`, but the docs code example passes the result of `Y.encodeStateAsUpdate(ydoc)` and `Y.encodeStateVector(ydoc)` directly, which return `Uint8Array`. The rule's own correct example uses `Array.from()` for conversion, creating an inconsistency between the table signature and the docs usage pattern.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-message-stream.md"
+  },
+  {
+    "id": "drift-008",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "- [Add CRDT Data](/api-reference/rest-apis/v2/crdt/add-crdt-data) — create new CRDT editor data on the backend (errors if the `editorId` already exists).\n- [Update CRDT Data](/api-reference/rest-apis/v2/crdt/update-crdt-data) — replace existing CRDT editor data; generates proper CRDT operations so connected clients pick up the change.",
+      "lineRange": [1126, 1127]
+    },
+    "description": "Docs document three CRDT REST API endpoints: Get, Add, and Update CRDT Data. The existing core-rest-api.md rule only covers the Get endpoint. The Add endpoint (creates new data, errors if editorId exists) and Update endpoint (replaces data, generates CRDT operations for connected clients) are not covered.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-rest-api.md"
+  },
+  {
+    "id": "drift-009",
+    "type": "behavioral_mismatch",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-crdt-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-activity-debounce.md",
+    "ruleEvidence": {
+      "text": "// Flush CRDT editor edit activities after 30 seconds of inactivity\n    // Default: 600000 (10 minutes) | Minimum enforced: 10000 (10 seconds)\n    crdtElement.setActivityDebounceTime(30000);",
+      "lineRange": [33, 35]
+    },
+    "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+    "docEvidence": {
+      "text": "Control how long CRDT editor keystrokes are batched before a single activity log record is flushed to the activity log feed. This is distinct from the webhook debounce — it governs activity log generation only.",
+      "lineRange": [1250, 1250]
+    },
+    "description": "Rule comment says \"after 30 seconds of inactivity\" which implies an inactivity timeout, but docs describe it as controlling how long keystrokes are batched before a single activity log record is flushed. This is a batching window, not an inactivity timeout. The rule also does not mention the `useCrdtUtils()` hook which is the recommended React approach shown in the docs.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-crdt-best-practices/rules/shared/core/core-activity-debounce.md"
+  },
+  {
+    "id": "drift-010",
+    "type": "behavioral_mismatch",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-tabs.md",
+    "ruleEvidence": {
+      "text": "The notification panel has four tabs: forYou, all, documents, and people.",
+      "lineRange": [10, 10]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "- Using this config, you can customize the name of the tabs or disable them altogether.\n- By default, all the three tabs are enabled.",
+      "lineRange": [7, 8]
+    },
+    "description": "Rule states the panel has \"four tabs: forYou, all, documents, and people\" but docs say \"all the three tabs are enabled\" by default and the tabConfig API only shows three keys: `forYou`, `documents`, and `all`. There is no `people` tab in the tabConfig API.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-tabs.md"
+  },
+  {
+    "id": "drift-011",
+    "type": "stale_code_example",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/react/settings/settings-channels.md",
+    "ruleEvidence": {
+      "text": "const settings = useNotificationSettings();\n\n  // Current user settings: { inbox: 'ALL', email: 'MINE', ... }\n  console.log('Current settings:', settings);",
+      "lineRange": [88, 91]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "const { setSettingsInitialConfig, setSettings, settings } = useNotificationSettings();",
+      "lineRange": [906, 906]
+    },
+    "description": "Rule uses `useNotificationSettings()` as if it returns the settings directly, but docs show it returns a destructured object `{ setSettingsInitialConfig, setSettings, settings }`. The rule's usage pattern `const settings = useNotificationSettings()` is incorrect.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/react/settings/settings-channels.md"
+  },
+  {
+    "id": "drift-012",
+    "type": "stale_code_example",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/react/settings/settings-channels.md",
+    "ruleEvidence": {
+      "text": "notificationElement.setSettingsLayout('dropdown'); // 'accordion' or 'dropdown'",
+      "lineRange": [123, 123]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "<VeltNotificationsTool settingsLayout=\"dropdown\" />\n    <VeltNotificationsPanel settingsLayout=\"dropdown\" />",
+      "lineRange": [828, 829]
+    },
+    "description": "Rule shows `notificationElement.setSettingsLayout('dropdown')` as an API method, but the docs only show `settingsLayout` as a component prop on VeltNotificationsTool and VeltNotificationsPanel. The `setSettingsLayout()` API method is not documented in the customize-behavior docs.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/react/settings/settings-channels.md"
+  },
+  {
+    "id": "drift-013",
+    "type": "stale_code_example",
+    "severity": "high",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-display.md",
+    "ruleEvidence": {
+      "text": "const openPanel = () => {\n    const notificationElement = client?.getNotificationElement();\n    notificationElement?.openNotificationsPanel();\n  };",
+      "lineRange": [54, 57]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "const notificationElement = useNotificationUtils()\nnotificationElement.openNotificationsPanel()\nnotificationElement.closeNotificationsPanel()",
+      "lineRange": [658, 660]
+    },
+    "description": "Rule shows programmatic panel control using only the `client.getNotificationElement()` API pattern for React but docs show the recommended React pattern is `useNotificationUtils()` hook. The hook pattern is the primary approach shown in docs for React.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-display.md"
+  },
+  {
+    "id": "drift-014",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### considerAllNotifications\nControls the notification count and unread indicator for the notification panel. When enabled, the notification count and unread badge include items from all tabs; when disabled (default), they only include items from the \"For You\" tab.\n\nDefault: `false`",
+      "lineRange": [185, 188]
+    },
+    "description": "Docs document the `considerAllNotifications` prop that controls whether notification count/unread badge includes items from all tabs or just 'For You'. No rule covers this configuration option.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-count-config.md"
+  },
+  {
+    "id": "drift-015",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### enableCurrentDocumentOnly\nProgrammatically filters notifications to show only those from the current document. By default it shows notifications for the 15 most recently active documents accessible to the current user in the current organization.",
+      "lineRange": [205, 206]
+    },
+    "description": "Docs document `enableCurrentDocumentOnly()` / `disableCurrentDocumentOnly()` methods for filtering notifications to the current document only. No rule covers this feature.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-document-filter.md"
+  },
+  {
+    "id": "drift-016",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### enableReadNotificationsOnForYouTab\n\n- You can control whether read notifications are displayed in the \"For You\" tab. By default, read notifications are removed from this tab.\n\nDefault: `false`.",
+      "lineRange": [320, 325]
+    },
+    "description": "Docs document `enableReadNotificationsOnForYouTab` feature with both props (`readNotificationsOnForYouTab={true}`) and APIs (`enableReadNotificationsOnForYouTab()` / `disableReadNotificationsOnForYouTab()`). No rule covers this configuration.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-read-notifications.md"
+  },
+  {
+    "id": "drift-017",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### enableSelfNotifications\n\n- By default notifications api and components exclude notifications where the current user is the action user.\n- This feature allows you to enable self notifications.\n\nDefault: `false`.",
+      "lineRange": [384, 389]
+    },
+    "description": "Docs document `enableSelfNotifications` prop and `enableSelfNotifications()` / `disableSelfNotifications()` APIs for showing notifications where the current user is the action user. No rule covers this feature.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-self-notifications.md"
+  },
+  {
+    "id": "drift-018",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### markNotificationAsReadById\n\n- Mark a single notification as read using its notificationId.\n- The notification will be marked as read in all tabs.\n\n...\n\n#### setAllNotificationsAsRead\n\n- Mark all notifications as read, either globally or for a specific tab.\n- Using 'all' or 'document' as the `tabId` marks all notifications as read across all tabs.\n- Using 'for-you' as the `tabId` only marks notifications in the 'for-you' tab as read.",
+      "lineRange": [628, 678]
+    },
+    "description": "Docs document notification action methods: `markNotificationAsReadById(notificationId)`, `setAllNotificationsAsRead(options?)` with tab-specific support via `{ tabId: 'for-you' | 'all' | 'document' }`, and `openNotificationsPanel()` / `closeNotificationsPanel()`. No dedicated rule covers these action methods as a group.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/actions/actions-read-state.md"
+  },
+  {
+    "id": "drift-019",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### enableSettingsAtOrganizationLevel\nEnable organization-level notification settings. When enabled, settings apply to all documents in the organization instead of per-document.\n\n**Params:** `none`\n**Returns:** `void`",
+      "lineRange": [758, 762]
+    },
+    "description": "Docs document `enableSettingsAtOrganizationLevel` prop and `enableSettingsAtOrganizationLevel()` / `disableSettingsAtOrganizationLevel()` API methods for org-level notification settings. No rule covers this feature.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/settings/settings-org-level.md"
+  },
+  {
+    "id": "drift-020",
+    "type": "missing_rule",
+    "severity": "low",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### setMaxDays\n\nNotifications older than the specified number of days will not be displayed.\n\nDefault: 15 days.",
+      "lineRange": [237, 241]
+    },
+    "description": "Docs document the `setMaxDays` API and `maxDays` prop for controlling notification retention display period. No dedicated rule covers this configuration.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-max-days.md"
+  },
+  {
+    "id": "drift-021",
+    "type": "missing_rule",
+    "severity": "medium",
+    "confidence": "high",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### onNotificationClick\n- The `onNotificationClick` event fires when a notification is clicked in the Notifications Panel.\n- It returns a `Notification` object with details about the clicked notification.\n- Listen to this event via either the Notification Tool or the Notification Panel, but not both.",
+      "lineRange": [588, 591]
+    },
+    "description": "Docs document the `onNotificationClick` event with a critical constraint: listen on either VeltNotificationsTool or VeltNotificationsPanel, but not both. The non-React pattern uses `addEventListener('onNotificationClick', ...)`. While data-hooks.md mentions onNotificationClick briefly, there is no shared rule covering the HTML event listener pattern or the 'listen on one only' constraint.",
+    "suggestedAction": "create_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/shared/panel/panel-notification-click.md"
+  },
+  {
+    "id": "drift-022",
+    "type": "missing_rule",
+    "severity": "low",
+    "confidence": "medium",
+    "skillTarget": "velt-notifications-best-practices",
+    "ruleFile": null,
+    "ruleEvidence": {
+      "text": "",
+      "lineRange": [0, 0]
+    },
+    "docSource": "async-collaboration/notifications/customize-behavior.mdx",
+    "docEvidence": {
+      "text": "#### muteAllNotifications\n- Mutes all notifications across all the channels for the current user in this current document.\n- In case of multiple documents or folders, this will mute all notifications for the user in the root document.\n- Params: `none`\n- Returns: `void`",
+      "lineRange": [1108, 1112]
+    },
+    "description": "Docs document `muteAllNotifications()` as a standalone API method that mutes all notifications across all channels. While briefly referenced in settings-channels rule, it is not prominently covered with its document-level scoping semantics.",
+    "suggestedAction": "update_rule",
+    "suggestedFile": "/Users/yoenzhang/Downloads/agent-skills/skills/velt-notifications-best-practices/rules/react/settings/settings-channels.md"
+  }
+]

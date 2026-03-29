@@ -1,0 +1,325 @@
+{
+  "$schema": "docs-to-targets-map",
+  "$description": "Maps docs repo paths to downstream targets (agent-skills, installer, CLI). Used by Stage 0 to determine which targets are affected by docs changes.",
+
+  "skillMappings": {
+    "$description": "Maps docs paths to agent-skills skill directories. Values are skill directory names under /agent-skills/skills/. Array values mean the doc affects multiple skills.",
+
+    "get-started/quickstart.mdx": "velt-setup-best-practices",
+    "get-started/advanced.mdx": "velt-setup-best-practices",
+    "get-started/overview.mdx": "velt-setup-best-practices",
+    "key-concepts/overview.mdx": "velt-setup-best-practices",
+
+    "async-collaboration/comments/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/customize-behavior.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/notifications.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/freestyle.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/popover.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/page.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/stream.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/text.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/inline-comments.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/tiptap.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/slatejs.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/lexical.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/plate.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/quill.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/codemirror.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/ace.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/canvas.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/canvas-comments/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/chart-comments-setup/highcharts.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/chart-comments-setup/custom-charts.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/chart-comments-setup/chartjs.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/chart-comments-setup/nivo-charts.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/lottie-player-setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/video-player-setup/video-player-setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/setup/video-player-setup/custom-video-player-setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-composer/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-composer/setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-composer/customize-behavior.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-thread/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-thread/setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-thread/customize-behavior.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-pin/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-pin/setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments/standalone-components/comment-pin/customize-behavior.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments-sidebar/overview.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments-sidebar/setup.mdx": "velt-comments-best-practices",
+    "async-collaboration/comments-sidebar/customize-behavior.mdx": "velt-comments-best-practices",
+
+    "async-collaboration/notifications/overview.mdx": "velt-notifications-best-practices",
+    "async-collaboration/notifications/setup.mdx": "velt-notifications-best-practices",
+    "async-collaboration/notifications/customize-behavior.mdx": "velt-notifications-best-practices",
+
+    "realtime-collaboration/crdt/overview.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/core.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/tiptap.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/blocknote.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/codemirror.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/reactflow.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/core-stores/text.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/core-stores/map.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/core-stores/array.mdx": "velt-crdt-best-practices",
+    "realtime-collaboration/crdt/setup/core-stores/xml.mdx": "velt-crdt-best-practices",
+
+    "api-reference/sdk/api/api-methods.mdx": ["velt-setup-best-practices", "velt-comments-best-practices", "velt-notifications-best-practices", "velt-crdt-best-practices"],
+    "api-reference/sdk/models/data-models.mdx": ["velt-setup-best-practices", "velt-comments-best-practices", "velt-notifications-best-practices", "velt-crdt-best-practices"],
+    "api-reference/sdk/api/react-hooks.mdx": ["velt-setup-best-practices", "velt-comments-best-practices", "velt-notifications-best-practices", "velt-crdt-best-practices"],
+
+    "api-reference/rest-apis/v2/comments-feature/": "velt-comments-best-practices",
+    "api-reference/rest-apis/v2/notifications/": "velt-notifications-best-practices",
+    "api-reference/rest-apis/v2/crdt/": "velt-crdt-best-practices",
+    "api-reference/rest-apis/v2/auth/": "velt-setup-best-practices",
+    "api-reference/rest-apis/v2/documents/": "velt-setup-best-practices",
+    "api-reference/rest-apis/v2/users/": "velt-setup-best-practices",
+    "api-reference/rest-apis/v2/organizations/": "velt-setup-best-practices",
+
+    "ui-customization/features/async/comments/": "velt-comments-best-practices",
+    "ui-customization/features/async/notifications/": "velt-notifications-best-practices",
+
+    "permission-management/": "velt-comments-best-practices",
+
+    "release-notes/version-4/sdk-changelog.mdx": ["velt-comments-best-practices", "velt-notifications-best-practices", "velt-crdt-best-practices"],
+    "release-notes/version-5/sdk-changelog.mdx": ["velt-comments-best-practices", "velt-notifications-best-practices", "velt-crdt-best-practices"],
+    "release-notes/version-4/crdt-core-changelog.mdx": "velt-crdt-best-practices",
+    "release-notes/version-4/tiptap-changelog.mdx": "velt-crdt-best-practices",
+    "release-notes/version-4/codemirror-changelog.mdx": "velt-crdt-best-practices",
+    "release-notes/version-4/blocknote-changelog.mdx": "velt-crdt-best-practices",
+    "release-notes/version-4/reactflow-changelog.mdx": "velt-crdt-best-practices",
+    "release-notes/version-5/crdt-core-changelog.mdx": "velt-crdt-best-practices"
+  },
+
+  "skillRuleMappings": {
+    "$description": "Maps specific docs paths to their most relevant agent-skills rule files. Paths relative to the skill's rules/ directory.",
+
+    "velt-setup-best-practices": {
+      "get-started/quickstart.mdx": [
+        "react/installation/install-react-packages.md",
+        "non-react/installation/install-vanilla-packages.md",
+        "shared/config/config-api-key.md",
+        "shared/config/config-domain-safelist.md",
+        "react/provider-wiring/provider-velt-provider-setup.md",
+        "react/provider-wiring/provider-client-directive.md",
+        "non-react/provider-wiring/provider-framework-init.md",
+        "shared/identity/identity-user-object-shape.md",
+        "react/identity/identity-auth-provider.md",
+        "shared/document-identity/document-set-document.md"
+      ],
+      "get-started/advanced.mdx": [
+        "shared/identity/identity-jwt-generation.md",
+        "shared/config/config-auth-token-security.md",
+        "shared/identity/identity-organization-id.md"
+      ],
+      "api-reference/sdk/models/data-models.mdx": [
+        "shared/identity/identity-user-object-shape.md",
+        "shared/document-identity/document-metadata.md",
+        "shared/document-identity/document-id-generation.md"
+      ]
+    },
+
+    "velt-comments-best-practices": {
+      "async-collaboration/comments/setup/freestyle.mdx": ["shared/mode/mode-freestyle.md"],
+      "async-collaboration/comments/setup/popover.mdx": ["shared/mode/mode-popover.md"],
+      "async-collaboration/comments/setup/stream.mdx": ["shared/mode/mode-stream.md"],
+      "async-collaboration/comments/setup/text.mdx": ["shared/mode/mode-text.md"],
+      "async-collaboration/comments/setup/page.mdx": ["shared/mode/mode-page.md"],
+      "async-collaboration/comments/setup/inline-comments.mdx": ["shared/mode/mode-inline-comments.md"],
+      "async-collaboration/comments/setup/tiptap.mdx": ["react/mode/mode-tiptap.md"],
+      "async-collaboration/comments/setup/slatejs.mdx": ["react/mode/mode-slatejs.md"],
+      "async-collaboration/comments/setup/lexical.mdx": ["react/mode/mode-lexical.md"],
+      "async-collaboration/comments/setup/chart-comments-setup/highcharts.mdx": ["react/mode/mode-chart-highcharts.md"],
+      "async-collaboration/comments/setup/chart-comments-setup/chartjs.mdx": ["react/mode/mode-chart-chartjs.md"],
+      "async-collaboration/comments/setup/chart-comments-setup/nivo-charts.mdx": ["react/mode/mode-chart-nivo.md"],
+      "async-collaboration/comments/setup/chart-comments-setup/custom-charts.mdx": ["react/mode/mode-chart-custom.md"],
+      "async-collaboration/comments/setup/canvas-comments/overview.mdx": ["react/mode/mode-canvas.md"],
+      "async-collaboration/comments/setup/lottie-player-setup.mdx": ["shared/mode/mode-lottie-player.md"],
+      "async-collaboration/comments/setup/video-player-setup/video-player-setup.mdx": ["shared/mode/mode-video-player-prebuilt.md"],
+      "async-collaboration/comments/setup/video-player-setup/custom-video-player-setup.mdx": ["shared/mode/mode-video-player-custom.md"],
+      "async-collaboration/comments/standalone-components/comment-composer/setup.mdx": ["shared/standalone/standalone-comment-composer.md"],
+      "async-collaboration/comments/standalone-components/comment-composer/customize-behavior.mdx": ["shared/standalone/standalone-comment-composer.md"],
+      "async-collaboration/comments/standalone-components/comment-thread/setup.mdx": ["shared/standalone/standalone-comment-thread.md"],
+      "async-collaboration/comments/standalone-components/comment-thread/customize-behavior.mdx": ["shared/standalone/standalone-comment-thread.md"],
+      "async-collaboration/comments/standalone-components/comment-pin/setup.mdx": ["react/standalone/standalone-comment-pin.md"],
+      "async-collaboration/comments/standalone-components/comment-pin/customize-behavior.mdx": ["react/standalone/standalone-comment-pin.md"],
+      "async-collaboration/comments-sidebar/setup.mdx": ["shared/surface/surface-sidebar.md", "shared/surface/surface-sidebar-v2.md"],
+      "async-collaboration/comments-sidebar/customize-behavior.mdx": ["shared/surface/surface-sidebar.md", "shared/surface/surface-sidebar-button.md"],
+      "async-collaboration/comments/customize-behavior.mdx": [
+        "shared/data/data-context-metadata.md",
+        "shared/permissions/permissions-private-mode.md",
+        "shared/permissions/permissions-comment-saved-event.md",
+        "react/data/data-filtering-grouping.md",
+        "react/data/data-comment-annotations.md",
+        "shared/attach/attach-download-control.md"
+      ],
+      "ui-customization/features/async/comments/": [
+        "shared/ui/ui-wireframes.md",
+        "shared/ui/ui-comment-dialog.md",
+        "shared/ui/ui-comment-bubble.md",
+        "shared/ui/ui-autocomplete-primitives.md"
+      ]
+    },
+
+    "velt-notifications-best-practices": {
+      "async-collaboration/notifications/setup.mdx": ["shared/core/core-setup.md"],
+      "async-collaboration/notifications/customize-behavior.mdx": [
+        "shared/panel/panel-display.md",
+        "shared/panel/panel-tabs.md",
+        "shared/triggers/triggers-custom.md",
+        "shared/delivery/delivery-email.md",
+        "shared/delivery/delivery-webhooks.md",
+        "shared/delivery/delivery-delay-batching.md",
+        "react/settings/settings-channels.md",
+        "shared/settings/settings-config-rest-api.md",
+        "react/data/data-hooks.md",
+        "shared/data/data-rest-api.md",
+        "shared/data/data-notification-data-provider.md",
+        "shared/ui/ui-wireframes.md"
+      ]
+    },
+
+    "velt-crdt-best-practices": {
+      "realtime-collaboration/crdt/overview.mdx": ["shared/core/core-install.md", "shared/core/core-velt-init.md"],
+      "realtime-collaboration/crdt/setup/core.mdx": [
+        "shared/core/core-store-types.md",
+        "shared/core/core-store-subscribe.md",
+        "shared/core/core-store-update.md",
+        "react/core/core-store-create-react.md",
+        "non-react/core/core-store-create-vanilla.md",
+        "shared/core/core-version-save.md",
+        "shared/core/core-encryption.md",
+        "shared/core/core-webhooks.md",
+        "shared/core/core-rest-api.md"
+      ],
+      "realtime-collaboration/crdt/setup/core-stores/text.mdx": ["shared/core/core-store-types.md"],
+      "realtime-collaboration/crdt/setup/core-stores/map.mdx": ["shared/core/core-store-types.md"],
+      "realtime-collaboration/crdt/setup/core-stores/array.mdx": ["shared/core/core-store-types.md"],
+      "realtime-collaboration/crdt/setup/core-stores/xml.mdx": ["shared/core/core-store-types.md"],
+      "realtime-collaboration/crdt/setup/tiptap.mdx": [
+        "shared/tiptap/tiptap-install.md",
+        "shared/tiptap/tiptap-disable-history.md",
+        "shared/tiptap/tiptap-editor-id.md",
+        "shared/tiptap/tiptap-cursor-css.md",
+        "shared/tiptap/tiptap-testing.md",
+        "react/tiptap/tiptap-setup-react.md",
+        "non-react/tiptap/tiptap-setup-vanilla.md"
+      ],
+      "realtime-collaboration/crdt/setup/codemirror.mdx": [
+        "shared/codemirror/codemirror-install.md",
+        "shared/codemirror/codemirror-ycollab.md",
+        "shared/codemirror/codemirror-editor-id.md",
+        "shared/codemirror/codemirror-testing.md",
+        "react/codemirror/codemirror-setup-react.md",
+        "non-react/codemirror/codemirror-setup-vanilla.md"
+      ],
+      "realtime-collaboration/crdt/setup/blocknote.mdx": [
+        "react/blocknote/blocknote-install.md",
+        "react/blocknote/blocknote-setup-react.md",
+        "react/blocknote/blocknote-editor-id.md",
+        "react/blocknote/blocknote-testing.md"
+      ],
+      "realtime-collaboration/crdt/setup/reactflow.mdx": [
+        "react/reactflow/reactflow-install.md",
+        "react/reactflow/reactflow-setup-react.md",
+        "react/reactflow/reactflow-handlers.md",
+        "react/reactflow/reactflow-editor-id.md",
+        "react/reactflow/reactflow-testing.md"
+      ]
+    }
+  },
+
+  "installerMappings": {
+    "$description": "Maps docs paths to installer areas that may need updates. Values are arrays of installer concern areas.",
+
+    "get-started/quickstart.mdx": ["setup-flow", "framework-detection", "plan-formatter"],
+    "get-started/advanced.mdx": ["jwt-auth", "host-app-discovery", "plan-formatter"],
+    "get-started/cli.mdx": ["cli-templates"],
+    "async-collaboration/comments/setup/freestyle.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/popover.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/page.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/stream.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/text.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/inline-comments.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/tiptap.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/slatejs.mdx": ["plan-formatter-comments", "url-mappings"],
+    "async-collaboration/comments/setup/lexical.mdx": ["url-mappings"],
+    "async-collaboration/notifications/setup.mdx": ["plan-formatter-notifications", "url-mappings"],
+    "async-collaboration/notifications/customize-behavior.mdx": ["plan-formatter-notifications", "url-mappings"],
+    "async-collaboration/recorder/setup.mdx": ["plan-formatter-recorder", "url-mappings"],
+    "realtime-collaboration/presence/setup.mdx": ["plan-formatter-presence", "url-mappings"],
+    "realtime-collaboration/presence/customize-behavior.mdx": ["url-mappings"],
+    "realtime-collaboration/cursors/setup.mdx": ["plan-formatter-cursors", "url-mappings"],
+    "realtime-collaboration/cursors/customize-behavior.mdx": ["url-mappings"],
+    "realtime-collaboration/crdt/setup/tiptap.mdx": ["plan-formatter-crdt", "url-mappings"],
+    "realtime-collaboration/crdt/setup/codemirror.mdx": ["plan-formatter-crdt", "url-mappings"],
+    "realtime-collaboration/crdt/setup/blocknote.mdx": ["plan-formatter-crdt", "url-mappings"],
+    "realtime-collaboration/crdt/setup/reactflow.mdx": ["plan-formatter-crdt", "url-mappings"],
+    "realtime-collaboration/crdt/overview.mdx": ["url-mappings"]
+  },
+
+  "cliMappings": {
+    "$description": "Maps docs paths to CLI template areas in add-velt-next-js/bin/velt.js that may need updates.",
+
+    "get-started/quickstart.mdx": ["VeltInitializeDocument", "VeltInitializeUser", "VeltClientWrapper", "dependencies"],
+    "async-collaboration/comments/setup/freestyle.mdx": ["VeltCollaboration-comments", "VeltTools-comments"],
+    "async-collaboration/notifications/setup.mdx": ["VeltCollaboration-notifications", "VeltTools-notifications"],
+    "realtime-collaboration/presence/setup.mdx": ["VeltTools-presence"],
+    "realtime-collaboration/cursors/setup.mdx": ["VeltCollaboration-cursors"],
+    "realtime-collaboration/crdt/setup/tiptap.mdx": ["VeltCollaboration-tiptap", "dependencies-tiptap"],
+    "realtime-collaboration/crdt/setup/codemirror.mdx": ["VeltCollaboration-codemirror", "dependencies-codemirror"],
+    "realtime-collaboration/crdt/setup/reactflow.mdx": ["VeltCollaboration-reactflow", "dependencies-reactflow"],
+    "realtime-collaboration/crdt/setup/blocknote.mdx": ["dependencies-blocknote"]
+  },
+
+  "excludedPaths": {
+    "$description": "Docs paths that should never trigger downstream updates.",
+
+    "directories": [
+      "security/",
+      "integrations/",
+      "backend-sdks/",
+      "migration/",
+      "mcp/",
+      "ai-copilot/",
+      "self-host-data/",
+      "global-styles/",
+      "webhooks/",
+      "in-app-user-feedback/",
+      "snippets/"
+    ],
+    "files": [
+      "get-started/quickstart-old.mdx",
+      "get-started/plugins.mdx",
+      "get-started/mcp-installer.mdx",
+      "get-started/skills.mdx"
+    ],
+    "patterns": [
+      "*.png",
+      "*.jpg",
+      "*.gif",
+      "*.svg",
+      "*.css",
+      "*.js",
+      "*.html",
+      "temp-*"
+    ]
+  },
+
+  "installerFiles": {
+    "$description": "Installer source files and what each one is responsible for. Used by Stage 3.",
+
+    "patchable": {
+      "src/utils/velt-docs-urls.js": "URL mappings for all Velt feature documentation",
+      "src/utils/velt-docs-fetcher.js": "Feature-to-skill mapping (FEATURE_SKILL_MAP) and docs fetching",
+      "src/utils/plan-formatter.js": "Implementation plan step templates and formatting",
+      "src/utils/validation.js": "Post-install validation checks (expected files, deps, imports)"
+    },
+    "readOnly": {
+      "src/index.js": "MCP server wiring - never auto-patch",
+      "src/tools/unified-installer.js": "Multi-phase orchestration - never auto-patch",
+      "src/utils/host-app-discovery.js": "Codebase scanning heuristics - never auto-patch",
+      "src/utils/integration.js": "File modification logic - never auto-patch",
+      "src/utils/framework-detection.js": "Framework detection - read for comparison only"
+    }
+  }
+}

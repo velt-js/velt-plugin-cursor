@@ -1,0 +1,128 @@
+{
+  "stage": 3,
+  "name": "Installer Drift Detection",
+  "timestamp": "2026-03-27",
+  "summary": "Found 4 material drift items in the velt-mcp-installer: 1 stale API endpoint URL (high severity), 1 moved doc URL, 1 missing feature URL mapping, and 1 broken doc link in CLI report.",
+  "driftItems": [
+    {
+      "id": "inst-drift-001",
+      "type": "stale_url",
+      "severity": "high",
+      "confidence": "high",
+      "blocking": true,
+      "installerFile": "src/utils/plan-formatter.js",
+      "installerEvidence": {
+        "text": "POST https://api.velt.dev/v2/auth/token/get",
+        "lineRange": [408, 408]
+      },
+      "docSource": "docs/api-reference/rest-apis/v2/auth/generate-token.mdx",
+      "docEvidence": {
+        "text": "POST https://api.velt.dev/v2/auth/generate_token"
+      },
+      "description": "The installer's plan-formatter.js hardcodes the v2 JWT token API endpoint as 'https://api.velt.dev/v2/auth/token/get' (used in both createVeltCommentsPlan and createMultiFeaturePlan, lines 408, 457, 1264, 1313). The actual v2 endpoint documented in the docs is 'https://api.velt.dev/v2/auth/generate_token'. The old path '/v1/auth/token/get' was the v1 endpoint; the v2 endpoint uses a different path. Any user following the generated plan will call a non-existent API endpoint, causing token generation to fail with a 404.",
+      "suggestedFix": "Replace all 4 occurrences of 'https://api.velt.dev/v2/auth/token/get' with 'https://api.velt.dev/v2/auth/generate_token' in plan-formatter.js (lines 408, 457, 1264, 1313)."
+    },
+    {
+      "id": "inst-drift-002",
+      "type": "moved_url",
+      "severity": "medium",
+      "confidence": "high",
+      "blocking": false,
+      "installerFile": "src/utils/velt-docs-urls.js",
+      "installerEvidence": {
+        "text": "overview: 'https://docs.velt.dev/multiplayer-editing/overview',",
+        "lineRange": [64, 64]
+      },
+      "docSource": "docs/realtime-collaboration/crdt/overview.mdx",
+      "docEvidence": {
+        "text": "The path 'multiplayer-editing/overview' does not exist. The correct path is 'realtime-collaboration/crdt/overview'. The docs/multiplayer-editing/ directory does not exist at all."
+      },
+      "description": "VELT_DOCS_URLS.crdt.overview points to 'https://docs.velt.dev/multiplayer-editing/overview' but this page has moved to 'https://docs.velt.dev/realtime-collaboration/crdt/overview'. The old multiplayer-editing directory no longer exists in the docs repo. Users clicking this link or fetching its markdown will get a 404.",
+      "suggestedFix": "In velt-docs-urls.js line 64, change:\n  overview: 'https://docs.velt.dev/multiplayer-editing/overview'\nto:\n  overview: 'https://docs.velt.dev/realtime-collaboration/crdt/overview'"
+    },
+    {
+      "id": "inst-drift-003",
+      "type": "missing_url",
+      "severity": "medium",
+      "confidence": "high",
+      "blocking": true,
+      "installerFile": "src/utils/velt-docs-urls.js",
+      "installerEvidence": {
+        "text": "The VELT_DOCS_URLS.comments.setup object has keys: freestyle, popover, page, text, inline, tiptap, lexical, slate. There is no 'stream' key.",
+        "lineRange": [18, 28]
+      },
+      "docSource": "docs/async-collaboration/comments/setup/stream.mdx",
+      "docEvidence": {
+        "text": "stream.mdx exists in docs and is listed in docs.json navigation under 'async-collaboration/comments/setup/stream'"
+      },
+      "description": "The 'stream' comment type exists in docs (stream.mdx) and is referenced in plan-formatter.js (line 118 JSDoc mentions 'stream' as a valid type, line 670 has test instructions for stream). However, VELT_DOCS_URLS.comments.setup does not include a 'stream' entry. When a user selects 'stream' comments, getDocUrl('comments', 'stream') will fail to find the URL and fall back to the generic quickstart page instead of the correct setup page at 'https://docs.velt.dev/async-collaboration/comments/setup/stream'.",
+      "suggestedFix": "Add stream entry to VELT_DOCS_URLS.comments.setup in velt-docs-urls.js:\n  stream: 'https://docs.velt.dev/async-collaboration/comments/setup/stream',"
+    },
+    {
+      "id": "inst-drift-004",
+      "type": "stale_url",
+      "severity": "low",
+      "confidence": "high",
+      "blocking": false,
+      "installerFile": "src/utils/plan-formatter.js",
+      "installerEvidence": {
+        "text": "- **Comments:** https://docs.velt.dev/async-collaboration/comments/setup",
+        "lineRange": [1647, 1647]
+      },
+      "docSource": null,
+      "docEvidence": {
+        "text": "There is no 'async-collaboration/comments/setup.mdx' file. The path 'comments/setup' is a directory containing subtypes (freestyle.mdx, popover.mdx, etc.), not a standalone page."
+      },
+      "description": "In the CLI-only report (createCliOnlyReport), the documentation reference links to 'https://docs.velt.dev/async-collaboration/comments/setup' which is not a valid page -- it is a directory. While Mintlify may redirect this to the first child page, it is not a reliable link. The comments overview page is at 'async-collaboration/comments/overview'.",
+      "suggestedFix": "In plan-formatter.js line 1647, change:\n  - **Comments:** https://docs.velt.dev/async-collaboration/comments/setup\nto:\n  - **Comments:** https://docs.velt.dev/async-collaboration/comments/overview"
+    }
+  ],
+  "checksPerformed": {
+    "urlMappings": {
+      "total": 20,
+      "valid": 16,
+      "staleOrMissing": 4,
+      "details": {
+        "comments/setup/freestyle": "valid",
+        "comments/setup/popover": "valid",
+        "comments/setup/page": "valid",
+        "comments/setup/text": "valid",
+        "comments/setup/inline-comments": "valid",
+        "comments/setup/tiptap": "valid",
+        "comments/setup/lexical": "valid",
+        "comments/setup/slatejs": "valid",
+        "comments/setup/stream": "MISSING from VELT_DOCS_URLS (doc exists)",
+        "presence/setup": "valid",
+        "cursors/setup": "valid",
+        "notifications/setup": "valid",
+        "recorder/setup": "valid",
+        "crdt/setup/tiptap": "valid",
+        "crdt/setup/codemirror": "valid",
+        "crdt/setup/blocknote": "valid",
+        "crdt/setup/reactflow": "valid",
+        "multiplayer-editing/overview": "MOVED to realtime-collaboration/crdt/overview",
+        "comments/customize-behavior": "valid",
+        "presence/customize-behavior": "valid",
+        "cursors/customize-behavior": "valid",
+        "notifications/customize-behavior": "valid",
+        "recorder/customize-behavior": "valid"
+      }
+    },
+    "featureSkillMap": {
+      "status": "valid",
+      "details": "All 4 skill names in FEATURE_SKILL_MAP (velt-setup-best-practices, velt-comments-best-practices, velt-crdt-best-practices, velt-notifications-best-practices) match actual directories in agent-skills/skills/. Commented-out features (presence, cursors, recorder) correctly noted as having no skill coverage."
+    },
+    "planFormatter": {
+      "status": "has_drift",
+      "details": "Token API endpoint URL is wrong (v2/auth/token/get should be v2/auth/generate_token). Stream comment type referenced in JSDoc and test instructions but missing from URL map. CLI report has broken comments/setup link."
+    },
+    "validation": {
+      "status": "valid",
+      "details": "validation.js checks for @veltdev/react package (correct per docs), scaffold files VeltInitializeUser.tsx/VeltInitializeDocument.tsx/VeltCollaboration.tsx (match CLI output), and NEXT_PUBLIC_VELT_API_KEY env var. All match current docs. The VeltProvider/VeltComments/VeltCommentsSidebar component names are correct per docs."
+    },
+    "frameworkDetection": {
+      "status": "valid",
+      "details": "framework-detection.js detects Next.js, CRA, and Vite projects. No drift found -- detection logic is framework-level and not docs-dependent."
+    }
+  }
+}

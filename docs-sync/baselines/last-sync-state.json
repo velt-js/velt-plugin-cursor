@@ -1,0 +1,23 @@
+{
+  "lastSyncTimestamp": "2026-03-27T20:52:25Z",
+  "docsCommit": "b81ecc36e9cb8f97f570f7ce3ac3dae86d03b249",
+  "agentSkillsCommit": "b69a66ea4c7bc0d480068148778cb85a7bd6d8ba",
+  "installerCommit": "d7ccebc7eaf52afb3a829c53ee2e5f0435cab438",
+  "cliCommit": "0ac8382ab6a40dbe759feb8a35d272f87c4cf04f",
+  "lastRunArtifactDir": "docs-sync/artifacts/runs/2026-03-27T20-52-25/",
+  "summary": {
+    "scanMode": "full",
+    "skillPatchesApplied": 23,
+    "skillFilesCreated": 10,
+    "skillFilesModified": 13,
+    "installerPatchesApplied": 4,
+    "cliDriftsReported": 0,
+    "ruleCountAfter": {
+      "velt-comments-best-practices": 50,
+      "velt-crdt-best-practices": 41,
+      "velt-notifications-best-practices": 17,
+      "velt-setup-best-practices": 21
+    },
+    "verdict": "PASS"
+  }
+}

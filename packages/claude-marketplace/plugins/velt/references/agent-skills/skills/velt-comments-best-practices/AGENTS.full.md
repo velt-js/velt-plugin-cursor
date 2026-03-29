@@ -31,18 +31,22 @@ Comprehensive Velt Comments implementation guide covering comment modes, setup p
    - 2.3 [Add Comments to Custom Charts with Manual Positioning](#23-add-comments-to-custom-charts-with-manual-positioning)
    - 2.4 [Add Comments to Nivo Charts](#24-add-comments-to-nivo-charts)
    - 2.5 [Add Data Point Comments to Highcharts](#25-add-data-point-comments-to-highcharts)
-   - 2.6 [Integrate Comments with Lexical Editor](#26-integrate-comments-with-lexical-editor)
-   - 2.7 [Integrate Comments with SlateJS Editor](#27-integrate-comments-with-slatejs-editor)
-   - 2.8 [Integrate Comments with TipTap Editor](#28-integrate-comments-with-tiptap-editor)
-   - 2.9 [Add Frame-by-Frame Comments to Lottie Animations](#29-add-frame-by-frame-comments-to-lottie-animations)
-   - 2.10 [Integrate Comments with Custom Video Player](#210-integrate-comments-with-custom-video-player)
-   - 2.11 [Use Freestyle Mode for Pin-Anywhere Comments](#211-use-freestyle-mode-for-pin-anywhere-comments)
-   - 2.12 [Use Inline Comments for Traditional Thread Style](#212-use-inline-comments-for-traditional-thread-style)
-   - 2.13 [Use Page Mode for Page-Level Comments](#213-use-page-mode-for-page-level-comments)
-   - 2.14 [Use Popover Mode for Table Cell Comments](#214-use-popover-mode-for-table-cell-comments)
-   - 2.15 [Use Prebuilt Video Player for Quick Setup](#215-use-prebuilt-video-player-for-quick-setup)
-   - 2.16 [Use Stream Mode for Google Docs-Style Comments](#216-use-stream-mode-for-google-docs-style-comments)
-   - 2.17 [Use Text Mode for Text Highlight Comments](#217-use-text-mode-for-text-highlight-comments)
+   - 2.6 [Integrate Comments with Ace Editor](#26-integrate-comments-with-ace-editor)
+   - 2.7 [Integrate Comments with CodeMirror Editor](#27-integrate-comments-with-codemirror-editor)
+   - 2.8 [Integrate Comments with Lexical Editor](#28-integrate-comments-with-lexical-editor)
+   - 2.9 [Integrate Comments with Plate Editor](#29-integrate-comments-with-plate-editor)
+   - 2.10 [Integrate Comments with Quill Editor](#210-integrate-comments-with-quill-editor)
+   - 2.11 [Integrate Comments with SlateJS Editor](#211-integrate-comments-with-slatejs-editor)
+   - 2.12 [Integrate Comments with TipTap Editor](#212-integrate-comments-with-tiptap-editor)
+   - 2.13 [Add Frame-by-Frame Comments to Lottie Animations](#213-add-frame-by-frame-comments-to-lottie-animations)
+   - 2.14 [Integrate Comments with Custom Video Player](#214-integrate-comments-with-custom-video-player)
+   - 2.15 [Use Freestyle Mode for Pin-Anywhere Comments](#215-use-freestyle-mode-for-pin-anywhere-comments)
+   - 2.16 [Use Inline Comments for Traditional Thread Style](#216-use-inline-comments-for-traditional-thread-style)
+   - 2.17 [Use Page Mode for Page-Level Comments](#217-use-page-mode-for-page-level-comments)
+   - 2.18 [Use Popover Mode for Table Cell Comments](#218-use-popover-mode-for-table-cell-comments)
+   - 2.19 [Use Prebuilt Video Player for Quick Setup](#219-use-prebuilt-video-player-for-quick-setup)
+   - 2.20 [Use Stream Mode for Google Docs-Style Comments](#220-use-stream-mode-for-google-docs-style-comments)
+   - 2.21 [Use Text Mode for Text Highlight Comments](#221-use-text-mode-for-text-highlight-comments)
 
 3. [Standalone Components](#3-standalone-components) — **MEDIUM-HIGH**
    - 3.1 [Use Comment Pin for Manual Position Control](#31-use-comment-pin-for-manual-position-control)
@@ -52,16 +56,22 @@ Comprehensive Velt Comments implementation guide covering comment modes, setup p
 4. [Comment Surfaces](#4-comment-surfaces) — **MEDIUM-HIGH**
    - 4.1 [Use Comments Sidebar for Comment Navigation](#41-use-comments-sidebar-for-comment-navigation)
    - 4.2 [Use Sidebar Button to Toggle Comments Panel](#42-use-sidebar-button-to-toggle-comments-panel)
+   - 4.3 [Use VeltCommentsSidebarV2 for Primitive-Architecture Sidebar Customization](#43-use-veltcommentssidebarv2-for-primitive-architecture-sidebar-customization)
 
 5. [UI Customization](#5-ui-customization) — **MEDIUM**
    - 5.1 [Customize Comment Bubble Display](#51-customize-comment-bubble-display)
    - 5.2 [Customize Comment Dialog Appearance](#52-customize-comment-dialog-appearance)
-   - 5.3 [Use Wireframe Components for Custom UI](#53-use-wireframe-components-for-custom-ui)
+   - 5.3 [Use Standalone Autocomplete Primitives for Custom Autocomplete UIs](#53-use-standalone-autocomplete-primitives-for-custom-autocomplete-uis)
+   - 5.4 [Use Wireframe Components for Custom UI](#54-use-wireframe-components-for-custom-ui)
 
 6. [Data Model](#6-data-model) — **MEDIUM**
    - 6.1 [Filter and Group Comments](#61-filter-and-group-comments)
    - 6.2 [Work with Comment Annotations Data](#62-work-with-comment-annotations-data)
    - 6.3 [Add Custom Metadata to Comments with Context](#63-add-custom-metadata-to-comments-with-context)
+   - 6.4 [Use agentFields on CommentRequestQuery to Filter Annotation Count by Agent](#64-use-agentfields-on-commentrequestquery-to-filter-annotation-count-by-agent)
+   - 6.5 [Use CommentActivityActionTypes for Type-Safe Comment Activity Filtering](#65-use-commentactivityactiontypes-for-type-safe-comment-activity-filtering)
+   - 6.6 [Use Config-Based URL Endpoints Instead of Placeholder Callbacks in CommentAnnotationDataProvider](#66-use-config-based-url-endpoints-instead-of-placeholder-callbacks-in-commentannotationdataprovider)
+   - 6.7 [Use triggerActivities to Create Activity Records via REST API](#67-use-triggeractivities-to-create-activity-records-via-rest-api)
 
 7. [Debugging & Testing](#7-debugging-testing) — **LOW-MEDIUM**
    - 7.1 [Troubleshoot Common Velt Integration Issues](#71-troubleshoot-common-velt-integration-issues)
@@ -69,7 +79,11 @@ Comprehensive Velt Comments implementation guide covering comment modes, setup p
 
 8. [Moderation & Permissions](#8-moderation-permissions) — **LOW**
    - 8.1 [Control Comment Visibility with Private Mode and Per-Annotation Updates](#81-control-comment-visibility-with-private-mode-and-per-annotation-updates)
-   - 8.2 [Use the commentSaved Event for Reliable Post-Persist Side-Effects](#82-use-the-commentsaved-event-for-reliable-post-persist-side-effects)
+   - 8.2 [Prefer Past-Tense Event Aliases commentToolClicked and sidebarButtonClicked in New Code](#82-prefer-past-tense-event-aliases-commenttoolclicked-and-sidebarbuttonclicked-in-new-code)
+   - 8.3 [Register an Anonymous User Data Provider to Resolve Tagged Contact Emails to User IDs](#83-register-an-anonymous-user-data-provider-to-resolve-tagged-contact-emails-to-user-ids)
+   - 8.4 [Show a Visibility Banner in the Comment Composer for Multi-Level Visibility Selection](#84-show-a-visibility-banner-in-the-comment-composer-for-multi-level-visibility-selection)
+   - 8.5 [Use commentSaveTriggered for Immediate UI Feedback Before Async Save Completes](#85-use-commentsavetriggered-for-immediate-ui-feedback-before-async-save-completes)
+   - 8.6 [Use the commentSaved Event for Reliable Post-Persist Side-Effects](#86-use-the-commentsaved-event-for-reliable-post-persist-side-effects)
 
 9. [Attachments & Reactions](#9-attachments-reactions) — **MEDIUM**
    - 9.1 [Control Attachment Download Behavior and Intercept Clicks](#91-control-attachment-download-behavior-and-intercept-clicks)
@@ -136,33 +150,7 @@ export default function App() {
 }
 ```
 
-**Alternative (using useIdentify hook):**
-
-```jsx
-import { VeltProvider, VeltComments, useIdentify } from '@veltdev/react';
-
-function AuthComponent() {
-  const user = {
-    userId: 'user-123',
-    organizationId: 'org-abc',
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    photoUrl: 'https://i.pravatar.cc/300',
-  };
-
-  useIdentify(user);
-  return null;
-}
-
-export default function App() {
-  return (
-    <VeltProvider apiKey="YOUR_API_KEY">
-      <AuthComponent />
-      <VeltComments />
-    </VeltProvider>
-  );
-}
-```
+> **Note:** The legacy `useIdentify()` hook is deprecated. Always use `authProvider` on `VeltProvider` for production applications.
 
 ---
 
@@ -325,7 +313,7 @@ export default function App() {
 
 **Impact: HIGH**
 
-Different comment presentation and interaction modes for various use cases. Includes Freestyle, Popover, Stream, Text, Page, Inline, rich text editor integrations, media player comments, and chart comments.
+Different comment presentation and interaction modes for various use cases. Includes Freestyle, Popover, Stream, Text, Page, Inline, rich text editor integrations (TipTap, SlateJS, Lexical, Plate, Quill, CodeMirror, Ace), media player comments, and chart comments.
 
 ### 2.1 Add Comments to Canvas/Drawing Applications
 
@@ -1050,7 +1038,272 @@ const chartComponentRef = useRef(null);
 
 ---
 
-### 2.6 Integrate Comments with Lexical Editor
+### 2.6 Integrate Comments with Ace Editor
+
+**Impact: MEDIUM (Text comments in Ace code editor with highlight marks)**
+
+Add collaborative text comments to an Ace editor using Velt's Ace extension. Users can select text and add comments that persist as marks in the editor.
+
+**Incorrect (using default text mode instead of extension):**
+
+```jsx
+// Default text mode doesn't integrate with Ace properly
+<VeltComments textMode={true} />
+<AceEditor ... />
+```
+
+**Correct (with Ace extension):**
+
+```jsx
+npm install @veltdev/ace-velt-comments
+import { VeltProvider, VeltComments } from '@veltdev/react';
+
+// Disable default text mode when using editor integration
+<VeltProvider apiKey="API_KEY">
+  <VeltComments textMode={false} />
+</VeltProvider>
+import { useEffect, useRef, useCallback } from 'react';
+import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/mode-markdown';
+import 'ace-builds/src-noconflict/theme-github';
+import { AceVeltComments, addComment, renderComments } from '@veltdev/ace-velt-comments';
+import { useCommentAnnotations } from '@veltdev/react';
+
+function AceEditorComponent() {
+  const editorRef = useRef(null);
+  const cleanupRef = useRef(null);
+  const commentAnnotations = useCommentAnnotations();
+
+  const handleLoad = useCallback((editor) => {
+    editorRef.current = editor;
+    // Initialize Velt comments - returns a cleanup function
+    cleanupRef.current = AceVeltComments(editor);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (cleanupRef.current) {
+        cleanupRef.current();
+      }
+    };
+  }, []);
+
+  // Render comments when annotations change
+  useEffect(() => {
+    if (editorRef.current && commentAnnotations?.length) {
+      renderComments({
+        editor: editorRef.current,
+        commentAnnotations,
+      });
+    }
+  }, [commentAnnotations]);
+
+  return (
+    <div>
+      <button
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => {
+          if (editorRef.current) {
+            addComment({ editor: editorRef.current });
+          }
+        }}
+      >
+        Add Comment
+      </button>
+      <AceEditor
+        mode="markdown"
+        theme="github"
+        name="ace-editor"
+        defaultValue="Your initial content here"
+        onLoad={handleLoad}
+        width="100%"
+        height="100%"
+      />
+    </div>
+  );
+}
+```
+
+**Step 2: Configure VeltComments**
+**Step 3: Initialize Ace editor with Velt extension**
+
+**With Custom Metadata (Context):**
+
+```jsx
+addComment({
+  editor: editorRef.current,
+  editorId: 'my-editor-1',
+  context: {
+    storyId: 'story-123',
+    section: 'intro',
+  },
+});
+```
+
+**Configure Mark Persistence:**
+
+```jsx
+const cleanup = AceVeltComments(editor, {
+  persistVeltMarks: false, // Set false if storing content yourself
+});
+```
+
+**Style Commented Text:**
+
+```css
+velt-comment-text {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-bottom: 2px solid #ffcc00;
+  cursor: pointer;
+}
+```
+
+---
+
+### 2.7 Integrate Comments with CodeMirror Editor
+
+**Impact: MEDIUM (Text comments in CodeMirror code editor with highlight decorations)**
+
+Add collaborative text comments to a CodeMirror editor using Velt's CodeMirror extension. Users can select text and add comments that persist as decorations in the editor.
+
+**Incorrect (using default text mode instead of extension):**
+
+```jsx
+// Default text mode doesn't integrate with CodeMirror properly
+<VeltComments textMode={true} />
+<div ref={editorRef} />
+```
+
+**Correct (with CodeMirror extension):**
+
+```jsx
+npm install @veltdev/codemirror-velt-comments
+import { VeltProvider, VeltComments } from '@veltdev/react';
+
+// Disable default text mode when using editor integration
+<VeltProvider apiKey="API_KEY">
+  <VeltComments textMode={false} />
+</VeltProvider>
+import { useRef, useState, useEffect } from 'react';
+import { EditorView, basicSetup } from 'codemirror';
+import { CodemirrorVeltComments, addComment, renderComments } from '@veltdev/codemirror-velt-comments';
+import { useCommentAnnotations } from '@veltdev/react';
+
+function CodeMirrorEditorComponent() {
+  const editorRef = useRef(null);
+  const [editorView, setEditorView] = useState(null);
+  const savedSelectionRef = useRef(null);
+  const commentAnnotations = useCommentAnnotations();
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+
+    const view = new EditorView({
+      doc: 'Your initial content here',
+      extensions: [
+        basicSetup,
+        CodemirrorVeltComments(),
+      ],
+      parent: editorRef.current,
+    });
+
+    setEditorView(view);
+    return () => view.destroy();
+  }, []);
+
+  // Render comments when annotations change
+  useEffect(() => {
+    if (editorView && commentAnnotations?.length) {
+      renderComments({
+        editor: editorView,
+        commentAnnotations,
+      });
+    }
+  }, [editorView, commentAnnotations]);
+
+  const saveSelection = () => {
+    if (editorView) {
+      const { from, to } = editorView.state.selection.main;
+      if (from !== to) {
+        savedSelectionRef.current = { from, to };
+      }
+    }
+  };
+
+  const handleAddComment = () => {
+    if (editorView) {
+      if (savedSelectionRef.current) {
+        const { from, to } = savedSelectionRef.current;
+        if (from !== to) {
+          editorView.dispatch({
+            selection: { anchor: from, head: to },
+          });
+        }
+      }
+      addComment({ editor: editorView });
+      savedSelectionRef.current = null;
+    }
+  };
+
+  return (
+    <div>
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          saveSelection();
+        }}
+        onClick={handleAddComment}
+      >
+        Add Comment
+      </button>
+      <div ref={editorRef} />
+    </div>
+  );
+}
+```
+
+**Step 2: Configure VeltComments**
+**Step 3: Add extension to CodeMirror editor**
+
+**With Custom Metadata (Context):**
+
+```jsx
+addComment({
+  editor: editorView,
+  editorId: 'my-editor-1',
+  context: {
+    storyId: 'story-123',
+    section: 'intro',
+  },
+});
+```
+
+**Configure Mark Persistence:**
+
+```jsx
+const view = new EditorView({
+  extensions: [
+    CodemirrorVeltComments({
+      persistVeltMarks: false, // Set false if storing content yourself
+    }),
+  ],
+  parent: editorRef.current,
+});
+```
+
+**Style Commented Text:**
+
+```css
+velt-comment-text {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-bottom: 2px solid #ffcc00;
+  cursor: pointer;
+}
+```
+
+---
+
+### 2.8 Integrate Comments with Lexical Editor
 
 **Impact: HIGH (Text comments in Lexical rich text editor with CommentNode)**
 
@@ -1144,7 +1397,253 @@ velt-comment-text[comment-available="true"] {
 
 ---
 
-### 2.7 Integrate Comments with SlateJS Editor
+### 2.9 Integrate Comments with Plate Editor
+
+**Impact: MEDIUM (Text comments in Plate.js rich text editor with highlight marks)**
+
+Add collaborative text comments to a Plate.js editor using Velt's Plate plugin. Users can select text and add comments that persist as marks in the editor.
+
+**Incorrect (using default text mode instead of plugin):**
+
+```jsx
+// Default text mode doesn't integrate with Plate properly
+<VeltComments textMode={true} />
+<Plate editor={editor}>
+  <PlateContent />
+</Plate>
+```
+
+**Correct (with Plate plugin):**
+
+```jsx
+npm install @veltdev/plate-comments-react
+import { VeltProvider, VeltComments } from '@veltdev/react';
+
+// Disable default text mode when using editor integration
+<VeltProvider apiKey="API_KEY">
+  <VeltComments textMode={false} />
+</VeltProvider>
+import { Plate, PlateContent, usePlateEditor } from '@platejs/core/react';
+import { VeltCommentsPlugin, addComment, renderComments } from '@veltdev/plate-comments-react';
+import { useCommentAnnotations } from '@veltdev/react';
+
+export default function PlateEditorComponent() {
+  const commentAnnotations = useCommentAnnotations();
+
+  const editor = usePlateEditor({
+    plugins: [VeltCommentsPlugin],
+    value: initialValue,
+  });
+
+  // Render comments when annotations change
+  useEffect(() => {
+    if (editor && commentAnnotations) {
+      renderComments({
+        editor,
+        commentAnnotations,
+      });
+    }
+  }, [editor, commentAnnotations]);
+
+  const handleAddComment = () => {
+    if (editor) {
+      addComment({ editor });
+    }
+  };
+
+  return (
+    <div>
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          handleAddComment();
+        }}
+      >
+        Add Comment
+      </button>
+      <Plate editor={editor}>
+        <PlateContent placeholder="Start typing..." />
+      </Plate>
+    </div>
+  );
+}
+```
+
+**Step 2: Configure VeltComments**
+**Step 3: Add plugin to Plate editor**
+
+**With Custom Metadata (Context):**
+
+```jsx
+addComment({
+  editor,
+  editorId: 'my-doc-1',
+  context: {
+    storyId: 'story-123',
+    section: 'intro',
+  },
+});
+```
+
+**Configure Mark Persistence:**
+
+```jsx
+const editor = usePlateEditor({
+  plugins: [
+    VeltCommentsPlugin.configure({
+      options: {
+        persistVeltMarks: false, // Set false if storing HTML yourself
+      },
+    }),
+  ],
+});
+```
+
+**Style Commented Text:**
+
+```css
+velt-comment-text {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-bottom: 2px solid #ffcc00;
+  cursor: pointer;
+}
+```
+
+---
+
+### 2.10 Integrate Comments with Quill Editor
+
+**Impact: MEDIUM (Text comments in Quill rich text editor with highlight marks)**
+
+Add collaborative text comments to a Quill editor using Velt's Quill module. Users can select text and add comments that persist as marks in the editor.
+
+**Incorrect (using default text mode instead of module):**
+
+```jsx
+// Default text mode doesn't integrate with Quill properly
+<VeltComments textMode={true} />
+<div ref={editorRef} />
+```
+
+**Correct (with Quill module):**
+
+```jsx
+npm install @veltdev/quill-velt-comments
+import { VeltProvider, VeltComments } from '@veltdev/react';
+
+// Disable default text mode when using editor integration
+<VeltProvider apiKey="API_KEY">
+  <VeltComments textMode={false} />
+</VeltProvider>
+import { useEffect, useRef, useState, useCallback } from 'react';
+import Quill from 'quill';
+import { QuillVeltComments, addComment, renderComments } from '@veltdev/quill-velt-comments';
+import { useCommentAnnotations } from '@veltdev/react';
+
+// Register the module with Quill (once, outside component)
+Quill.register('modules/veltComments', QuillVeltComments);
+
+function QuillEditorComponent() {
+  const editorRef = useRef(null);
+  const [quill, setQuill] = useState(null);
+  const savedSelectionRef = useRef(null);
+  const commentAnnotations = useCommentAnnotations();
+
+  useEffect(() => {
+    if (!editorRef.current) return;
+
+    const quillInstance = new Quill(editorRef.current, {
+      theme: 'snow',
+      modules: {
+        veltComments: {
+          persistVeltMarks: true,
+        },
+      },
+    });
+
+    setQuill(quillInstance);
+  }, []);
+
+  // Render comments when annotations change
+  useEffect(() => {
+    if (quill && commentAnnotations?.length) {
+      renderComments({
+        editor: quill,
+        commentAnnotations,
+      });
+    }
+  }, [quill, commentAnnotations]);
+
+  const handleAddComment = useCallback(() => {
+    if (quill) {
+      if (savedSelectionRef.current) {
+        quill.setSelection(savedSelectionRef.current.index, savedSelectionRef.current.length);
+      }
+      addComment({ editor: quill });
+      savedSelectionRef.current = null;
+    }
+  }, [quill]);
+
+  return (
+    <div>
+      <button
+        onMouseDown={(e) => {
+          e.preventDefault();
+          const sel = quill?.getSelection();
+          if (sel?.length > 0) savedSelectionRef.current = sel;
+        }}
+        onClick={handleAddComment}
+      >
+        Add Comment
+      </button>
+      <div ref={editorRef} />
+    </div>
+  );
+}
+```
+
+**Step 2: Configure VeltComments**
+**Step 3: Register and configure the Quill module**
+
+**With Custom Metadata (Context):**
+
+```jsx
+addComment({
+  editor: quill,
+  editorId: 'my-doc-1',
+  context: {
+    storyId: 'story-123',
+    section: 'intro',
+  },
+});
+```
+
+**Configure Mark Persistence:**
+
+```jsx
+const quill = new Quill(editorRef.current, {
+  theme: 'snow',
+  modules: {
+    veltComments: {
+      persistVeltMarks: false, // Set false if storing content yourself
+    },
+  },
+});
+```
+
+**Style Commented Text:**
+
+```css
+velt-comment-text {
+  background-color: rgba(255, 255, 0, 0.3);
+  border-bottom: 2px solid #ffcc00;
+  cursor: pointer;
+}
+```
+
+---
+
+### 2.11 Integrate Comments with SlateJS Editor
 
 **Impact: HIGH (Text comments in SlateJS rich text editor with custom elements)**
 
@@ -1239,7 +1738,7 @@ velt-comment-text[comment-available="true"] {
 
 ---
 
-### 2.8 Integrate Comments with TipTap Editor
+### 2.12 Integrate Comments with TipTap Editor
 
 **Impact: HIGH (Text comments in TipTap rich text editor with highlight marks)**
 
@@ -1352,7 +1851,7 @@ velt-comment-text[comment-available="true"] {
 
 ---
 
-### 2.9 Add Frame-by-Frame Comments to Lottie Animations
+### 2.13 Add Frame-by-Frame Comments to Lottie Animations
 
 **Impact: HIGH (Comments synced to specific frames in Lottie animations)**
 
@@ -1509,7 +2008,7 @@ commentElement.allowedElementIds(['lottiePlayerContainer']);
 
 ---
 
-### 2.10 Integrate Comments with Custom Video Player
+### 2.14 Integrate Comments with Custom Video Player
 
 **Impact: HIGH (Add comments to any video player with timeline and sidebar)**
 
@@ -1653,7 +2152,7 @@ const onCommentClick = async (event) => {
 
 ---
 
-### 2.11 Use Freestyle Mode for Pin-Anywhere Comments
+### 2.15 Use Freestyle Mode for Pin-Anywhere Comments
 
 **Impact: HIGH (Default mode - enables clicking anywhere to pin comments)**
 
@@ -1718,7 +2217,7 @@ export default function App() {
 
 ---
 
-### 2.12 Use Inline Comments for Traditional Thread Style
+### 2.16 Use Inline Comments for Traditional Thread Style
 
 **Impact: HIGH (Traditional comment threads bound to container elements)**
 
@@ -1815,7 +2314,7 @@ export default function App() {
 
 ---
 
-### 2.13 Use Page Mode for Page-Level Comments
+### 2.17 Use Page Mode for Page-Level Comments
 
 **Impact: HIGH (Comments at page level via sidebar, not attached to elements)**
 
@@ -1917,7 +2416,7 @@ function PageModeControls() {
 
 ---
 
-### 2.14 Use Popover Mode for Table Cell Comments
+### 2.18 Use Popover Mode for Table Cell Comments
 
 **Impact: HIGH (Google Sheets-style comments attached to specific elements)**
 
@@ -2015,7 +2514,7 @@ export default function App() {
 
 ---
 
-### 2.15 Use Prebuilt Video Player for Quick Setup
+### 2.19 Use Prebuilt Video Player for Quick Setup
 
 **Impact: HIGH (Velt-provided video player with built-in commenting)**
 
@@ -2062,7 +2561,7 @@ export default function App() {
 
 ---
 
-### 2.16 Use Stream Mode for Google Docs-Style Comments
+### 2.20 Use Stream Mode for Google Docs-Style Comments
 
 **Impact: HIGH (Comments appear in a side column synchronized with scroll position)**
 
@@ -2118,7 +2617,7 @@ export default function App() {
 
 ---
 
-### 2.17 Use Text Mode for Text Highlight Comments
+### 2.21 Use Text Mode for Text Highlight Comments
 
 **Impact: HIGH (Comments attached to selected text, like Google Docs highlighting)**
 
@@ -2582,7 +3081,7 @@ export default function KanbanBoard() {
 
 **Impact: MEDIUM-HIGH**
 
-Navigation and display surfaces for comments. Includes the Comments Sidebar and related toggle components.
+Navigation and display surfaces for comments. Includes the Comments Sidebar, the V2 primitive-architecture sidebar, and related toggle components.
 
 ### 4.1 Use Comments Sidebar for Comment Navigation
 
@@ -2646,6 +3145,16 @@ export default function App() {
     // e.g., scroll to element, seek video, etc.
   }}
 />
+```
+
+**Opt into V2 via the existing tag (v5.0.2-beta.9+):**
+
+```html
+// Routes velt-comments-sidebar to the full VeltCommentsSidebarV2
+// implementation, forwarding all supported props automatically.
+<VeltCommentsSidebar version="2" />
+<!-- HTML -->
+<velt-comments-sidebar version="2"></velt-comments-sidebar>
 ```
 
 **For HTML:**
@@ -2758,11 +3267,81 @@ export default function App() {
 
 ---
 
+### 4.3 Use VeltCommentsSidebarV2 for Primitive-Architecture Sidebar Customization
+
+**Impact: MEDIUM-HIGH (Full composability of every sidebar UI section via 27+ independently importable primitives, enabling precise customization without forking the entire component)**
+
+`VeltCommentsSidebarV2` is a complete redesign of the Comments Sidebar built on a flat primitive component architecture. Every section of the UI is an independently importable and composable primitive, so you can replace only the parts you need without reimplementing the whole component. V2 ships with a unified filter model (replacing the legacy `minimalFilter` + `advancedFilters` system), CDK virtual scroll for large comment lists, a focused-thread view, a minimal actions dropdown, and a filter dropdown.
+
+**Incorrect (customizing V1 sidebar by overriding deeply nested internals):**
+
+```jsx
+// V1 sidebar requires shadowing deeply nested internal components
+// to change layout or filtering — there is no flat primitive tree
+<VeltCommentsSidebar />
+```
+
+**Correct (React / Next.js — direct V2 component with primitive composition):**
+
+```jsx
+import {
+  VeltProvider,
+  VeltComments,
+  VeltCommentsSidebarV2,
+} from '@veltdev/react';
+
+export default function App() {
+  return (
+    <VeltProvider apiKey="API_KEY">
+      <VeltComments />
+
+      {/* Direct usage — all props are optional */}
+      <VeltCommentsSidebarV2
+        pageMode={false}
+        focusedThreadMode={false}
+        readOnly={false}
+        position="right"
+        variant="sidebar"
+        forceClose={false}
+        onSidebarOpen={(data) => console.log('sidebar opened', data)}
+        onSidebarClose={(data) => console.log('sidebar closed', data)}
+        onCommentClick={(data) => console.log('comment clicked', data)}
+        onCommentNavigationButtonClick={(data) => console.log('nav button clicked', data)}
+      />
+    </VeltProvider>
+  );
+}
+```
+
+**Correct (HTML / Other Frameworks):**
+
+```html
+<velt-comments-sidebar-v2
+  page-mode="false"
+  focused-thread-mode="false"
+  read-only="false"
+  position="right"
+  variant="sidebar"
+  force-close="false"
+></velt-comments-sidebar-v2>
+```
+
+**Alternate: opt into V2 via the existing sidebar tag:**
+
+```jsx
+// Routes <VeltCommentsSidebar> to the full V2 implementation,
+// forwarding pageMode, focusedThreadMode, readOnly, embedMode,
+// floatingMode, position, variant, and forceClose automatically.
+<VeltCommentsSidebar version="2" />
+```
+
+---
+
 ## 5. UI Customization
 
 **Impact: MEDIUM**
 
-Visual customization patterns for comment components. Includes dialog customization, bubble styling, and wireframe component usage.
+Visual customization patterns for comment components. Includes dialog customization, bubble styling, wireframe component usage, and standalone autocomplete primitives.
 
 ### 5.1 Customize Comment Bubble Display
 
@@ -2910,7 +3489,129 @@ velt-comment-dialog {
 
 ---
 
-### 5.3 Use Wireframe Components for Custom UI
+### 5.3 Use Standalone Autocomplete Primitives for Custom Autocomplete UIs
+
+**Impact: MEDIUM (Build fully custom autocomplete UIs without requiring the full VeltAutocomplete panel, using independently importable primitive components)**
+
+Velt provides 13 standalone autocomplete primitive components that are independently importable and render their corresponding HTML custom elements without requiring the full `<VeltAutocomplete>` panel. Use these primitives to build fully custom autocomplete UIs; use `VeltAutocompleteEmptyWireframe` to customize the empty state.
+
+**Incorrect (using the full panel when only a subset of primitives is needed):**
+
+```jsx
+// Importing the full autocomplete panel forces all sub-components to render together.
+// Use primitives individually when you need custom layout or partial rendering.
+import { VeltAutocomplete } from '@veltdev/react';
+```
+
+**Correct (React — import and use primitives independently):**
+
+```jsx
+import {
+  VeltAutocompleteOption,
+  VeltAutocompleteOptionIcon,
+  VeltAutocompleteOptionName,
+  VeltAutocompleteOptionDescription,
+  VeltAutocompleteOptionErrorIcon,
+  VeltAutocompleteGroupOption,
+  VeltAutocompleteTool,
+  VeltAutocompleteEmpty,
+  VeltAutocompleteChip,
+  VeltAutocompleteChipTooltip,
+  VeltAutocompleteChipTooltipIcon,
+  VeltAutocompleteChipTooltipName,
+  VeltAutocompleteChipTooltipDescription,
+} from '@veltdev/react';
+
+// Render a custom chip with tooltip
+function CustomChip({ user }) {
+  return (
+    <VeltAutocompleteChip
+      type="user"
+      email={user.email}
+      userId={user.userId}
+      userObject={user}
+    >
+      <VeltAutocompleteChipTooltip>
+        <VeltAutocompleteChipTooltipIcon />
+        <VeltAutocompleteChipTooltipName />
+        <VeltAutocompleteChipTooltipDescription />
+      </VeltAutocompleteChipTooltip>
+    </VeltAutocompleteChip>
+  );
+}
+
+// Render a custom option row
+function CustomOption({ user }) {
+  return (
+    <VeltAutocompleteOption userId={user.userId} userObject={user}>
+      <VeltAutocompleteOptionIcon />
+      <VeltAutocompleteOptionName />
+      <VeltAutocompleteOptionDescription field="email" />
+      <VeltAutocompleteOptionErrorIcon />
+    </VeltAutocompleteOption>
+  );
+}
+```
+
+**Correct (React — customize the empty state via wireframe):**
+
+```jsx
+import { VeltWireframe, VeltAutocompleteEmptyWireframe } from '@veltdev/react';
+
+// Wrap in VeltWireframe so Velt picks up the custom template
+<VeltWireframe>
+  <VeltAutocompleteEmptyWireframe>
+    <div className="my-empty-state">No results found</div>
+  </VeltAutocompleteEmptyWireframe>
+</VeltWireframe>
+```
+
+**Correct (HTML — primitive custom elements):**
+
+```html
+<!-- Each primitive renders as its own custom element -->
+<velt-autocomplete-option>
+  <velt-autocomplete-option-icon></velt-autocomplete-option-icon>
+  <velt-autocomplete-option-name></velt-autocomplete-option-name>
+  <velt-autocomplete-option-description></velt-autocomplete-option-description>
+  <velt-autocomplete-option-error-icon></velt-autocomplete-option-error-icon>
+</velt-autocomplete-option>
+
+<velt-autocomplete-chip>
+  <velt-autocomplete-chip-tooltip>
+    <velt-autocomplete-chip-tooltip-icon></velt-autocomplete-chip-tooltip-icon>
+    <velt-autocomplete-chip-tooltip-name></velt-autocomplete-chip-tooltip-name>
+    <velt-autocomplete-chip-tooltip-description></velt-autocomplete-chip-tooltip-description>
+  </velt-autocomplete-chip-tooltip>
+</velt-autocomplete-chip>
+
+<!-- Empty state wireframe -->
+<velt-autocomplete-empty-wireframe>
+  <div class="my-empty-state">No results found</div>
+</velt-autocomplete-empty-wireframe>
+```
+
+**`VeltAutocomplete` Panel Props (v5.0.2-beta.5+):**
+
+```html
+// React — configure the autocomplete panel
+<VeltAutocomplete
+  multiSelect={true}
+  selectedFirstOrdering={true}
+  contacts={myContactList}
+/>
+<!-- HTML — configure the autocomplete panel (contacts has no HTML attribute) -->
+<velt-autocomplete
+  multi-select="true"
+  selected-first-ordering="true"
+></velt-autocomplete>
+```
+
+<!-- TODO (v5.0.2-beta.5): Verify default values for readOnly and inline props on VeltAutocomplete. Release note confirms the prop names and types but does not specify default values. -->
+
+---
+
+### 5.4 Use Wireframe Components for Custom UI
 
 **Impact: MEDIUM (Build fully custom comment UIs with wireframe building blocks)**
 
@@ -2966,6 +3667,81 @@ function CustomSidebar() {
     </VeltCommentsSidebarWireframe>
   );
 }
+```
+
+**VisibilityBanner Wireframe Usage (v5.0.2-beta.5+):**
+
+```html
+// React (v5.0.2-beta.5+)
+<VeltWireframe>
+  <VeltCommentDialogWireframe.VisibilityBanner>
+    <VeltCommentDialogWireframe.VisibilityBanner.Icon />
+    <VeltCommentDialogWireframe.VisibilityBanner.Text />
+    <VeltCommentDialogWireframe.VisibilityBanner.Dropdown>
+      <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger>
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.Label />
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.AvatarList>
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.AvatarList.Item />
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.AvatarList.RemainingCount />
+        </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.AvatarList>
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger.Icon />
+      </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Trigger>
+      <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content>
+        {/* Supports 4 types: 'public', 'organizationPrivate', 'restrictedSelf', 'restrictedSelectedPeople' */}
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item type="public">
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Icon />
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Label />
+        </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item>
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item type="organizationPrivate">
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Icon />
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Label />
+        </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item>
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item type="restrictedSelf">
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Icon />
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Label />
+        </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item>
+        <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item type="restrictedSelectedPeople">
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Icon />
+          <VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item.Label />
+        </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content.Item>
+      </VeltCommentDialogWireframe.VisibilityBanner.Dropdown.Content>
+    </VeltCommentDialogWireframe.VisibilityBanner.Dropdown>
+  </VeltCommentDialogWireframe.VisibilityBanner>
+</VeltWireframe>
+<!-- Other Frameworks (inside <velt-wireframe style="display:none;"> wrapper) (v5.0.2-beta.5+) -->
+<velt-comment-dialog-visibility-banner-wireframe>
+  <velt-comment-dialog-visibility-banner-icon-wireframe></velt-comment-dialog-visibility-banner-icon-wireframe>
+  <velt-comment-dialog-visibility-banner-text-wireframe></velt-comment-dialog-visibility-banner-text-wireframe>
+  <velt-comment-dialog-visibility-banner-dropdown-wireframe>
+    <velt-comment-dialog-visibility-banner-dropdown-trigger-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-trigger-label-wireframe></velt-comment-dialog-visibility-banner-dropdown-trigger-label-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-item-wireframe></velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-item-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-remaining-count-wireframe></velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-remaining-count-wireframe>
+      </velt-comment-dialog-visibility-banner-dropdown-trigger-avatar-list-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-trigger-icon-wireframe></velt-comment-dialog-visibility-banner-dropdown-trigger-icon-wireframe>
+    </velt-comment-dialog-visibility-banner-dropdown-trigger-wireframe>
+    <velt-comment-dialog-visibility-banner-dropdown-content-wireframe>
+      <!-- Supports 4 types: 'public', 'organizationPrivate', 'restrictedSelf', 'restrictedSelectedPeople' -->
+      <velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe type="public">
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe>
+      </velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe type="organizationPrivate">
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe>
+      </velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe type="restrictedSelf">
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe>
+      </velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe>
+      <velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe type="restrictedSelectedPeople">
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-icon-wireframe>
+        <velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe></velt-comment-dialog-visibility-banner-dropdown-content-item-label-wireframe>
+      </velt-comment-dialog-visibility-banner-dropdown-content-item-wireframe>
+    </velt-comment-dialog-visibility-banner-dropdown-content-wireframe>
+  </velt-comment-dialog-visibility-banner-dropdown-wireframe>
+</velt-comment-dialog-visibility-banner-wireframe>
 ```
 
 **AssigneeBanner Resolve/Unresolve Button Nesting (v5.0.1-beta.2+):**
@@ -3160,8 +3936,17 @@ interface CommentAnnotation {
   targetElementId: string;   // Target DOM element ID
   context: object;           // Custom metadata
   comments: Comment[];       // Array of comment messages
+  visibilityConfig?: CommentAnnotationVisibilityConfig; // defaults to { type: 'public' } when not set
   // ... other fields
 }
+
+interface CommentAnnotationVisibilityConfig {
+  type: CommentVisibilityType;  // 'public' | 'organizationPrivate' | 'restricted'
+  organizationId?: string;
+  userIds?: string[];
+}
+
+type CommentVisibilityType = 'public' | 'organizationPrivate' | 'restricted';
 ```
 
 **Get Specific Annotation:**
@@ -3229,15 +4014,11 @@ Add custom metadata (context) to comments for filtering, grouping, rendering, an
 />
 <VeltComments
   onCommentAdd={(event) => {
-    // Add or modify context before comment is created
-    return {
-      ...event,
-      context: {
-        ...event.context,
-        timestamp: Date.now(),
-        pageSection: 'main-content'
-      }
-    };
+    // Use event.addContext() to attach custom metadata
+    event?.addContext({
+      timestamp: Date.now(),
+      pageSection: 'main-content',
+    });
   }}
 />
 const { client } = useVeltClient();
@@ -3254,7 +4035,7 @@ const addCommentWithMetadata = () => {
 };
 ```
 
-**Method 2: Via onCommentAdd Callback**
+**Method 2: Via onCommentAdd Callback (using addContext)**
 **Method 3: Via addManualComment API**
 
 **Accessing Context in Annotations:**
@@ -3316,6 +4097,286 @@ commentElement.setContextProvider(() => ({
   target-element-id="element-id"
   context='{"category": "feedback", "section": "header"}'
 ></velt-comment-tool>
+```
+
+---
+
+### 6.4 Use agentFields on CommentRequestQuery to Filter Annotation Count by Agent
+
+**Impact: MEDIUM (Enables precise comment count queries scoped to agent-tagged annotations, avoiding full-collection scans)**
+
+`CommentRequestQuery.agentFields` filters `getCommentAnnotationCount()` to only annotations where `agent.agentFields` contains any of the provided values. This is useful when a document has a mix of human and agent-authored annotations and you want a count scoped to a specific agent. Due to a Firestore `array-contains` limitation, when `agentFields` is set the unread count query is skipped and the unread count is treated as equal to the total count.
+
+**Incorrect (querying all annotation counts without agent scoping):**
+
+```jsx
+// Returns total + unread counts across all annotations,
+// including those not authored by the target agent
+const commentElement = client.getCommentElement();
+commentElement.getCommentAnnotationCount({
+  organizationId: 'org-123',
+});
+```
+
+**Correct (React / Next.js — scoped count query with agentFields):**
+
+```jsx
+import { useVeltClient } from '@veltdev/react';
+import { useEffect, useState } from 'react';
+
+function AgentCommentCount() {
+  const { client } = useVeltClient();
+  const [count, setCount] = useState(null);
+
+  useEffect(() => {
+    if (!client) return;
+    const commentElement = client.getCommentElement();
+
+    // Filters to annotations where agent.agentFields contains
+    // 'agent-1' or 'agent-2'. Unread count equals total count
+    // when agentFields is set (Firestore array-contains constraint).
+    const subscription = commentElement.getCommentAnnotationCount({
+      organizationId: 'org-123',
+      agentFields: ['agent-1', 'agent-2'],
+    }).subscribe((result) => {
+      setCount(result);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [client]);
+
+  return <div>Agent annotations: {count?.totalCount ?? 0}</div>;
+}
+```
+
+**Correct (Other Frameworks — Angular, Vue, Vanilla JS):**
+
+```typescript
+const commentElement = client.getCommentElement();
+
+const subscription = commentElement.getCommentAnnotationCount({
+  organizationId: 'org-123',
+  agentFields: ['agent-1', 'agent-2'],
+}).subscribe((result) => {
+  console.log('Agent annotation count:', result);
+});
+```
+
+---
+
+### 6.5 Use CommentActivityActionTypes for Type-Safe Comment Activity Filtering
+
+**Impact: MEDIUM (Eliminates raw-string action type errors when filtering comment activities)**
+
+The `CommentActivityActionTypes` exported constant provides the canonical string values for all comment action types. Use it — and the accompanying `CommentActivityActionType` union type — instead of raw strings when building `ActivitySubscribeConfig.actionTypes` filters, so that typos are caught at compile time and the code self-documents intent.
+
+**Incorrect (raw string values for action type filtering):**
+
+```typescript
+// Raw strings are error-prone and not refactor-safe
+const activities = activityElement.getAllActivities({
+  actionTypes: ['comment_annotation.add', 'comment_annotation.status_change'],
+});
+```
+
+**Correct (React / Next.js — type-safe filtering with CommentActivityActionTypes):**
+
+```jsx
+import { CommentActivityActionTypes } from '@veltdev/react';
+import { useVeltClient } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function CommentActivityFilter() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+    const activityElement = client.getActivityElement();
+
+    // Type-safe filtering of comment activities
+    const subscription = activityElement.getAllActivities({
+      actionTypes: [
+        CommentActivityActionTypes.ANNOTATION_ADD,
+        CommentActivityActionTypes.STATUS_CHANGE,
+      ],
+    }).subscribe((activities) => {
+      console.log('Comment activities:', activities);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [client]);
+}
+```
+
+**Correct (Other Frameworks — Angular, Vue, Vanilla JS):**
+
+```typescript
+import { CommentActivityActionTypes } from '@veltdev/types';
+
+const activityElement = client.getActivityElement();
+
+const subscription = activityElement.getAllActivities({
+  actionTypes: [
+    CommentActivityActionTypes.ANNOTATION_ADD,
+    CommentActivityActionTypes.STATUS_CHANGE,
+  ],
+}).subscribe((activities) => {
+  console.log('Comment activities:', activities);
+});
+```
+
+**Full Constant Definition (v5.0.2-beta.7):**
+
+```typescript
+import { CommentActivityActionTypes, CommentActivityActionType } from '@veltdev/react';
+
+const CommentActivityActionTypes = {
+  ANNOTATION_ADD: 'comment_annotation.add',
+  ANNOTATION_DELETE: 'comment_annotation.delete',
+  COMMENT_ADD: 'comment.add',
+  COMMENT_UPDATE: 'comment.update',
+  COMMENT_DELETE: 'comment.delete',
+  STATUS_CHANGE: 'comment_annotation.status_change',
+  PRIORITY_CHANGE: 'comment_annotation.priority_change',
+  ASSIGN: 'comment_annotation.assign',
+  ACCESS_MODE_CHANGE: 'comment_annotation.access_mode_change',
+  CUSTOM_LIST_CHANGE: 'comment_annotation.custom_list_change',
+  APPROVE: 'comment_annotation.approve',
+  ACCEPT: 'comment.accept',
+  REJECT: 'comment.reject',
+  REACTION_ADD: 'comment.reaction_add',
+  REACTION_DELETE: 'comment.reaction_delete',
+  SUBSCRIBE: 'comment_annotation.subscribe',
+  UNSUBSCRIBE: 'comment_annotation.unsubscribe',
+} as const;
+
+type CommentActivityActionType =
+  typeof CommentActivityActionTypes[keyof typeof CommentActivityActionTypes];
+```
+
+<!-- TODO (v5.0.2-beta.7): Verify the complete member list for CommentActivityActionTypes. Release note confirms ANNOTATION_ADD and STATUS_CHANGE and that the constant exists; all 17 members above are supplied in the release delta but should be validated against SDK source before shipping to production. -->
+
+---
+
+### 6.6 Use Config-Based URL Endpoints Instead of Placeholder Callbacks in CommentAnnotationDataProvider
+
+**Impact: MEDIUM (Eliminates boilerplate callback stubs when using URL-based data provider endpoints, reducing integration errors)**
+
+As of v5.0.2-beta.8, the `get`, `save`, and `delete` methods on `CommentAnnotationDataProvider` (and the parallel `ReactionAnnotationDataProvider` and `AttachmentDataProvider`) are optional. When using config-based URL endpoints (`config.getConfig`, `config.saveConfig`, `config.deleteConfig`), you no longer need to supply empty placeholder callbacks alongside them. `ResolverConfig` accepts `additionalFields?: string[]` to copy custom fields to your resolver endpoint payload while retaining them in Velt's storage, and `fieldsToRemove?: string[]` to strip fields from Velt's DB entirely before storage (e.g. for PII removal). Both can coexist on the same config object.
+
+**Incorrect (supplying unnecessary placeholder callbacks alongside config-based endpoints):**
+
+```tsx
+// Before v5.0.2-beta.8: developers had to supply stub callbacks
+// even when using config-based URL endpoints — now redundant
+client.setDataProviders({
+  comment: {
+    get: async (request) => ({ data: null }), // unnecessary stub
+    save: async (request) => ({ data: null }), // unnecessary stub
+    delete: async (request) => ({ data: null }), // unnecessary stub
+    config: {
+      getConfig:    { url: 'https://api.yourapp.com/comments/get' },
+      saveConfig:   { url: 'https://api.yourapp.com/comments/save' },
+      deleteConfig: { url: 'https://api.yourapp.com/comments/delete' },
+    },
+  },
+});
+```
+
+**Correct (config-based endpoints with no placeholder callbacks required):**
+
+```tsx
+import { useVeltClient } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function DataProviderSetup() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+
+    // Config-based URL endpoints — get/save/delete callbacks are optional
+    client.setDataProviders({
+      comment: {
+        config: {
+          getConfig:        { url: 'https://api.yourapp.com/comments/get' },
+          saveConfig:       { url: 'https://api.yourapp.com/comments/save' },
+          deleteConfig:     { url: 'https://api.yourapp.com/comments/delete' },
+          // Copied to resolver payload but kept in Velt's storage
+          additionalFields: ['tenantId', 'projectId'],
+          // Stripped from Velt's DB before storage (PII removal)
+          fieldsToRemove: ['sensitiveField'],
+        },
+      },
+    });
+  }, [client]);
+}
+
+// Callback-based form is still valid when you need custom logic
+function DataProviderSetupCallbackBased() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+
+    client.setDataProviders({
+      comment: {
+        get:    async (request) => { /* fetch from your backend */ return { data: null }; },
+        save:   async (request) => { /* persist to your backend */ return { data: null }; },
+        delete: async (request) => { /* delete from your backend */ return { data: null }; },
+      },
+    });
+  }, [client]);
+}
+```
+
+---
+
+### 6.7 Use triggerActivities to Create Activity Records via REST API
+
+**Impact: MEDIUM (Ensures comment additions via REST API are reflected in the activity feed when workspace-level activity tracking is enabled)**
+
+When adding comments via the `POST /v2/commentannotations/add` REST endpoint, set `triggerActivities: true` on each `CommentData` entry to automatically create an activity record for that comment. Without this flag the comment is persisted but no activity record is generated, even if the workspace has `activityServiceConfig` enabled.
+
+Note: `triggerActivities` creates activity records; `triggerNotification` sends notifications. These are independent flags — one does not imply the other.
+
+**Incorrect (omitting triggerActivities when activity tracking is required):**
+
+```json
+// POST /v2/commentannotations/add — activity record will NOT be created
+{
+  "commentAnnotations": [
+    {
+      "commentData": [
+        {
+          "from": { "userId": "user-1", "email": "user@example.com" },
+          "commentText": "This needs review",
+          "triggerNotification": true
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Correct (set triggerActivities: true on the CommentData entry):**
+
+```json
+// POST /v2/commentannotations/add — activity record is created automatically
+{
+  "commentAnnotations": [
+    {
+      "commentData": [
+        {
+          "from": { "userId": "user-1", "email": "user@example.com" },
+          "commentText": "This needs review",
+          "triggerNotification": true,
+          "triggerActivities": true
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ---
@@ -3573,7 +4634,7 @@ function RestrictedModeController() {
     const commentElement = client.getCommentElement();
 
     // Restrict all new comments to user-a and user-b only.
-    // If userIds is omitted, it defaults to the current user.
+    // The current user is always auto-appended to userIds — even when an explicit list is provided.
     commentElement.enablePrivateMode({
       type: 'restricted',
       userIds: ['user-a', 'user-b'],
@@ -3659,6 +4720,49 @@ commentElement.updateVisibility({
 });
 ```
 
+**Correct (React — set visibility at comment creation time):**
+
+```jsx
+import { useVeltClient } from '@veltdev/react';
+
+function CreateRestrictedComment() {
+  const { client } = useVeltClient();
+
+  const addComment = () => {
+    if (!client) return;
+    const commentElement = client.getCommentElement();
+
+    // Set visibility at creation time — no post-creation updateVisibility() call needed.
+    commentElement.addComment({
+      annotationId: 'annotation-id',
+      comment: { text: 'Visible only to selected users' },
+      visibility: {
+        type: 'restricted',
+        userIds: ['user1', 'user2'],
+      },
+    });
+  };
+
+  return <button onClick={addComment}>Add restricted comment</button>;
+}
+```
+
+**Correct (HTML / Other Frameworks — set visibility at comment creation time):**
+
+```typescript
+const commentElement = Velt.getCommentElement();
+
+// Set visibility at creation time — no post-creation updateVisibility() call needed.
+commentElement.addComment({
+  annotationId: 'annotation-id',
+  comment: { text: 'Visible only to selected users' },
+  visibility: {
+    type: 'restricted',
+    userIds: ['user1', 'user2'],
+  },
+});
+```
+
 **Type Definitions:**
 
 ```typescript
@@ -3668,11 +4772,18 @@ interface CommentVisibilityConfig {
   type: CommentVisibilityType;
   annotationId?: string;   // Required for updateVisibility(); unused in enablePrivateMode()
   organizationId?: string; // Auto-resolved from authenticated user when omitted
-  userIds?: string[];      // Defaults to current user when omitted for 'restricted' type
+  userIds?: string[];      // Current user always auto-appended for 'restricted' type, even when list is explicitly provided
 }
 
 // PrivateModeConfig omits annotationId and organizationId (auto-resolved)
 type PrivateModeConfig = Omit<CommentVisibilityConfig, 'annotationId' | 'organizationId'>;
+
+interface AddCommentRequest {
+  annotationId?: string;
+  comment?: { text?: string; [key: string]: unknown };
+  visibility?: CommentVisibilityConfig; // Optional: set visibility at creation time (v5.0.2-beta.4+)
+  [key: string]: unknown;
+}
 ```
 
 **Before (v5.0.1-beta.3 and earlier — now broken):**
@@ -3695,7 +4806,429 @@ commentElement.enablePrivateMode({ type: 'organizationPrivate' });              
 
 ---
 
-### 8.2 Use the commentSaved Event for Reliable Post-Persist Side-Effects
+### 8.2 Prefer Past-Tense Event Aliases commentToolClicked and sidebarButtonClicked in New Code
+
+**Impact: LOW (Write consistent event subscriptions using the canonical past-tense naming convention that aligns with all other Velt events — both old and new names fire simultaneously so migration is non-breaking)**
+
+Velt v5.0.2-beta.2 introduced `commentToolClicked` and `sidebarButtonClicked` as past-tense aliases for the original `commentToolClick` and `sidebarButtonClick` events. Both old and new names fire simultaneously — use the past-tense aliases in all new code to align with the consistent naming convention used across all other Velt events.
+
+**Incorrect (using present-tense event names in new code — still works but not the canonical pattern):**
+
+```jsx
+import { useCommentEventCallback } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function InteractionListeners() {
+  // Present-tense names still fire, but past-tense aliases are the canonical form.
+  const toolClickEvent = useCommentEventCallback('commentToolClick');
+  const sidebarClickEvent = useCommentEventCallback('sidebarButtonClick');
+
+  useEffect(() => {
+    if (toolClickEvent) {
+      console.log('Comment tool clicked:', toolClickEvent);
+    }
+  }, [toolClickEvent]);
+
+  return null;
+}
+```
+
+**Correct (React — use past-tense aliases):**
+
+```jsx
+import { useCommentEventCallback } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function CommentToolClickedListener() {
+  const toolClickedEvent = useCommentEventCallback('commentToolClicked');
+  const sidebarClickedEvent = useCommentEventCallback('sidebarButtonClicked');
+
+  useEffect(() => {
+    if (toolClickedEvent) {
+      console.log('Comment tool clicked:', toolClickedEvent);
+    }
+  }, [toolClickedEvent]);
+
+  useEffect(() => {
+    if (sidebarClickedEvent) {
+      console.log('Sidebar button clicked:', sidebarClickedEvent);
+    }
+  }, [sidebarClickedEvent]);
+
+  return null;
+}
+```
+
+**Correct (HTML / Other Frameworks — subscribe via commentElement):**
+
+```typescript
+const commentElement = Velt.getCommentElement();
+
+const sub1 = commentElement.on('commentToolClicked').subscribe((event) => {
+  console.log('Comment tool clicked:', event);
+});
+
+const sub2 = commentElement.on('sidebarButtonClicked').subscribe((event) => {
+  console.log('Sidebar button clicked:', event);
+});
+
+// Clean up subscriptions when no longer needed
+sub1.unsubscribe();
+sub2.unsubscribe();
+```
+
+---
+
+### 8.3 Register an Anonymous User Data Provider to Resolve Tagged Contact Emails to User IDs
+
+**Impact: LOW (Enables Velt to automatically map email addresses to userIds at comment save time, so anonymous contacts tagged in comments are correctly associated with their accounts)**
+
+When a user tags a contact in a comment who has an email address but no userId, Velt automatically calls the registered anonymous user data provider at comment save time to resolve the email to a userId. Without a provider, the tagged contact cannot be correctly associated with their account.
+
+Register the provider once at initialization using `client.setAnonymousUserDataProvider()` (React) or `Velt.setAnonymousUserDataProvider()` (other frameworks). The equivalent `setDataProviders({ anonymousUser: resolver })` form may be used interchangeably.
+
+**Incorrect (no provider registered — tagged contacts with only an email remain unresolved):**
+
+```jsx
+// No anonymous user data provider registered.
+// Comments that tag contacts by email will not resolve to a userId at save time.
+const { client } = useVeltClient();
+useEffect(() => {
+  if (!client) return;
+  // Missing: client.setAnonymousUserDataProvider(...)
+}, [client]);
+```
+
+**Correct (React — register via setAnonymousUserDataProvider):**
+
+```jsx
+import { useVeltClient } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function AnonymousUserProviderSetup() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+
+    client.setAnonymousUserDataProvider({
+      resolveUserIdsByEmail: async (request) => {
+        // request: { organizationId: string; emails: string[]; documentId?: string; folderId?: string; }
+        const map = {};
+        for (const email of request.emails) {
+          map[email] = await lookupUserId(email); // your internal lookup
+        }
+        // Return shape: ResolverResponse<Record<string, string>> (email → userId)
+        return { statusCode: 200, success: true, data: map };
+      },
+    });
+  }, [client]);
+
+  return null;
+}
+```
+
+**Correct (React — equivalent form using setDataProviders):**
+
+```jsx
+import { useVeltClient } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function AnonymousUserProviderSetup() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+
+    client.setDataProviders({
+      anonymousUser: {
+        resolveUserIdsByEmail: async (request) => {
+          const map = {};
+          for (const email of request.emails) {
+            map[email] = await lookupUserId(email);
+          }
+          return { statusCode: 200, success: true, data: map };
+        },
+      },
+    });
+  }, [client]);
+
+  return null;
+}
+```
+
+**Correct (HTML / Other Frameworks):**
+
+```typescript
+Velt.setAnonymousUserDataProvider({
+  resolveUserIdsByEmail: async (request) => {
+    const map = {};
+    for (const email of request.emails) {
+      map[email] = await lookupUserId(email);
+    }
+    return { statusCode: 200, success: true, data: map };
+  },
+});
+
+// Equivalent alternative
+Velt.setDataProviders({
+  anonymousUser: {
+    resolveUserIdsByEmail: async (request) => { /* ... */ },
+  },
+});
+```
+
+**Type Definitions:**
+
+```typescript
+interface AnonymousUserDataProvider {
+  resolveUserIdsByEmail: (
+    request: ResolveUserIdsByEmailRequest
+  ) => Promise<ResolverResponse<Record<string, string>>>;
+  config?: AnonymousUserDataProviderConfig;
+}
+
+interface ResolveUserIdsByEmailRequest {
+  organizationId: string;
+  emails: string[];
+  documentId?: string;
+  folderId?: string;
+}
+
+interface AnonymousUserDataProviderConfig {
+  resolveTimeout?: number;
+  getRetryConfig?: RetryConfig;
+}
+
+interface RetryConfig {
+  retryCount: number;
+  retryDelay: number;
+}
+
+interface ResolverResponse<T> {
+  statusCode: number;
+  success: boolean;
+  data: T;
+}
+```
+
+---
+
+### 8.4 Show a Visibility Banner in the Comment Composer for Multi-Level Visibility Selection
+
+**Impact: LOW (Let users choose from four visibility levels before submitting a comment, and react to that choice via the visibilityOptionClicked event)**
+
+Enable `visibilityOptions` to render a persistent visibility banner below the comment composer that lets users choose from four visibility levels — `public`, `organizationPrivate`, `restrictedSelf`, and `restrictedSelectedPeople` — before submitting. The feature is off by default; without enabling it, users have no in-UI way to set visibility at comment-creation time.
+
+> **Breaking Change (v5.0.2-beta.4):** `visibilityOptionDropdown` prop has been renamed to `visibilityOptions` / `visibility-options`. The API methods `enableVisibilityOptionDropdown()` / `disableVisibilityOptionDropdown()` have been renamed to `enableVisibilityOptions()` / `disableVisibilityOptions()`. The `VisibilityOptionClickedEvent.visibility` type has widened from `'public' | 'private'` to `CommentVisibilityOptionType` (`'personal' | 'selected-people' | 'org-users' | 'public'`). Replace all `'private'` comparisons with `'personal'`.
+
+> **Breaking Change (v5.0.2-beta.5):** `CommentVisibilityOptionType` values have been renamed to align with the new `CommentVisibilityOption` enum. Replace `'personal'` → `'restrictedSelf'`, `'selected-people'` → `'restrictedSelectedPeople'`, `'org-users'` → `'organizationPrivate'`. The `'public'` value is unchanged.
+
+**Incorrect (no visibility choice for users — visibility banner is hidden by default):**
+
+```jsx
+// visibilityOptions defaults to false — the banner is not rendered.
+// Users cannot choose visibility from the composer.
+<VeltComments />
+```
+
+**Correct (React — enable via prop):**
+
+```jsx
+import { VeltComments } from '@veltdev/react';
+
+function App() {
+  return (
+    // Renders the four-option visibility banner below the comment composer.
+    <VeltComments visibilityOptions={true} />
+  );
+}
+```
+
+**Correct (React — enable/disable programmatically):**
+
+```jsx
+import { useVeltClient } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function VisibilityOptionsController() {
+  const { client } = useVeltClient();
+
+  useEffect(() => {
+    if (!client) return;
+    const commentElement = client.getCommentElement();
+
+    // Show the visibility banner in the composer.
+    commentElement.enableVisibilityOptions();
+
+    return () => {
+      // Hide the banner on unmount.
+      commentElement.disableVisibilityOptions();
+    };
+  }, [client]);
+
+  return null;
+}
+```
+
+**Correct (React — subscribe to the visibilityOptionClicked event):**
+
+```jsx
+import { useCommentEventCallback } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function VisibilityOptionListener() {
+  const visibilityEvent = useCommentEventCallback('visibilityOptionClicked');
+
+  useEffect(() => {
+    if (!visibilityEvent) return;
+
+    // One of: 'public' | 'organizationPrivate' | 'restrictedSelf' | 'restrictedSelectedPeople'
+    console.log('Visibility selected:', visibilityEvent.visibility);
+    console.log('Annotation ID:', visibilityEvent.annotationId);
+    console.log('Full annotation:', visibilityEvent.commentAnnotation);
+
+    // users is populated when visibility === 'restrictedSelectedPeople'
+    if (visibilityEvent.visibility === 'restrictedSelectedPeople') {
+      console.log('Selected users:', visibilityEvent.users);
+    }
+  }, [visibilityEvent]);
+
+  return null;
+}
+```
+
+**Correct (HTML / Other Frameworks — enable/disable programmatically):**
+
+```typescript
+const commentElement = Velt.getCommentElement();
+
+// Show the visibility banner in the composer.
+commentElement.enableVisibilityOptions();
+
+// Hide the banner when no longer needed.
+commentElement.disableVisibilityOptions();
+```
+
+**Correct (HTML / Other Frameworks — subscribe to the visibilityOptionClicked event):**
+
+```typescript
+const commentElement = Velt.getCommentElement();
+
+const subscription = commentElement.on('visibilityOptionClicked').subscribe((event) => {
+  // One of: 'public' | 'organizationPrivate' | 'restrictedSelf' | 'restrictedSelectedPeople'
+  console.log('Visibility selected:', event.visibility);
+  console.log('Annotation ID:', event.annotationId);
+  // event.users is populated when event.visibility === 'restrictedSelectedPeople'
+});
+
+// Clean up subscription when no longer needed.
+subscription.unsubscribe();
+```
+
+**`CommentVisibilityOptionType` and `VisibilityOptionClickedEvent` Interfaces:**
+
+```typescript
+// Added in v5.0.2-beta.5 — enum backing the type union
+export declare enum CommentVisibilityOption {
+  RESTRICTED_SELF = "restrictedSelf",
+  RESTRICTED_SELECTED_PEOPLE = "restrictedSelectedPeople",
+  ORGANIZATION_PRIVATE = "organizationPrivate",
+  PUBLIC = "public"
+}
+
+// Template-literal type derived from the enum
+export type CommentVisibilityOptionType = `${CommentVisibilityOption}`;
+// = 'restrictedSelf' | 'restrictedSelectedPeople' | 'organizationPrivate' | 'public'
+
+interface VisibilityOptionClickedEvent {
+  annotationId: string;                    // ID of the comment annotation
+  commentAnnotation: CommentAnnotation;    // Full annotation object
+  visibility: CommentVisibilityOptionType; // The visibility option the user selected
+  users?: User[];                          // Populated when visibility === 'restrictedSelectedPeople'
+  metadata?: VeltEventMetadata;            // Optional event metadata (timestamp, source, etc.)
+}
+```
+
+---
+
+### 8.5 Use commentSaveTriggered for Immediate UI Feedback Before Async Save Completes
+
+**Impact: LOW (Show spinners or disable UI the moment the user clicks save — before the database write — without reacting too late with the post-persist commentSaved event)**
+
+The `commentSaveTriggered` event fires the instant the save button is clicked, before the async database write begins. Use it for immediate UI feedback (spinners, disabled states) and use `commentSaved` — which fires only after the write confirms — for reliable post-persist side-effects such as webhooks or analytics.
+
+**Incorrect (using commentSaved for immediate UI feedback — fires too late):**
+
+```jsx
+import { useCommentEventCallback } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function SaveFeedback() {
+  const savedEvent = useCommentEventCallback('commentSaved');
+
+  useEffect(() => {
+    if (!savedEvent) return;
+    // commentSaved fires AFTER the database write completes.
+    // The UI will feel sluggish — the spinner appears only after the round-trip.
+    showSpinner();
+  }, [savedEvent]);
+
+  return null;
+}
+```
+
+**Correct (React — use commentSaveTriggered for immediate feedback):**
+
+```jsx
+import { useCommentEventCallback } from '@veltdev/react';
+import { useEffect } from 'react';
+
+function CommentSaveTriggeredListener() {
+  const triggeredEvent = useCommentEventCallback('commentSaveTriggered');
+
+  useEffect(() => {
+    if (!triggeredEvent) return;
+    // Fires immediately on button click, before the database write starts.
+    console.log('Save triggered, annotationId:', triggeredEvent.annotationId);
+    // Use for immediate UI feedback only — not for post-persist side-effects.
+    showSpinner();
+    disableUI();
+  }, [triggeredEvent]);
+
+  return null;
+}
+```
+
+**Correct (HTML / Other Frameworks — subscribe via commentElement):**
+
+```typescript
+const commentElement = Velt.getCommentElement();
+
+const subscription = commentElement.on('commentSaveTriggered').subscribe((event) => {
+  // Fires immediately on button click, before the database write starts.
+  console.log('Save triggered, annotationId:', event.annotationId);
+  showSpinner();
+  disableUI();
+});
+
+// Clean up subscription when no longer needed
+subscription.unsubscribe();
+```
+
+**`CommentSaveTriggeredEvent` Interface:**
+
+```typescript
+interface CommentSaveTriggeredEvent {
+  annotationId: string;                 // ID of the comment annotation being saved
+  commentAnnotation: CommentAnnotation; // Full annotation object at save time (v5.0.2-beta.4+)
+  metadata: VeltEventMetadata;          // Event metadata (timestamp, source, etc.)
+}
+```
+
+---
+
+### 8.6 Use the commentSaved Event for Reliable Post-Persist Side-Effects
 
 **Impact: LOW (Trigger webhooks, analytics, or external sync only after database write confirmation — not prematurely on optimistic UI updates)**
 
