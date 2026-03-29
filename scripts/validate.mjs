@@ -95,26 +95,26 @@ const REQUIRED_SKILLS = [
 function validateCursor() {
   console.log("\n═══ Cursor Plugin ═══\n");
 
-  // Manifest
-  const manifest = parseJSON(resolve(CURSOR, ".cursor-plugin", "plugin.json"), "Cursor plugin.json");
+  // Manifest — check both .plugin/ (Open Plugins standard) and .cursor-plugin/ (compat)
+  const manifest = parseJSON(resolve(CURSOR, ".plugin", "plugin.json"), "Cursor plugin.json (.plugin/)");
   if (manifest) {
     if (!manifest.name) fail("Cursor manifest missing 'name'");
     else pass(`Cursor plugin name: ${manifest.name}`);
     checkPathTraversal(manifest, "Cursor manifest");
   }
+  // Check backward-compat copy exists too
+  checkFileExists(resolve(CURSOR, ".cursor-plugin", "plugin.json"), "Cursor compat manifest (.cursor-plugin/)");
 
-  // MCP config
-  const mcp = parseJSON(resolve(CURSOR, "mcp.json"), "Cursor mcp.json");
+  // MCP config — .mcp.json (Open Plugins standard)
+  const mcp = parseJSON(resolve(CURSOR, ".mcp.json"), "Cursor .mcp.json");
   if (mcp) {
     if (!mcp.mcpServers) {
-      fail("Cursor mcp.json missing 'mcpServers'");
+      fail("Cursor .mcp.json missing 'mcpServers'");
     } else {
       if (mcp.mcpServers["velt-installer"]) pass("MCP: velt-installer present");
       else fail("MCP: velt-installer missing");
-      if (mcp.mcpServers["velt-docs"]) pass("MCP: velt-docs present");
-      else fail("MCP: velt-docs missing");
     }
-    checkPathTraversal(mcp, "Cursor mcp.json");
+    checkPathTraversal(mcp, "Cursor .mcp.json");
   }
 
   // Skills
@@ -139,7 +139,7 @@ function validateCursor() {
   checkFileExists(resolve(CURSOR, "agents", "velt-expert.md"), "Cursor agent: velt-expert");
 
   // Logo
-  checkFileExists(resolve(CURSOR, "assets", "logo.svg"), "Logo: assets/logo.svg");
+  checkFileExists(resolve(CURSOR, "assets", "velt.svg"), "Logo: assets/velt.svg");
 
   // References (agent-skills are now installed by the user, not bundled)
   console.log("\n  References:");

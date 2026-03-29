@@ -211,11 +211,69 @@ function copyReferences() {
   cpSync(sharedRef, claudeRef, { recursive: true });
 }
 
+// ─── Build Cursor Manifest & MCP Config ─────────────────────────────────────
+
+function buildCursorManifestAndMcp() {
+  console.log("[build] Building Cursor manifest and MCP config...");
+
+  const manifest = {
+    name: "velt",
+    version: "1.0.0",
+    description: "Add real-time collaboration (comments, presence, cursors, CRDT editing, notifications) to React and Next.js apps.",
+    author: {
+      name: "Velt",
+      email: "support@velt.dev",
+      url: "https://velt.dev",
+    },
+    homepage: "https://docs.velt.dev",
+    repository: "https://github.com/velt-js/velt-plugin",
+    license: "MIT",
+    logo: "assets/velt.svg",
+    keywords: [
+      "velt", "collaboration", "comments", "presence", "cursors",
+      "crdt", "real-time", "react", "nextjs", "tiptap",
+      "codemirror", "notifications",
+    ],
+    skills: "./skills/",
+    rules: "./rules/",
+    agents: "./agents/",
+    mcpServers: ".mcp.json",
+  };
+
+  const mcpConfig = {
+    mcpServers: {
+      "velt-installer": {
+        command: "npx",
+        args: ["-y", "@velt-js/mcp-installer"],
+      },
+    },
+  };
+
+  // Write vendor-neutral manifest (.plugin/plugin.json)
+  const pluginDir = resolve(CURSOR, ".plugin");
+  ensureDir(pluginDir);
+  writeFileSync(resolve(pluginDir, "plugin.json"), JSON.stringify(manifest, null, 2) + "\n");
+
+  // Write backward-compat Cursor manifest (.cursor-plugin/plugin.json)
+  const cursorPluginDir = resolve(CURSOR, ".cursor-plugin");
+  ensureDir(cursorPluginDir);
+  writeFileSync(resolve(cursorPluginDir, "plugin.json"), JSON.stringify(manifest, null, 2) + "\n");
+
+  // Write MCP config as .mcp.json (Open Plugins standard)
+  writeFileSync(resolve(CURSOR, ".mcp.json"), JSON.stringify(mcpConfig, null, 2) + "\n");
+
+  // Remove old mcp.json if it exists
+  const oldMcp = resolve(CURSOR, "mcp.json");
+  if (existsSync(oldMcp)) {
+    rmSync(oldMcp);
+  }
+}
+
 // ─── Copy Assets ─────────────────────────────────────────────────────────────
 
 function copyAssets() {
   console.log("[build] Copying assets...");
-  // Logo is already in cursor-velt/assets/ (static file, not generated)
+  // Logo is already in cursor-velt/assets/velt.svg (static file, not generated)
 }
 
 // ─── Build Claude Marketplace ────────────────────────────────────────────────
@@ -241,9 +299,7 @@ function main() {
   buildClaudeAgent();
   buildClaudeRulesGuide();
 
-  // NOTE: Reference agent-skills are no longer bundled in the plugin.
-  // Users install them via `npx skills add velt-js/agent-skills`.
-  // Skills reference them by name, not by bundled path.
+  buildCursorManifestAndMcp();
   copyAssets();
   buildClaudeMarketplace();
 
