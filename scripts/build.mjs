@@ -246,6 +246,9 @@ function buildCursorManifestAndMcp() {
         command: "npx",
         args: ["-y", "@velt-js/mcp-installer"],
       },
+      "velt-docs": {
+        url: "https://docs.velt.dev/mcp",
+      },
     },
   };
 
