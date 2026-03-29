@@ -141,13 +141,9 @@ function validateCursor() {
   // Logo
   checkFileExists(resolve(CURSOR, "assets", "logo.svg"), "Logo: assets/logo.svg");
 
-  // References
+  // References (agent-skills are now installed by the user, not bundled)
   console.log("\n  References:");
-  if (existsSync(resolve(CURSOR, "references", "agent-skills"))) {
-    pass("Reference agent-skills present");
-  } else {
-    warn("Reference agent-skills missing (run 'npm run sync' then 'npm run build')");
-  }
+  pass("Agent-skills referenced by name (user installs via npx skills add)");
 }
 
 // ─── Validate Claude Plugin ──────────────────────────────────────────────────
@@ -193,11 +189,7 @@ function validateClaude() {
 
   // References
   console.log("\n  References:");
-  if (existsSync(resolve(CLAUDE, "references", "agent-skills"))) {
-    pass("Reference agent-skills present");
-  } else {
-    warn("Reference agent-skills missing (run 'npm run sync' then 'npm run build')");
-  }
+  pass("Agent-skills referenced by name (user installs via npx skills add)");
 }
 
 // ─── Validate Claude Marketplace ─────────────────────────────────────────────

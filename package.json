@@ -5,10 +5,9 @@
   "description": "Cursor and Claude Code plugins for the Velt collaboration SDK",
   "type": "module",
   "scripts": {
-    "sync": "node scripts/sync-agent-skills.mjs",
     "build": "node scripts/build.mjs",
     "validate": "node scripts/validate.mjs",
-    "all": "npm run sync && npm run build && npm run validate"
+    "all": "npm run build && npm run validate"
   },
   "author": {
     "name": "Velt",

@@ -175,7 +175,7 @@ function buildClaudeRulesGuide() {
   combined += "All skills and the velt-expert agent should consult this guide as the primary source of truth.\n\n";
   combined += "## Priority Chain\n";
   combined += "1. **This guide** (embedded rules) — always check first\n";
-  combined += "2. **Reference agent-skills** at `/references/agent-skills/` — detailed patterns\n";
+  combined += "2. **Installed agent-skills** (velt-setup-best-practices, velt-comments-best-practices, velt-crdt-best-practices, velt-notifications-best-practices) — detailed patterns\n";
   combined += "3. **velt-docs MCP** — query for anything not covered above\n\n";
   combined += "---\n\n";
 
@@ -241,7 +241,9 @@ function main() {
   buildClaudeAgent();
   buildClaudeRulesGuide();
 
-  copyReferences();
+  // NOTE: Reference agent-skills are no longer bundled in the plugin.
+  // Users install them via `npx skills add velt-js/agent-skills`.
+  // Skills reference them by name, not by bundled path.
   copyAssets();
   buildClaudeMarketplace();
 

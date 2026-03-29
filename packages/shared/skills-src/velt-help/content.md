@@ -8,7 +8,7 @@ Use when the user asks general questions about Velt, needs clarification on feat
 ## Workflow
 
 1. Check if the question is covered by embedded rules (velt-core, velt-auth, velt-document-identity, velt-comments, velt-crdt, velt-notifications). If so, answer from embedded knowledge.
-2. Check reference agent-skills at /references/agent-skills/ for detailed patterns and code examples.
+2. Check installed agent-skills (velt-setup-best-practices, velt-comments-best-practices, velt-crdt-best-practices, velt-notifications-best-practices) for detailed patterns and code examples.
 3. If neither source covers the question, query the velt-docs MCP server for the answer.
 4. Provide a clear, concise answer with code examples where applicable.
 

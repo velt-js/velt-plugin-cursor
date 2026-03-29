@@ -4,7 +4,7 @@ This guide contains distilled best practices from the Velt agent-skills. All ski
 
 ## Priority Chain
 1. **This guide** (embedded rules) — always check first
-2. **Reference agent-skills** at `/references/agent-skills/` — detailed patterns
+2. **Installed agent-skills** (velt-setup-best-practices, velt-comments-best-practices, velt-crdt-best-practices, velt-notifications-best-practices) — detailed patterns
 3. **velt-docs MCP** — query for anything not covered above
 
 ---

@@ -28,7 +28,7 @@ Use when the user wants to set up Velt from scratch, add Velt to an existing pro
 
 ## Priority Chain
 1. Embedded rules (velt-core, velt-auth, velt-document-identity) — use these first
-2. Reference agent-skills in /references/agent-skills — consult for detailed patterns
+2. Installed agent-skills (velt-setup-best-practices, velt-comments-best-practices, velt-crdt-best-practices, velt-notifications-best-practices) — consult for detailed patterns
 3. velt-docs MCP — query only for follow-up questions or features without embedded coverage
 
 ## Output

@@ -29,7 +29,7 @@ Use when the user wants to add any type of comment feature: freestyle (click-any
 - For popover mode: every commentable element needs a unique ID + matching targetElementId.
 - For editor integrations: MUST set `textMode={false}` on VeltComments.
 - VeltCommentTool is required for freestyle mode — users can't initiate comments without it.
-- Consult reference agent-skills at /references/agent-skills/skills/velt-comments-best-practices/ for detailed patterns.
+- Consult the installed **velt-comments-best-practices** skill for detailed implementation patterns.
 
 ## Output
 - VeltComments component added with correct mode

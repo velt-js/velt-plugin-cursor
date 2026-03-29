@@ -17,7 +17,7 @@ Use when the user wants notification features: bell icon, notification panel, em
 - VeltNotificationsTool provides the bell icon — place it in the toolbar/header.
 - Use tabConfig to customize which tabs appear (forYou, all, documents).
 - For email: requires SendGrid API key configured in Velt Console.
-- Consult reference agent-skills at /references/agent-skills/skills/velt-notifications-best-practices/ for detailed patterns.
+- Consult the installed **velt-notifications-best-practices** skill for detailed implementation patterns.
 
 ## Output
 - VeltNotificationsTool added to UI

@@ -18,11 +18,11 @@ Use when the user wants collaborative editing with Tiptap, BlockNote, CodeMirror
 4. Follow the guided flow (plan → approve → apply).
 
 ## Guardrails
-- CRITICAL: When using Tiptap, MUST disable history: `StarterKit.configure({ history: false })`
+- CRITICAL: When using Tiptap, MUST disable undo/redo: `StarterKit.configure({ undoRedo: false })` (NOT `history` — StarterKit has no "history" option)
 - Each editor instance needs a unique `editorId`.
 - Add CSS for collaboration cursors.
 - Choose the correct store type: text for plain text, xml for rich text editors, map for key-value, array for lists.
-- Consult reference agent-skills at /references/agent-skills/skills/velt-crdt-best-practices/ for detailed patterns.
+- Consult the installed **velt-crdt-best-practices** skill for detailed implementation patterns.
 
 ## Output
 - CRDT packages installed
