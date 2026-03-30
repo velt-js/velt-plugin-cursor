@@ -1,0 +1,57 @@
+{
+  "runTimestamp": "2026-03-30T20:50:00Z",
+  "skillsAnalyzed": ["velt-comments-best-practices"],
+  "totalRulesRead": 6,
+  "drifts": [
+    {
+      "id": "drift-001",
+      "type": "behavioral_mismatch",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-comments-best-practices",
+      "ruleFile": "rules/shared/permissions/permissions-private-mode.md",
+      "ruleEvidence": {
+        "text": "The rule covers enablePrivateMode(), disablePrivateMode(), updateVisibility(), addComment() with visibility config, and the CommentVisibilityType breaking change. However, it does NOT mention the prerequisite that the visibility feature must be enabled in Velt Console before use.",
+        "lineRange": [1, 276]
+      },
+      "docSource": "async-collaboration/comments/customize-behavior.mdx",
+      "docEvidence": {
+        "text": "To use this feature, you need to first **enable** it in [Velt Console](https://console.velt.dev/dashboard/config/appconfig).",
+        "lineRange": [2600, 2600]
+      },
+      "description": "Docs now state that the Private Comments / visibility feature requires enabling in Velt Console (console.velt.dev/dashboard/config/appconfig) before use. This is a prerequisite that applies to all visibility methods (enablePrivateMode, updateVisibility, visibility options). The rule permissions-private-mode.md does not mention this prerequisite, which could lead developers to call visibility APIs without enabling the feature in the console first, resulting in silent failures.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/permissions/permissions-private-mode.md",
+      "suggestedSection": "Add a prerequisite note near the top of the rule (after the opening paragraph) and add a verification checklist item",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-002",
+      "type": "behavioral_mismatch",
+      "severity": "low",
+      "confidence": "medium",
+      "skillTarget": "velt-comments-best-practices",
+      "ruleFile": "rules/shared/permissions/permissions-visibility-option-dropdown.md",
+      "ruleEvidence": {
+        "text": "The visibility option dropdown rule covers enableVisibilityOptions/disableVisibilityOptions and the UI banner, but does not mention the Velt Console prerequisite for the underlying visibility feature.",
+        "lineRange": [1, 184]
+      },
+      "docSource": "async-collaboration/comments/customize-behavior.mdx",
+      "docEvidence": {
+        "text": "To use this feature, you need to first **enable** it in [Velt Console](https://console.velt.dev/dashboard/config/appconfig).",
+        "lineRange": [2600, 2600]
+      },
+      "description": "The visibility options banner rule may also benefit from noting the Console prerequisite, since the visibility banner ultimately uses the same underlying visibility feature. However, the docs change is under the 'Private Comments' section header, not specifically under the visibility options section, so this is lower confidence.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/permissions/permissions-visibility-option-dropdown.md",
+      "suggestedSection": "Add a note about the Console prerequisite if visibility options depend on the same feature flag",
+      "ambiguityNote": "The docs change is at the section level for Private Comments; unclear if it also applies to the visibility options banner specifically. The updateVisibility method docs (line 2604) already had this prerequisite. Recommend updating the primary rule (permissions-private-mode.md) and reviewing whether this secondary rule also needs it."
+    }
+  ],
+  "stats": {
+    "totalDrifts": 2,
+    "bySeverity": {"high": 0, "medium": 1, "low": 1},
+    "byType": {"behavioral_mismatch": 2},
+    "bySkill": {"velt-comments-best-practices": 2}
+  }
+}

@@ -3,8 +3,8 @@
 /**
  * sync-agent-skills.mjs
  *
- * Copies the 4 agent-skills from the agent-skills repo directly into
- * both plugin output directories as bundled skills.
+ * Copies the 4 agent-skills from the agent-skills repo into both the
+ * Cursor plugin and Claude plugin as bundled skills.
  *
  * This ensures the AI always has access to the full rule files
  * without needing a separate `npx skills add` step.
@@ -13,7 +13,8 @@
  *   npm run sync
  *   node scripts/sync-agent-skills.mjs [source-path]
  *
- * Default source: ../agent-skills (sibling directory)
+ * Default source: ../agent-skills/skills (sibling directory)
+ * Default Claude plugin: ../velt-plugin-claude/skills (sibling directory)
  */
 
 import { existsSync, cpSync, rmSync, mkdirSync } from "node:fs";
@@ -27,6 +28,8 @@ const defaultSource = resolve(ROOT, "..", "agent-skills", "skills");
 const source = process.argv[2] ? resolve(process.argv[2]) : defaultSource;
 
 const CURSOR = resolve(ROOT, "skills");
+const CLAUDE_ROOT = resolve(ROOT, "..", "velt-plugin-claude");
+const CLAUDE = resolve(CLAUDE_ROOT, "skills");
 
 const AGENT_SKILLS = [
   "velt-setup-best-practices",
@@ -72,11 +75,23 @@ function copySkill(skillName, targetDir) {
   return true;
 }
 
-// Copy to plugin skills directory (repo root)
-console.log(`[sync] Copying agent-skills to plugin...`);
+// Copy to Cursor plugin skills directory (repo root)
+console.log(`[sync] Copying agent-skills to Cursor plugin...`);
 for (const skill of AGENT_SKILLS) {
   const ok = copySkill(skill, CURSOR);
   console.log(`[sync]   ${ok ? "✓" : "✗"} ${skill}`);
+}
+
+// Copy to Claude plugin skills directory (sibling repo)
+if (!existsSync(CLAUDE_ROOT)) {
+  console.warn(`[sync] WARNING: Claude plugin repo not found at ${CLAUDE_ROOT}`);
+  console.warn(`[sync] Skipping Claude plugin sync`);
+} else {
+  console.log(`[sync] Copying agent-skills to Claude plugin...`);
+  for (const skill of AGENT_SKILLS) {
+    const ok = copySkill(skill, CLAUDE);
+    console.log(`[sync]   ${ok ? "✓" : "✗"} ${skill}`);
+  }
 }
 
 console.log(`[sync] Done.`);

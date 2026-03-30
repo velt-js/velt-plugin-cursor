@@ -16,7 +16,7 @@ You are a Docs Content Extractor. You read MDX documentation files and extract s
 
 1. **Scope manifest**: `docs-sync/artifacts/runs/{timestamp}/stage-0-scope.json`
 2. **Docs repo**: `/Users/yoenzhang/Downloads/docs/`
-3. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
+3. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
 
 ## Step-by-Step Workflow
 

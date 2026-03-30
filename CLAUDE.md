@@ -1,13 +1,13 @@
-# Velt Plugin
+# Velt Plugin (Cursor)
 
-Dual-platform plugin framework (Cursor + Claude Code) for Velt SDK collaboration features. Packages skills, rules, agents, and MCP servers into IDE-specific plugins.
+Cursor plugin for Velt SDK collaboration features. Packages skills, rules, agents, and MCP servers into the Cursor plugin format. Also syncs agent-skills to the sibling Claude plugin repo.
 
 ## Key Commands
 
 ```bash
-npm run sync     # Copy agent-skills into shared references
-npm run build    # Build both Cursor and Claude plugins
-npm run validate # Validate both plugin outputs
+npm run sync     # Copy agent-skills into cursor and claude plugins
+npm run build    # Build the Cursor plugin from shared source
+npm run validate # Validate the Cursor plugin output
 ```
 
 ## Docs-Sync Pipeline
@@ -30,10 +30,11 @@ Common invocations:
 | Repo | Path | Role |
 |------|------|------|
 | docs | `../docs` | Source of truth (419 MDX files) |
-| agent-skills | `../agent-skills` | Auto-patched (4 skills, 112+ rules) |
+| agent-skills | `../agent-skills` | Auto-patched (4 skills, 121+ rules) |
 | velt-mcp-installer | `../velt-mcp-installer` | Human-gated patches |
 | add-velt-next-js | `../add-velt-next-js` | Report only (published npm) |
 | sample-apps | `../sample-apps` | Comparison baseline |
+| velt-plugin-claude | `../velt-plugin-claude` | Propagation target (agent-skills sync) |
 
 ### Pipeline Outputs
 

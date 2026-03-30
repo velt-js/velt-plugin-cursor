@@ -1,0 +1,45 @@
+{
+  "runTimestamp": "2026-03-30T20:50:00Z",
+  "summary": {
+    "totalDrifts": 2,
+    "skillsAutoApply": 1,
+    "installerHumanReview": 0,
+    "cliReportOnly": 0,
+    "skippedP3": 1
+  },
+  "autoApply": {
+    "skills": [
+      {
+        "patchId": "patch-001",
+        "driftId": "drift-001",
+        "changeGroup": "cg-001",
+        "priority": "P2",
+        "target": "velt-comments-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/permissions/permissions-private-mode.md",
+        "section": "Add Velt Console prerequisite and update verification checklist",
+        "description": "Add prerequisite note that the visibility feature must be enabled in Velt Console (console.velt.dev/dashboard/config/appconfig) before use. Also add a verification checklist item for this prerequisite.",
+        "driftEvidence": {
+          "ruleText": "Use enablePrivateMode() to set a global visibility default for all new comments in a session, and updateVisibility() to change the visibility of a specific existing annotation. Without explicit visibility control, all new comments are public by default.",
+          "docsText": "To use this feature, you need to first **enable** it in [Velt Console](https://console.velt.dev/dashboard/config/appconfig)."
+        },
+        "extraValidation": false
+      }
+    ]
+  },
+  "humanReviewRequired": {
+    "installer": []
+  },
+  "reportOnly": {
+    "cli": []
+  },
+  "skipped": {
+    "p3Items": [
+      {
+        "driftId": "drift-002",
+        "reason": "Low severity with medium confidence — the docs change is under 'Private Comments' section header; unclear if it also applies to the visibility options banner rule. Recommend manual review.",
+        "description": "permissions-visibility-option-dropdown.md may also need the Velt Console prerequisite, but the docs change context is ambiguous for this rule."
+      }
+    ]
+  }
+}

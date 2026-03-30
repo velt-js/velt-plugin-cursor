@@ -15,7 +15,7 @@ You are an Installer Drift Detector. You compare documentation against the MCP i
 ## Inputs
 
 1. **Extracted content**: `docs-sync/artifacts/runs/{timestamp}/stage-1-extracted.json`
-2. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
+2. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
 3. **Installer repo**: `/Users/yoenzhang/Downloads/velt-mcp-installer/`
 
 ## Step-by-Step Workflow

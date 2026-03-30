@@ -1,0 +1,46 @@
+{
+  "runTimestamp": "2026-03-30T20:50:00Z",
+  "extractedFiles": [
+    {
+      "docPath": "async-collaboration/comments/customize-behavior.mdx",
+      "title": "Customize Behavior",
+      "description": "Comments customize behavior documentation covering threads, private comments, visibility, modes, and configuration options",
+      "affectedSkills": ["velt-comments-best-practices"],
+      "affectedInstallerAreas": [],
+      "affectedCliAreas": [],
+      "changeType": "incremental",
+      "diffSummary": "Added a new line at the section level (line 2600) under 'Private Comments' heading requiring users to enable the visibility feature in Velt Console before use. This is a prerequisite statement that was added ABOVE the existing updateVisibility method docs, which already had this same requirement noted on line 2604.",
+      "apiSignatures": [],
+      "components": [],
+      "setupSteps": [],
+      "packages": [],
+      "configValues": [],
+      "behaviors": [
+        {
+          "claim": "To use the visibility feature (Private Comments), you need to first enable it in Velt Console (https://console.velt.dev/dashboard/config/appconfig)",
+          "type": "requirement",
+          "section": "Private Comments",
+          "isNew": true,
+          "lineRange": [2600, 2600],
+          "context": "This is a new section-level prerequisite added above the updateVisibility method. The updateVisibility method description already contained the same requirement at line 2604, but it was not stated at the section level for the entire Private Comments feature."
+        }
+      ],
+      "relatedRules": {
+        "velt-comments-best-practices": [
+          "shared/permissions/permissions-private-mode.md"
+        ]
+      }
+    }
+  ],
+  "stats": {
+    "filesProcessed": 1,
+    "totalSignatures": 0,
+    "totalComponents": 0,
+    "totalSteps": 0,
+    "totalPackages": 0,
+    "totalBehaviors": 1,
+    "largeFilesChunked": 0,
+    "parseErrors": 0
+  },
+  "errors": []
+}

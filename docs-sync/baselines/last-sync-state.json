@@ -1,22 +1,26 @@
 {
-  "lastSyncTimestamp": "2026-03-27T20:52:25Z",
-  "docsCommit": "b81ecc36e9cb8f97f570f7ce3ac3dae86d03b249",
-  "agentSkillsCommit": "b69a66ea4c7bc0d480068148778cb85a7bd6d8ba",
-  "installerCommit": "d7ccebc7eaf52afb3a829c53ee2e5f0435cab438",
-  "cliCommit": "0ac8382ab6a40dbe759feb8a35d272f87c4cf04f",
-  "lastRunArtifactDir": "docs-sync/artifacts/runs/2026-03-27T20-52-25/",
+  "lastSyncTimestamp": "2026-03-30T20:50:00Z",
+  "docsCommit": "51af4eba296ee30710e8277cdaf2fb35942382be",
+  "agentSkillsCommit": "88aa66e6f34879069666db3117fc14ed6b2475fb",
+  "installerCommit": "78b1ac053456b45aba02821c0176f4c8d3d8e23c",
+  "cliCommit": "68188c627efab7ebfb4de569324a18fd90513f85",
+  "lastRunArtifactDir": "docs-sync/artifacts/runs/2026-03-30T20-50-00/",
+  "syncedTargets": {
+    "cursorPlugin": true,
+    "claudePlugin": true
+  },
   "summary": {
-    "scanMode": "full",
-    "skillPatchesApplied": 23,
-    "skillFilesCreated": 10,
-    "skillFilesModified": 13,
-    "installerPatchesApplied": 4,
+    "scanMode": "incremental",
+    "skillPatchesApplied": 1,
+    "skillFilesCreated": 0,
+    "skillFilesModified": 1,
+    "installerPatchesApplied": 0,
     "cliDriftsReported": 0,
     "ruleCountAfter": {
       "velt-comments-best-practices": 50,
-      "velt-crdt-best-practices": 41,
+      "velt-crdt-best-practices": 44,
       "velt-notifications-best-practices": 17,
-      "velt-setup-best-practices": 21
+      "velt-setup-best-practices": 22
     },
     "verdict": "PASS"
   }

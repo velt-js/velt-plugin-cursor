@@ -31,6 +31,7 @@ AGENT_SKILLS_REPO="/Users/yoenzhang/Downloads/agent-skills"
 INSTALLER_REPO="/Users/yoenzhang/Downloads/velt-mcp-installer"
 CLI_REPO="/Users/yoenzhang/Downloads/add-velt-next-js"
 SAMPLE_APPS_REPO="/Users/yoenzhang/Downloads/sample-apps"
+CLAUDE_PLUGIN_ROOT="/Users/yoenzhang/Downloads/velt-plugin-claude"
 
 # Artifact paths
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%S")
@@ -103,6 +104,11 @@ for repo in "$DOCS_REPO" "$AGENT_SKILLS_REPO" "$INSTALLER_REPO" "$CLI_REPO" "$SA
     exit 1
   fi
 done
+
+if [ ! -d "$CLAUDE_PLUGIN_ROOT" ]; then
+  echo "[docs-sync] WARNING: Claude plugin repo not found at $CLAUDE_PLUGIN_ROOT"
+  echo "[docs-sync] Stage 9 will skip Claude plugin sync"
+fi
 
 # If --full, remove baseline to force full scan
 if [ "$FULL_SCAN" = true ]; then

@@ -15,7 +15,7 @@ You are a Skills Drift Detector. You compare documentation content against agent
 ## Inputs
 
 1. **Extracted content**: `docs-sync/artifacts/runs/{timestamp}/stage-1-extracted.json`
-2. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
+2. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
 3. **Agent-skills repo**: `/Users/yoenzhang/Downloads/agent-skills/skills/`
 
 ## Scope Restriction

@@ -18,7 +18,7 @@ Stage 5: Patch Planner        → prioritize, deduplicate, sequence patches
 Stage 6: Skills Patch Applier → auto-apply with 3 QA gates
 Stage 7: Installer Patcher    → human-gated installer patches
 Stage 8: CLI Reporter         → drift report for CLI maintainer
-Stage 9: Downstream Sync      → propagate to velt-plugin, update baseline
+Stage 9: Downstream Sync      → propagate to cursor + claude plugins, update baseline
 ```
 
 ## Repo Paths
@@ -28,14 +28,15 @@ Stage 9: Downstream Sync      → propagate to velt-plugin, update baseline
 - **Installer (human-gated)**: `/Users/yoenzhang/Downloads/velt-mcp-installer`
 - **CLI (report only)**: `/Users/yoenzhang/Downloads/add-velt-next-js`
 - **Sample-apps (baseline)**: `/Users/yoenzhang/Downloads/sample-apps`
-- **velt-plugin (propagation)**: `/Users/yoenzhang/Downloads/velt-plugin`
+- **Cursor plugin (propagation)**: `/Users/yoenzhang/Downloads/velt-plugin-cursor`
+- **Claude plugin (propagation)**: `/Users/yoenzhang/Downloads/velt-plugin-claude`
 
 ## Key Files
 
-- **Stage definitions**: `/Users/yoenzhang/Downloads/velt-plugin/.claude/agents/stage-{0-9}-*.md`
-- **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
-- **Baseline state**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/baselines/last-sync-state.json`
-- **Run artifacts**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/artifacts/runs/{timestamp}/`
+- **Stage definitions**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/.claude/agents/stage-{0-9}-*.md`
+- **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
+- **Baseline state**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/baselines/last-sync-state.json`
+- **Run artifacts**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/artifacts/runs/{timestamp}/`
 
 ## Execution Modes
 
@@ -81,12 +82,12 @@ For each stage, read the full agent definition from `.claude/agents/stage-{N}-*.
 Create a timestamped run directory:
 ```bash
 TIMESTAMP=$(date -u +"%Y-%m-%dT%H-%M-%S")
-mkdir -p /Users/yoenzhang/Downloads/velt-plugin/docs-sync/artifacts/runs/$TIMESTAMP
+mkdir -p /Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/artifacts/runs/$TIMESTAMP
 ```
 
 ### 2. Stage 0 — Scope Resolution (inline)
 
-Read `/Users/yoenzhang/Downloads/velt-plugin/.claude/agents/stage-0-scope-resolver.md` for full instructions.
+Read `/Users/yoenzhang/Downloads/velt-plugin-cursor/.claude/agents/stage-0-scope-resolver.md` for full instructions.
 
 Key actions:
 1. Check if `baselines/last-sync-state.json` exists (determines incremental vs full scan)
@@ -148,10 +149,11 @@ Format CLI drift findings into `stage-8-cli-drift-report.md`. Present key findin
 ### 9. Stage 9 — Downstream Sync (inline)
 
 If Stage 6 applied patches:
-1. Run `node scripts/sync-agent-skills.mjs` in velt-plugin
-2. Run `node scripts/build.mjs` in velt-plugin
-3. Run `node scripts/validate.mjs` in velt-plugin
-4. Update `baselines/last-sync-state.json`
+1. Run `npm run sync` in velt-plugin-cursor (syncs agent-skills to both cursor and claude plugins)
+2. Run `npm run build` in velt-plugin-cursor
+3. Run `npm run validate` in velt-plugin-cursor
+4. Validate agent-skills in velt-plugin-claude (inline checks)
+5. Update `baselines/last-sync-state.json`
 
 ## Reporting
 

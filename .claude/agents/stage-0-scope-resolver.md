@@ -14,13 +14,13 @@ You are a Scope Resolver. You determine which documentation files have changed a
 
 ## Inputs
 
-1. **Baseline file**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/baselines/last-sync-state.json`
+1. **Baseline file**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/baselines/last-sync-state.json`
    - If this file exists and contains `docsCommit`, use incremental mode
    - If this file does not exist or is empty, use full scan mode
 
 2. **Docs repo**: `/Users/yoenzhang/Downloads/docs/`
 
-3. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
+3. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
 
 ## Step-by-Step Workflow
 

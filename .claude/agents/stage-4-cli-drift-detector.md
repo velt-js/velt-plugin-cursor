@@ -17,7 +17,7 @@ You are a CLI Template Drift Detector. You compare the CLI's generated code temp
 1. **Extracted content**: `docs-sync/artifacts/runs/{timestamp}/stage-1-extracted.json`
 2. **CLI source**: `/Users/yoenzhang/Downloads/add-velt-next-js/bin/velt.js`
 3. **Sample apps**: `/Users/yoenzhang/Downloads/sample-apps/`
-4. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin/docs-sync/lib/docs-to-targets-map.json`
+4. **Target mapping**: `/Users/yoenzhang/Downloads/velt-plugin-cursor/docs-sync/lib/docs-to-targets-map.json`
 
 ## Step-by-Step Workflow
 
