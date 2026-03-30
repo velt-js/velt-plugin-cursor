@@ -141,9 +141,17 @@ function validateCursor() {
   // Logo
   checkFileExists(resolve(CURSOR, "assets", "velt.svg"), "Logo: assets/velt.svg");
 
-  // References (agent-skills are now installed by the user, not bundled)
-  console.log("\n  References:");
-  pass("Agent-skills referenced by name (user installs via npx skills add)");
+  // Bundled agent-skills
+  console.log("\n  Agent Skills:");
+  const agentSkills = [
+    "velt-setup-best-practices",
+    "velt-comments-best-practices",
+    "velt-crdt-best-practices",
+    "velt-notifications-best-practices",
+  ];
+  for (const skill of agentSkills) {
+    checkFileExists(resolve(CURSOR, "skills", skill, "SKILL.md"), `Bundled: ${skill}`);
+  }
 }
 
 // ─── Validate Claude Plugin ──────────────────────────────────────────────────
@@ -187,9 +195,17 @@ function validateClaude() {
   console.log("\n  Guides:");
   checkFileExists(resolve(CLAUDE, "guides", "velt-rules.md"), "Claude guide: velt-rules.md");
 
-  // References
-  console.log("\n  References:");
-  pass("Agent-skills referenced by name (user installs via npx skills add)");
+  // Bundled agent-skills
+  console.log("\n  Agent Skills:");
+  const claudeAgentSkills = [
+    "velt-setup-best-practices",
+    "velt-comments-best-practices",
+    "velt-crdt-best-practices",
+    "velt-notifications-best-practices",
+  ];
+  for (const skill of claudeAgentSkills) {
+    checkFileExists(resolve(CLAUDE, "skills", skill, "SKILL.md"), `Bundled: ${skill}`);
+  }
 }
 
 // ─── Validate Claude Marketplace ─────────────────────────────────────────────
