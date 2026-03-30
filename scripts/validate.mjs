@@ -18,9 +18,7 @@ import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = resolve(__dirname, "..");
-const CURSOR = resolve(ROOT, "packages", "cursor-velt");
-const CLAUDE = resolve(ROOT, "packages", "claude-velt");
-const MARKETPLACE = resolve(ROOT, "packages", "claude-marketplace");
+const CURSOR = ROOT; // Plugin outputs to repo root
 
 let errors = 0;
 let warnings = 0;
@@ -154,96 +152,14 @@ function validateCursor() {
   }
 }
 
-// ─── Validate Claude Plugin ──────────────────────────────────────────────────
-
-function validateClaude() {
-  console.log("\n═══ Claude Code Plugin ═══\n");
-
-  // Manifest
-  const manifest = parseJSON(resolve(CLAUDE, ".claude-plugin", "plugin.json"), "Claude plugin.json");
-  if (manifest) {
-    if (!manifest.name) fail("Claude manifest missing 'name'");
-    else pass(`Claude plugin name: ${manifest.name}`);
-    checkPathTraversal(manifest, "Claude manifest");
-  }
-
-  // MCP config
-  const mcp = parseJSON(resolve(CLAUDE, ".mcp.json"), "Claude .mcp.json");
-  if (mcp) {
-    if (!mcp.mcpServers) {
-      fail("Claude .mcp.json missing 'mcpServers'");
-    } else {
-      if (mcp.mcpServers["velt-installer"]) pass("MCP: velt-installer present");
-      else fail("MCP: velt-installer missing");
-      if (mcp.mcpServers["velt-docs"]) pass("MCP: velt-docs present");
-      else fail("MCP: velt-docs missing");
-    }
-    checkPathTraversal(mcp, "Claude .mcp.json");
-  }
-
-  // Skills
-  console.log("\n  Skills:");
-  for (const skill of REQUIRED_SKILLS) {
-    checkFileExists(resolve(CLAUDE, "skills", skill, "SKILL.md"), `Claude skill: ${skill}`);
-  }
-
-  // Agent
-  console.log("\n  Agent:");
-  checkFileExists(resolve(CLAUDE, "agents", "velt-expert.md"), "Claude agent: velt-expert");
-
-  // Rules guide
-  console.log("\n  Guides:");
-  checkFileExists(resolve(CLAUDE, "guides", "velt-rules.md"), "Claude guide: velt-rules.md");
-
-  // Bundled agent-skills
-  console.log("\n  Agent Skills:");
-  const claudeAgentSkills = [
-    "velt-setup-best-practices",
-    "velt-comments-best-practices",
-    "velt-crdt-best-practices",
-    "velt-notifications-best-practices",
-  ];
-  for (const skill of claudeAgentSkills) {
-    checkFileExists(resolve(CLAUDE, "skills", skill, "SKILL.md"), `Bundled: ${skill}`);
-  }
-}
-
-// ─── Validate Claude Marketplace ─────────────────────────────────────────────
-
-function validateMarketplace() {
-  console.log("\n═══ Claude Marketplace ═══\n");
-
-  const manifest = parseJSON(
-    resolve(MARKETPLACE, ".claude-plugin", "marketplace.json"),
-    "marketplace.json"
-  );
-  if (manifest) {
-    if (!manifest.name) fail("Marketplace missing 'name'");
-    else pass(`Marketplace name: ${manifest.name}`);
-    if (!manifest.owner?.name) fail("Marketplace missing 'owner.name'");
-    if (!manifest.plugins?.length) fail("Marketplace has no plugins");
-    else pass(`${manifest.plugins.length} plugin(s) listed`);
-    checkPathTraversal(manifest, "marketplace.json");
-  }
-
-  // Check marketplace plugin copy
-  if (existsSync(resolve(MARKETPLACE, "plugins", "velt", ".claude-plugin", "plugin.json"))) {
-    pass("Marketplace plugin copy exists");
-  } else {
-    warn("Marketplace plugin copy missing (run 'npm run build')");
-  }
-}
-
 // ─── Summary ─────────────────────────────────────────────────────────────────
 
 function main() {
   console.log("╔══════════════════════════════════════╗");
-  console.log("║  Velt Plugin Framework Validator     ║");
+  console.log("║  Velt Cursor Plugin Validator        ║");
   console.log("╚══════════════════════════════════════╝");
 
   validateCursor();
-  validateClaude();
-  validateMarketplace();
 
   console.log("\n══════════════════════════════════════");
   if (errors === 0 && warnings === 0) {

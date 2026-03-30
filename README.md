@@ -1,101 +1,60 @@
-# Velt Plugin
+# Velt Plugin for Cursor
 
-IDE plugins for the [Velt](https://velt.dev) collaboration SDK. Produces installable plugins for **Cursor** and **Claude Code** that provide AI-assisted setup of real-time collaboration features.
+Add real-time collaboration (comments, presence, cursors, CRDT editing, notifications) to React and Next.js apps using AI-assisted setup.
 
-## Pipeline
+## What You Get
 
-```
-Plugin (this repo)          → context: skills, rules, agents, MCP registration
-  ↓ registers
-MCP Installer (@velt-js/mcp-installer) → orchestration: guided setup, codebase scanning, validation
-  ↓ runs
-CLI (@velt-js/add-velt)     → scaffolding: file generation, dependency installation
-  ↓ references
-Agent Skills (velt-js/agent-skills) → implementation truth: 118 detailed rules for all features
-```
+- **8 slash commands**: `/install-velt`, `/add-comments`, `/add-crdt`, `/add-notifications`, `/add-presence`, `/add-cursors`, `/screenshot`, `/velt-help`
+- **4 agent-skills**: 118 implementation rules for setup, comments, CRDT, and notifications
+- **Velt Expert agent**: specialized AI persona for Velt architecture guidance
+- **6 embedded rules**: always-on best practices for setup, auth, document identity, comments, CRDT, notifications
+- **MCP servers**: velt-installer (guided setup) + velt-docs (documentation search)
 
-## What the Plugin Installs
+## Quick Start
 
-When a user installs the Cursor or Claude plugin, they get:
+1. Install the plugin in Cursor
+2. Open a React or Next.js project
+3. Type `/install-velt` in the chat
+4. Follow the guided setup
 
-| Component | Auto-installed? | Description |
-|-----------|:-:|---|
-| 8 slash commands | Yes | `/install-velt`, `/add-comments`, `/add-crdt`, `/add-notifications`, `/add-presence`, `/add-cursors`, `/screenshot`, `/velt-help` |
-| Embedded rules | Yes | 6 always-on best-practice guides (setup, auth, document identity, comments, CRDT, notifications) |
-| Velt Expert agent | Yes | AI persona specialized in Velt architecture |
-| MCP Installer | Lazy | Downloaded on-demand via `npx` when a skill runs |
-| Velt Docs MCP | Lazy | Documentation search via `docs.velt.dev/mcp` |
-| CLI | Lazy | Downloaded on-demand via `npx` when MCP installer runs |
-| Agent Skills | Manual | User runs `npx skills add velt-js/agent-skills` for detailed implementation rules |
+## Recommended: Install Agent Skills
 
-## Quick Start (Development)
+For the best results, also install the Velt agent-skills library:
 
 ```bash
-# Build both plugins from shared source
-npm run build
-
-# Validate both plugins
-npm run validate
-
-# Or both:
-npm run all
+npx skills add velt-js/agent-skills
 ```
 
-## Install Locally
-
-### Cursor
-
-Point Cursor at the built plugin directory:
-
-1. Open Cursor Settings → Plugins
-2. Add local plugin path: `<repo>/packages/cursor-velt`
-
-### Claude Code
+## Development
 
 ```bash
-claude --plugin-dir packages/claude-velt
+npm run sync      # Copy agent-skills from ../agent-skills
+npm run build     # Build plugin from packages/shared source
+npm run validate  # Validate plugin completeness
+npm run all       # All three in sequence
 ```
 
-## Architecture
+## Structure
 
 ```
-velt-plugin/
-├── packages/
-│   ├── shared/                     # Single source of truth
-│   │   ├── skills-src/             # Canonical skill content (8 skills)
-│   │   ├── rules-src/              # Canonical rule content (6 rule files)
-│   │   └── agents-src/             # Canonical agent persona
-│   │
-│   ├── cursor-velt/                # Built Cursor plugin (Open Plugins standard)
-│   │   ├── .plugin/plugin.json     # Vendor-neutral manifest
-│   │   ├── .cursor-plugin/plugin.json  # Cursor-compat manifest
-│   │   ├── .mcp.json              # MCP server registration
-│   │   ├── skills/*/SKILL.md      # 8 skills
-│   │   ├── rules/*.mdc            # 6 embedded rules
-│   │   ├── agents/velt-expert.md
-│   │   └── assets/velt.svg
-│   │
-│   ├── claude-velt/                # Built Claude Code plugin
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── .mcp.json
-│   │   ├── skills/*/SKILL.md      # 8 skills
-│   │   ├── agents/velt-expert.md
-│   │   └── guides/velt-rules.md   # Combined rules guide
-│   │
-│   └── claude-marketplace/         # Optional marketplace wrapper
-│
-└── scripts/
-    ├── build.mjs                   # Generates both plugins from shared source
-    └── validate.mjs                # Validates both plugins are complete
+velt-plugin/                    (repo root = plugin root)
+├── .plugin/plugin.json         # Open Plugins manifest
+├── .cursor-plugin/plugin.json  # Cursor compat manifest
+├── .mcp.json                   # MCP server registration
+├── skills/                     # 8 plugin skills + 4 bundled agent-skills
+├── rules/                      # 6 embedded .mdc rules
+├── agents/                     # velt-expert agent
+├── assets/                     # Logo
+└── packages/shared/            # Source of truth for build
 ```
 
-## Related Repositories
+## Related
 
-| Repository | npm Package | Role |
-|-----------|------------|------|
-| [velt-js/agent-skills](https://github.com/velt-js/agent-skills) | `npx skills add velt-js/agent-skills` | 118 implementation rules (canonical source of truth) |
-| [velt-js/velt-mcp-installer](https://github.com/velt-js/velt-mcp-installer) | `@velt-js/mcp-installer` | MCP server for AI-guided installation |
-| [velt-js/add-velt-next-js](https://github.com/velt-js/add-velt-next-js) | `@velt-js/add-velt` | CLI scaffolder for Velt files and dependencies |
+- [Velt Plugin for Claude Code](https://github.com/velt-js/velt-plugin-claude)
+- [Velt Agent Skills](https://github.com/velt-js/agent-skills) (118 implementation rules)
+- [Velt MCP Installer](https://www.npmjs.com/package/@velt-js/mcp-installer)
+- [Velt CLI](https://www.npmjs.com/package/@velt-js/add-velt)
+- [Velt Documentation](https://docs.velt.dev)
 
 ## License
 

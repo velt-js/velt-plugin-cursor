@@ -26,8 +26,7 @@ const ROOT = resolve(__dirname, "..");
 const defaultSource = resolve(ROOT, "..", "agent-skills", "skills");
 const source = process.argv[2] ? resolve(process.argv[2]) : defaultSource;
 
-const CURSOR = resolve(ROOT, "packages", "cursor-velt", "skills");
-const CLAUDE = resolve(ROOT, "packages", "claude-velt", "skills");
+const CURSOR = resolve(ROOT, "skills");
 
 const AGENT_SKILLS = [
   "velt-setup-best-practices",
@@ -73,17 +72,10 @@ function copySkill(skillName, targetDir) {
   return true;
 }
 
-// Copy to Cursor plugin
-console.log(`[sync] Copying agent-skills to Cursor plugin...`);
+// Copy to plugin skills directory (repo root)
+console.log(`[sync] Copying agent-skills to plugin...`);
 for (const skill of AGENT_SKILLS) {
   const ok = copySkill(skill, CURSOR);
-  console.log(`[sync]   ${ok ? "✓" : "✗"} ${skill}`);
-}
-
-// Copy to Claude plugin
-console.log(`[sync] Copying agent-skills to Claude plugin...`);
-for (const skill of AGENT_SKILLS) {
-  const ok = copySkill(skill, CLAUDE);
   console.log(`[sync]   ${ok ? "✓" : "✗"} ${skill}`);
 }
 
