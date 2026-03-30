@@ -1,0 +1,54 @@
+---
+description: Velt best practices - crdt
+alwaysApply: false
+globs: ["**/*editor*", "**/*crdt*", "**/*tiptap*", "**/*Editor*"]
+---
+
+# Velt CRDT Rules
+
+## Installation
+React: `npm install @veltdev/crdt-react @veltdev/crdt @veltdev/react`
+Other: `npm install @veltdev/crdt @veltdev/client`
+
+## Store Types
+| Type | Yjs Type | Use Case |
+|------|----------|----------|
+| text | Y.Text | Notes, code, plain text |
+| array | Y.Array | Lists, queues, sequences |
+| map | Y.Map | Settings, forms, key-value |
+| xml | Y.XmlFragment | Rich editors (Tiptap, BlockNote) |
+
+## React Hook
+```jsx
+import { useVeltCrdtStore } from '@veltdev/crdt-react';
+
+const { value, update, store } = useVeltCrdtStore({
+  id: 'my-store',
+  type: 'text',
+  initialValue: '',
+});
+```
+
+## Tiptap CRDT Integration
+```bash
+npm install @veltdev/tiptap-crdt-react @tiptap/react @tiptap/starter-kit @tiptap/extension-collaboration @tiptap/extension-collaboration-cursor
+```
+```jsx
+import { useVeltTiptapCrdtExtension } from '@veltdev/tiptap-crdt-react';
+
+const { VeltCrdt } = useVeltTiptapCrdtExtension({ editorId: 'my-editor' });
+
+const editor = useEditor({
+  extensions: [
+    StarterKit.configure({ history: false }), // CRITICAL: disable history
+    ...(VeltCrdt ? [VeltCrdt] : []),
+  ],
+}, [VeltCrdt]);
+```
+
+## Critical Rules
+- ALWAYS disable Tiptap history when using CRDT: `StarterKit.configure({ history: false })`
+- VeltProvider must wrap app before creating CRDT stores
+- Store ID must be unique per collaborative instance
+- Add CSS for collaboration cursors (see tiptap-cursor-css rule)
+- Use editorId to uniquely identify each editor instance

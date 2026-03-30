@@ -1,0 +1,69 @@
+---
+description: Velt best practices - comments
+alwaysApply: false
+globs: ["**/*comment*", "**/*velt*", "**/*Comment*"]
+---
+
+# Velt Comments Rules
+
+## Core Setup
+1. VeltProvider with apiKey wraps app
+2. User authenticated (authProvider or useIdentify)
+3. Document set (setDocuments or useSetDocument)
+4. Add VeltComments component
+
+## Comment Modes
+
+### Freestyle (default)
+Click anywhere to pin comments. Add VeltCommentTool for the comment button.
+```jsx
+<VeltComments />
+<VeltCommentTool />
+```
+
+### Popover (Google Sheets-style)
+Comments bound to specific elements via targetElementId.
+```jsx
+<VeltComments popoverMode={true} />
+<VeltCommentTool targetElementId="cell-id" />
+<VeltCommentBubble targetElementId="cell-id" />
+```
+
+### Text (highlight comments)
+Select text to comment. Enabled by default.
+```jsx
+<VeltComments textMode={true} />
+```
+
+### Stream (Google Docs-style)
+Comments in a side column, scroll-synced.
+```jsx
+<VeltComments streamMode={true} streamViewContainerId="scrolling-container" />
+```
+
+### Page (page-level sidebar)
+```jsx
+<VeltComments />
+<VeltCommentsSidebar pageMode={true} />
+<VeltSidebarButton />
+```
+
+### TipTap Editor Integration
+```bash
+npm install @veltdev/tiptap-velt-comments
+```
+```jsx
+import { TiptapVeltComments, addComment, renderComments } from '@veltdev/tiptap-velt-comments';
+
+// Disable default text mode when using editor
+<VeltComments textMode={false} />
+
+// Add extension to editor
+extensions: [StarterKit, TiptapVeltComments]
+```
+
+## Key Rules
+- VeltCommentTool is required for users to initiate freestyle comments
+- For popover mode: each element needs a unique ID + matching targetElementId
+- For editor integrations (TipTap/Lexical/Slate): disable textMode={false}
+- Comments sidebar: use VeltCommentsSidebar + VeltSidebarButton

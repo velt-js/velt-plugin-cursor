@@ -289,6 +289,30 @@ function buildClaudeMarketplace() {
   cpSync(CLAUDE, marketplacePluginDir, { recursive: true });
 }
 
+// ─── Copy Cursor Plugin to Repo Root (for scanner compatibility) ────────────
+
+function copyToRepoRoot() {
+  console.log("[build] Copying Cursor plugin to repo root (scanner compat)...");
+
+  const dirs = ["skills", "rules", "agents", "assets", ".plugin", ".cursor-plugin"];
+  const files = [".mcp.json"];
+
+  for (const dir of dirs) {
+    const src = resolve(CURSOR, dir);
+    const dest = resolve(ROOT, dir);
+    if (!existsSync(src)) continue;
+    if (existsSync(dest)) rmSync(dest, { recursive: true, force: true });
+    cpSync(src, dest, { recursive: true });
+  }
+
+  for (const file of files) {
+    const src = resolve(CURSOR, file);
+    const dest = resolve(ROOT, file);
+    if (!existsSync(src)) continue;
+    cpSync(src, dest);
+  }
+}
+
 // ─── Main ────────────────────────────────────────────────────────────────────
 
 function main() {
@@ -305,6 +329,7 @@ function main() {
   buildCursorManifestAndMcp();
   copyAssets();
   buildClaudeMarketplace();
+  copyToRepoRoot();
 
   console.log("\n[build] Build complete.");
   console.log("[build] Cursor plugin: packages/cursor-velt/");
