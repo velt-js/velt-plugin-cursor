@@ -18,8 +18,14 @@ Use when the user wants to set up Velt from scratch, add Velt to an existing pro
    - If the tool returns `awaiting_discovery_verification`: show scan results, ask the user to verify.
    - If the tool returns `awaiting_manual_wiring_answers`: present the questionnaire to the user.
    - If the tool returns `plan_generated`: show the plan and ask for approval.
-3. Once approved, call `install_velt_interactive` with `stage: "apply"` and the verified wiring data.
-4. After installation, run validation and report results.
+3. Once the plan is approved, **BEFORE implementing, read the relevant agent-skills rules** for the selected features:
+   - **Always read:** identity-jwt-generation, debug-multi-user-testing rules from velt-setup-best-practices
+   - **For CRDT (Tiptap):** read tiptap-setup-react, tiptap-nextjs-ssr, tiptap-cursor-css, tiptap-comments-integration, tiptap-initial-content rules from velt-crdt-best-practices
+   - **For Comments (editor-integrated):** read mode-tiptap (or mode-lexical/mode-slate) rule from velt-comments-best-practices
+   - Then implement following those rules exactly — do not improvise patterns
+4. After implementing, run `npm run build` to verify. If the build fails, read the error, fix it, and rebuild. Do not declare success until the build passes.
+5. Call `install_velt_interactive` with `stage: "apply"` for final validation.
+6. Report validation results.
 
 ## Guardrails
 - ALWAYS ask ONE question at a time — never batch questions.
