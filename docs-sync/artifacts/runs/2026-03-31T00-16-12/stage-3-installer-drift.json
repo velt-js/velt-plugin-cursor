@@ -1,0 +1,116 @@
+{
+  "runTimestamp": "2026-03-31T00:16:12Z",
+  "installerAreasChecked": [
+    "src/utils/velt-docs-urls.js — VELT_DOCS_URLS mappings (24 URLs checked)",
+    "src/utils/velt-docs-fetcher.js — FEATURE_SKILL_MAP (4 skill names checked against agent-skills/skills/)",
+    "src/utils/plan-formatter.js — setup step sequences, component/import references",
+    "src/utils/validation.js — VeltProvider placement check, VeltCommentsSidebar placement check, @veltdev/react dependency check"
+  ],
+  "drifts": [
+    {
+      "id": "inst-drift-001",
+      "type": "stale_url",
+      "severity": "high",
+      "confidence": "high",
+      "blocking": true,
+      "installerFile": "src/utils/velt-docs-urls.js",
+      "installerEvidence": {
+        "text": "overview: 'https://docs.velt.dev/multiplayer-editing/overview'",
+        "lineRange": [64, 64]
+      },
+      "docSource": "realtime-collaboration/crdt/overview.mdx",
+      "docEvidence": {
+        "text": "---\ntitle: Overview\ndescription: CRDT (Yjs) based collaborative editing.\n---",
+        "lineRange": [1, 4]
+      },
+      "description": "VELT_DOCS_URLS.crdt.overview points to 'https://docs.velt.dev/multiplayer-editing/overview', but the directory 'multiplayer-editing/' does not exist in the docs repo. The actual CRDT overview lives at 'realtime-collaboration/crdt/overview.mdx', which maps to 'https://docs.velt.dev/realtime-collaboration/crdt/overview'. Any fetch of this URL (e.g., via getDocMarkdownUrl for the crdt overview) will 404.",
+      "suggestedFix": "In src/utils/velt-docs-urls.js line 64, change:\n  overview: 'https://docs.velt.dev/multiplayer-editing/overview',\nto:\n  overview: 'https://docs.velt.dev/realtime-collaboration/crdt/overview',"
+    },
+    {
+      "id": "inst-drift-002",
+      "type": "missing_url",
+      "severity": "medium",
+      "confidence": "high",
+      "blocking": false,
+      "installerFile": "src/utils/velt-docs-urls.js",
+      "installerEvidence": {
+        "text": "setup: {\n  freestyle: 'https://docs.velt.dev/async-collaboration/comments/setup/freestyle',\n  popover: '...',\n  page: '...',\n  text: '...',\n  inline: '...',\n  tiptap: '...',\n  lexical: '...',\n  slate: '...'\n  // stream is absent\n}",
+        "lineRange": [18, 28]
+      },
+      "docSource": "async-collaboration/comments/setup/stream.mdx",
+      "docEvidence": {
+        "text": "File exists at async-collaboration/comments/setup/stream.mdx (URL: https://docs.velt.dev/async-collaboration/comments/setup/stream)",
+        "lineRange": null
+      },
+      "description": "The 'stream' comment mode has a docs setup page at async-collaboration/comments/setup/stream.mdx and a test instruction in plan-formatter.js (line 105), but has no entry in VELT_DOCS_URLS.comments.setup. When 'stream' is passed as commentType to getDocUrl('comments', 'stream'), the lookup falls through to the featureConfig.setup fallback (line 110 of velt-docs-urls.js), returning the base setup object rather than the stream-specific URL. Any markdown fetch for stream comments will silently use the wrong URL.",
+      "suggestedFix": "In src/utils/velt-docs-urls.js, add 'stream' to VELT_DOCS_URLS.comments.setup after line 27:\n  slate: 'https://docs.velt.dev/async-collaboration/comments/setup/slatejs',\n  stream: 'https://docs.velt.dev/async-collaboration/comments/setup/stream',"
+    },
+    {
+      "id": "inst-drift-003",
+      "type": "stale_validation",
+      "severity": "high",
+      "confidence": "high",
+      "blocking": true,
+      "installerFile": "src/utils/validation.js",
+      "installerEvidence": {
+        "text": "// Check 3: VeltProvider in layout\n...\nconst layoutPaths = [\n  'app/layout.tsx',\n  'app/layout.js',\n  'src/app/layout.tsx',\n  'src/app/layout.js',\n];\n...\nhasVeltProvider = layoutContent.includes('VeltProvider');\n...\nname: 'VeltProvider configured',\nstatus: hasVeltProvider ? 'pass' : 'fail',\nmessage: hasVeltProvider ? 'VeltProvider found in layout' : 'VeltProvider not found in layout'",
+        "lineRange": [402, 434]
+      },
+      "docSource": "get-started/mcp-installer.mdx",
+      "docEvidence": {
+        "text": "The installer recommends placing `VeltProvider` in `app/page.tsx`, not `app/layout.tsx`. Follow this recommendation unless you have a specific reason to do otherwise.\n...\n├── page.tsx                # Contains VeltProvider with authProvider hook",
+        "lineRange": [153, 208]
+      },
+      "description": "validation.js Check 3 (validateInstallation) searches only layout.tsx files for VeltProvider and marks it 'fail' if not found there. However, mcp-installer.mdx explicitly states VeltProvider belongs in app/page.tsx, not app/layout.tsx. plan-formatter.js (lines 158, 292) also enforces 'VeltProvider goes in ${locationText}, NOT in layout.tsx'. A correctly installed project will always fail this check, producing false 'VeltProvider not found in layout' errors and an incorrect score.",
+      "suggestedFix": "In src/utils/validation.js, replace Check 3 to search page files as the primary location and layout as an optional fallback:\n\n    // Check 3: VeltProvider in page (primary) or layout (legacy fallback)\n    total++;\n    const veltProviderPagePaths = [\n      'app/page.tsx', 'app/page.js',\n      'src/app/page.tsx', 'src/app/page.js',\n      'app/layout.tsx', 'app/layout.js',\n      'src/app/layout.tsx', 'src/app/layout.js',\n    ];\n    let hasVeltProvider = false;\n    for (const p of veltProviderPagePaths) {\n      const fullPath = path.join(projectPath, p);\n      if (fs.existsSync(fullPath) && fs.readFileSync(fullPath, 'utf-8').includes('VeltProvider')) {\n        hasVeltProvider = true;\n        break;\n      }\n    }\n    checks.push({\n      name: 'VeltProvider configured',\n      status: hasVeltProvider ? 'pass' : 'fail',\n      message: hasVeltProvider ? 'VeltProvider found in page or layout' : 'VeltProvider not found in page.tsx or layout.tsx',\n    });\n    if (hasVeltProvider) passed++;"
+    },
+    {
+      "id": "inst-drift-004",
+      "type": "stale_validation",
+      "severity": "medium",
+      "confidence": "high",
+      "blocking": false,
+      "installerFile": "src/utils/validation.js",
+      "installerEvidence": {
+        "text": "// Check 5: VeltCommentsSidebar in layout\n...\nhasVeltSidebar = layoutContent.includes('VeltCommentsSidebar');\n...\nname: 'VeltCommentsSidebar added',\nstatus: hasVeltSidebar ? 'pass' : 'fail',\nmessage: hasVeltSidebar ? 'VeltCommentsSidebar found in layout' : 'VeltCommentsSidebar not found in layout'",
+        "lineRange": [470, 495]
+      },
+      "docSource": "get-started/mcp-installer.mdx",
+      "docEvidence": {
+        "text": "└── VeltCollaboration.tsx       # All Velt feature components\n...\n├── page.tsx                # Contains VeltProvider with authProvider hook",
+        "lineRange": [207, 216]
+      },
+      "description": "validation.js Check 5 looks for 'VeltCommentsSidebar' in layout.tsx. In the installer's own scaffolding pattern, all Velt feature components (including VeltCommentsSidebar) are encapsulated inside the CLI-generated VeltCollaboration.tsx, which is placed inside VeltProvider in page.tsx — not in layout.tsx. A correctly installed project will always fail this check. Additionally, the check only activates when layoutFound=true (from Check 3's layout file scan), creating a dependency on the already-broken Check 3 logic.",
+      "suggestedFix": "In src/utils/validation.js, replace Check 5 to look for VeltCollaboration in page.tsx (the canonical pattern), and optionally also accept VeltCommentsSidebar in page.tsx for direct-wired setups:\n\n    // Check 5: VeltCollaboration (or VeltCommentsSidebar) in page\n    total++;\n    let hasVeltFeatures = false;\n    for (const pagePath of pagePaths) {\n      const fullPath = path.join(projectPath, pagePath);\n      if (fs.existsSync(fullPath)) {\n        const content = fs.readFileSync(fullPath, 'utf-8');\n        if (content.includes('VeltCollaboration') || content.includes('VeltCommentsSidebar')) {\n          hasVeltFeatures = true;\n          break;\n        }\n      }\n    }\n    checks.push({\n      name: 'Velt feature components added',\n      status: hasVeltFeatures ? 'pass' : 'fail',\n      message: hasVeltFeatures ? 'VeltCollaboration or VeltCommentsSidebar found in page' : 'VeltCollaboration not found in page.tsx',\n    });\n    if (hasVeltFeatures) passed++;"
+    }
+  ],
+  "stats": {
+    "totalDrifts": 4,
+    "blocking": 2,
+    "cosmetic": 0,
+    "bySeverity": {
+      "high": 2,
+      "medium": 2,
+      "low": 0
+    },
+    "byType": {
+      "stale_url": 1,
+      "missing_url": 1,
+      "stale_skill_map": 0,
+      "stale_plan_template": 0,
+      "stale_validation": 2
+    },
+    "skillMapChecked": {
+      "setup": { "mapped": "velt-setup-best-practices", "directoryExists": true },
+      "provider": { "mapped": "velt-setup-best-practices", "directoryExists": true },
+      "auth": { "mapped": "velt-setup-best-practices", "directoryExists": true },
+      "document": { "mapped": "velt-setup-best-practices", "directoryExists": true },
+      "comments": { "mapped": "velt-comments-best-practices", "directoryExists": true },
+      "crdt": { "mapped": "velt-crdt-best-practices", "directoryExists": true },
+      "notifications": { "mapped": "velt-notifications-best-practices", "directoryExists": true }
+    },
+    "urlsChecked": 24,
+    "urlsMissing": 1,
+    "urlsMissingEntry": 1
+  }
+}

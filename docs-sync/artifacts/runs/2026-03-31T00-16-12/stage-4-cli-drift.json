@@ -1,0 +1,176 @@
+{
+  "runTimestamp": "2026-03-31T00:16:12Z",
+  "cliAreasChecked": [
+    "setup",
+    "comments",
+    "notifications",
+    "presence",
+    "cursors",
+    "reactflow-crdt",
+    "tiptap-crdt",
+    "codemirror-crdt",
+    "ui-customization",
+    "auto-wiring"
+  ],
+  "drifts": [
+    {
+      "id": "cli-drift-001",
+      "type": "stale_dependency",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "baseline: {\n    production: { '@veltdev/react': '^4.0.0' },\n    development: { '@veltdev/types': '^4.0.0' }\n}",
+        "lineRange": [38, 42]
+      },
+      "comparisonSource": "sample-apps/package.json + sample-apps/apps/react/crdt/text-editors/tiptap/tiptap-crdt-demo/package.json",
+      "comparisonEvidence": {
+        "text": "\"@veltdev/react\": \"5.0.2-beta.11\" (root workspace)\n\"@veltdev/react\": \"5.0.2-beta.9\" (all app-level package.json files)",
+        "lineRange": null
+      },
+      "description": "CLI baseline dependency pins @veltdev/react to ^4.0.0 and @veltdev/types to ^4.0.0, but all sample-apps have migrated to v5.x (5.0.2-beta.9 / 5.0.2-beta.11). This is a MAJOR version gap. Any user installing with the CLI will get a v4 package while docs, sample-apps, and ongoing development target v5. If the v5 API surface differs (new hooks, renamed props, removed components), generated files will fail.",
+      "suggestedFix": "Update DEPS.baseline.production to '@veltdev/react': '^5.0.0' and DEPS.baseline.development to '@veltdev/types': '^5.0.0'. Align with velt-versions.json which tracks the canonical versions."
+    },
+    {
+      "id": "cli-drift-002",
+      "type": "stale_dependency",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "'reactflow-crdt': {\n    production: {\n        '@veltdev/reactflow-crdt': '^4.0.0',\n        'yjs': 'latest'\n    }\n},",
+        "lineRange": [53, 60]
+      },
+      "comparisonSource": "sample-apps/apps/react/crdt/canvas/reactflow/reactflow-demo/package.json",
+      "comparisonEvidence": {
+        "text": "\"@veltdev/reactflow-crdt\": \"5.0.0\"",
+        "lineRange": [13, 13]
+      },
+      "description": "CLI pins @veltdev/reactflow-crdt to ^4.0.0 but the reference sample-app uses 5.0.0. This is a major version mismatch. The v5 CRDT packages have breaking changes relative to v4 (peer dependency requirements, API surface changes). Generated code importing from ^4 will be incompatible with the v5 @veltdev/react package co-installed by the baseline.",
+      "suggestedFix": "Update DEPS['reactflow-crdt'].production to '@veltdev/reactflow-crdt': '^5.0.0'. Align with sample-apps/velt-versions.json."
+    },
+    {
+      "id": "cli-drift-003",
+      "type": "stale_dependency",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "'tiptap-crdt': {\n    production: {\n        '@veltdev/tiptap-crdt': '^4.0.0',\n        '@veltdev/tiptap-crdt-react': '^4.0.0',\n        '@veltdev/tiptap-velt-comments': 'latest',\n        ...\n    }\n},",
+        "lineRange": [62, 81]
+      },
+      "comparisonSource": "sample-apps/apps/react/crdt/text-editors/tiptap/tiptap-crdt-demo/package.json",
+      "comparisonEvidence": {
+        "text": "\"@veltdev/tiptap-crdt\": \"5.0.0\",\n\"@veltdev/tiptap-crdt-react\": \"5.0.0\",\n\"@veltdev/tiptap-velt-comments\": \"5.0.0-beta.2\"",
+        "lineRange": [21, 23]
+      },
+      "description": "CLI pins @veltdev/tiptap-crdt and @veltdev/tiptap-crdt-react to ^4.0.0 while sample-apps use 5.0.0. Additionally, @veltdev/tiptap-velt-comments is set to 'latest' in the CLI with an in-code comment explaining the 5.x requirement for Tiptap v3 compatibility, yet the hardcoded base versions remain ^4.0.0. The inconsistency means users get a mixed v4/v5 install.",
+      "suggestedFix": "Update DEPS['tiptap-crdt'].production: '@veltdev/tiptap-crdt': '^5.0.0', '@veltdev/tiptap-crdt-react': '^5.0.0', '@veltdev/tiptap-velt-comments': '^5.0.0'. Remove the workaround comment about 'latest' for tiptap-velt-comments."
+    },
+    {
+      "id": "cli-drift-004",
+      "type": "stale_dependency",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "'codemirror-crdt': {\n    production: {\n        '@veltdev/codemirror-crdt': '^4.0.0',\n        '@veltdev/codemirror-crdt-react': '^4.0.0',\n        ...\n    }\n}",
+        "lineRange": [83, 91]
+      },
+      "comparisonSource": "sample-apps/apps/react/crdt/text-editors/codemirror/codemirror-crdt-demo/package.json + sample-apps/velt-versions.json",
+      "comparisonEvidence": {
+        "text": "\"@veltdev/codemirror-crdt\": \"4.5.8\" (velt-versions.json) — but workspace root @veltdev/react is 5.x. Sample codemirror demo uses @veltdev/react 5.0.2-beta.9",
+        "lineRange": null
+      },
+      "description": "CLI pins @veltdev/codemirror-crdt and @veltdev/codemirror-crdt-react to ^4.0.0. The velt-versions.json still tracks 4.5.8 for codemirror-crdt, but these packages must be peer-compatible with the @veltdev/react baseline. Since baseline is being bumped to v5, codemirror CRDT packages must also be verified and updated to their v5-compatible releases.",
+      "suggestedFix": "Verify peer-dependency compatibility of @veltdev/codemirror-crdt with @veltdev/react v5. Update version to the v5-compatible release (e.g., '^5.0.0') once confirmed. Do not mix ^4 CRDT packages with a ^5 @veltdev/react baseline."
+    },
+    {
+      "id": "cli-drift-005",
+      "type": "missing_directive",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "const TEMPLATE_VELT_INITIALIZE_DOCUMENT = `import { useEffect } from 'react';\nimport { useSetDocuments } from '@veltdev/react';\n\n// [Velt] Initialize Velt document\nexport default function VeltInitializeDocument() {",
+        "lineRange": [294, 298]
+      },
+      "comparisonSource": "docs/get-started/quickstart.mdx",
+      "comparisonEvidence": {
+        "text": "If using Next.js, add 'use client' directive at the top of files containing Velt components to ensure proper client-side rendering.",
+        "lineRange": [92, 92]
+      },
+      "description": "TEMPLATE_VELT_INITIALIZE_DOCUMENT generates a file that uses the useSetDocuments React hook but does NOT include a 'use client' directive at the top. In Next.js App Router, any file using React hooks must have 'use client' as the first line. Without it the file is treated as a Server Component and the hook call will throw a build-time error ('You're importing a component that needs useState. It only works in a Client Component...'). This will cause the generated integration to fail to compile.",
+      "suggestedFix": "Add '\"use client\";' as the first line of TEMPLATE_VELT_INITIALIZE_DOCUMENT (before the imports). All other VeltCollaboration/VeltTools templates already include this directive."
+    },
+    {
+      "id": "cli-drift-006",
+      "type": "missing_directive",
+      "severity": "high",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "const wrapperComponent = `\n// Velt wrapper component for client-side provider\n\"use client\";\nfunction VeltClientWrapper({ children }: { children: React.ReactNode }) {",
+        "lineRange": [1414, 1417]
+      },
+      "comparisonSource": "docs/get-started/quickstart.mdx + Next.js App Router specification",
+      "comparisonEvidence": {
+        "text": "'use client'; // MAKE SURE TO INCLUDE 'use client' for Next.js implementation\n\nimport { VeltProvider } from '@veltdev/react';\n\nexport default function App() { ... }",
+        "lineRange": [96, 107]
+      },
+      "description": "The auto-wiring function injects a VeltClientWrapper component into the existing layout.tsx file with '\"use client\";' embedded mid-file (after other imports). In Next.js App Router, '\"use client\"' is only valid as the VERY FIRST line of a module — it acts as a module-level directive that must precede all imports. Injecting it mid-file as a string before a function definition does NOT turn that function into a client component; it is silently ignored or treated as a runtime string expression. This means VeltProvider, useVeltAuthProvider, and VeltCollaboration all execute in a Server Component context, which will throw at runtime.",
+      "suggestedFix": "Instead of injecting VeltClientWrapper inline into layout.tsx, generate a dedicated 'components/velt/VeltClientWrapper.tsx' file with '\"use client\"' at the top. Then add a single import of VeltClientWrapper into layout.tsx. This matches the pattern recommended in the docs (separate client boundary file)."
+    },
+    {
+      "id": "cli-drift-007",
+      "type": "stale_dependency",
+      "severity": "medium",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "'@tiptap/extension-collaboration-caret': '^3.0.0',",
+        "lineRange": [72, 72]
+      },
+      "comparisonSource": "docs/realtime-collaboration/crdt/setup/tiptap.mdx",
+      "comparisonEvidence": {
+        "text": "npm install @veltdev/tiptap-crdt-react @tiptap/react @tiptap/starter-kit @tiptap/extension-collaboration @tiptap/extension-collaboration-cursor",
+        "lineRange": [24, 24]
+      },
+      "description": "The CLI's tiptap-crdt DEPS includes '@tiptap/extension-collaboration-caret' but the docs explicitly specify '@tiptap/extension-collaboration-cursor' for React/Next.js. These are different packages: 'caret' is referenced in the docs under the 'Other Frameworks' tab (non-React), while 'cursor' is the correct package for the React integration path. The sample React tiptap-crdt-demo does NOT list @tiptap/extension-collaboration-caret in its dependencies, confirming the caret package is not needed for the React path. Installing the wrong package causes the named import CollaborationCaret to be missing from the cursor package, potentially causing compilation errors.",
+      "suggestedFix": "Replace '@tiptap/extension-collaboration-caret': '^3.0.0' with '@tiptap/extension-collaboration-cursor': '^3.0.0' in DEPS['tiptap-crdt'].production. This matches the docs React/Next.js install command and the sample-app dependency list."
+    },
+    {
+      "id": "cli-drift-008",
+      "type": "missing_feature",
+      "severity": "medium",
+      "confidence": "high",
+      "cliFile": "bin/velt.js",
+      "cliEvidence": {
+        "text": "const TEMPLATE_VELT_TOOLS_CRDT_REACTFLOW = `\"use client\";\nimport { VeltPresence, VeltSidebarButton, VeltNotificationsTool, VeltHuddleTool } from \"@veltdev/react\";\n\nfunction VeltTools() {\n  return (\n    <>\n      <VeltPresence />\n      <VeltSidebarButton />\n      <VeltNotificationsTool ... />\n      <VeltHuddleTool type='all' />\n    </>\n  );\n}",
+        "lineRange": [636, 659]
+      },
+      "comparisonSource": "docs/realtime-collaboration/huddle/setup.mdx",
+      "comparisonEvidence": {
+        "text": "import { VeltHuddle, VeltHuddleTool } from '@veltdev/react';\n...\nAdd the VeltHuddle component to the root of your app.\n<VeltHuddle />\n...\nAdd the VeltHuddleTool component wherever you want to show the Huddle tool button.",
+        "lineRange": [16, 41]
+      },
+      "description": "The CLI's ReactFlow CRDT VeltTools template includes VeltHuddleTool but does not include the required VeltHuddle companion component. Per the docs, VeltHuddle must be added at the root of the app — it renders the Huddle UI overlay and is required for any huddle session to actually function. Without VeltHuddle, clicking the VeltHuddleTool button will silently fail to initiate a session. This affects both TEMPLATE_VELT_TOOLS_CRDT_REACTFLOW (static, line 636) and the dynamic generateVeltToolsTemplate function (line 1154) which also only renders VeltHuddleTool without VeltHuddle.",
+      "suggestedFix": "Add VeltHuddle to the VeltCollaboration template (not VeltTools, since it should render at the root level). Import VeltHuddle from '@veltdev/react' and add '<VeltHuddle />' alongside '<VeltCursor />' in TEMPLATE_VELT_COLLABORATION_REACTFLOW, TEMPLATE_VELT_COLLABORATION_ALL_REACTFLOW, and the corresponding generateVeltCollaborationTemplate reactflow branch."
+    }
+  ],
+  "stats": {
+    "totalDrifts": 8,
+    "bySeverity": {
+      "high": 6,
+      "medium": 2,
+      "low": 0
+    },
+    "byType": {
+      "stale_dependency": 5,
+      "missing_directive": 2,
+      "missing_feature": 1,
+      "stale_template": 0,
+      "stale_pattern": 0
+    }
+  }
+}

@@ -1,0 +1,357 @@
+{
+  "runTimestamp": "2026-03-31T00:16:12Z",
+  "summary": {
+    "totalDrifts": 27,
+    "skillsAutoApply": 15,
+    "installerHumanReview": 4,
+    "cliReportOnly": 8,
+    "skippedP3": 0
+  },
+  "autoApply": {
+    "skills": [
+      {
+        "patchId": "patch-001",
+        "driftId": "drift-001",
+        "changeGroup": "cg-jwt-endpoint",
+        "priority": "P0",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/identity/identity-jwt-generation.md",
+        "section": "All fetch() calls to token endpoint — change /v2/auth/token/get to /v2/auth/generate_token",
+        "description": "Fix stale JWT token endpoint URL (7 occurrences across 3 files)",
+        "driftEvidence": {
+          "ruleText": "const response = await fetch(\"https://api.velt.dev/v2/auth/token/get\", {",
+          "docsText": "\"jwtGenerateEndpoint\": \"POST https://api.velt.dev/v2/auth/generate_token\""
+        },
+        "extraValidation": true
+      },
+      {
+        "patchId": "patch-002",
+        "driftId": "drift-010",
+        "changeGroup": "cg-jwt-endpoint",
+        "priority": "P0",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/config/config-auth-token-security.md",
+        "section": "All fetch() calls to token endpoint — change /v2/auth/token/get to /v2/auth/generate_token",
+        "description": "Fix stale JWT token endpoint URL in auth security rule (same as drift-001, different file)",
+        "driftEvidence": {
+          "ruleText": "const response = await fetch(\"https://api.velt.dev/v2/auth/token/get\", {",
+          "docsText": "\"jwtGenerateEndpoint\": \"POST https://api.velt.dev/v2/auth/generate_token\""
+        },
+        "extraValidation": true
+      },
+      {
+        "patchId": "patch-003",
+        "driftId": "drift-002",
+        "changeGroup": null,
+        "priority": "P0",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/identity/identity-user-object-shape.md",
+        "section": "Field Reference table — change name and email from Required: Yes to Required: No (Recommended)",
+        "description": "Fix user object required fields: name and email are optional per docs, not required",
+        "driftEvidence": {
+          "ruleText": "| name | string | Yes | Display name shown in UI |",
+          "docsText": "\"name\": { \"type\": \"string\", \"required\": false }"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-004",
+        "driftId": "drift-003",
+        "changeGroup": null,
+        "priority": "P0",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/document-identity/document-set-document.md",
+        "section": "Update setDocuments signature, return type, options parameter, rename DocumentConfig to Document",
+        "description": "Fix setDocuments API signature: return Promise<void>, add options param, rename type to Document",
+        "driftEvidence": {
+          "ruleText": "client.setDocuments(documents: DocumentConfig[]): void;",
+          "docsText": "client.setDocuments(documents: Document[], options?: SetDocumentsRequestOptions): Promise<void>"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-005",
+        "driftId": "drift-004",
+        "changeGroup": null,
+        "priority": "P0",
+        "target": "velt-crdt-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/tiptap/tiptap-disable-history.md",
+        "section": "Change undoRedo: false to history: false in code example and verification checklist",
+        "description": "Fix Tiptap history disable key: undoRedo (v3) → history (v2, what docs target)",
+        "driftEvidence": {
+          "ruleText": "undoRedo: false,  // CRITICAL: Disable history (Tiptap v3 uses undoRedo)",
+          "docsText": "history: false,"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-006",
+        "driftId": "drift-005",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/document-identity/document-set-document.md",
+        "section": "DocumentConfig interface — change metadata from optional to required",
+        "description": "Fix metadata optionality: docs show metadata as required in Document type",
+        "driftEvidence": {
+          "ruleText": "metadata?: {",
+          "docsText": "\"metadata\": { \"type\": \"DocumentMetadata\", \"required\": true }"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-007",
+        "driftId": "drift-006",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/document-identity/document-set-document.md",
+        "section": "Add useSetDocuments hook reference with full parameter types and SetDocumentsRequestOptions",
+        "description": "Add useSetDocuments hook API details missing from rule",
+        "driftEvidence": {
+          "ruleText": "No full hook API documented",
+          "docsText": "useSetDocuments(documents: Document[], options?: SetDocumentsRequestOptions)"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-008",
+        "driftId": "drift-009",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/document-identity/document-set-document.md",
+        "section": "Add limits section: max 30 docs per setDocuments, max 50 with folder+allDocuments",
+        "description": "Add document count limits missing from rule",
+        "driftEvidence": {
+          "ruleText": "No limits mentioned",
+          "docsText": "documentSetLimit: 30, folderDocumentLimit: 50"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-009",
+        "driftId": "drift-007",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "create_rule",
+        "file": "rules/shared/events/events-client-lifecycle.md",
+        "section": null,
+        "description": "Create new rule for client.on() event subscription and useVeltEventCallback hook",
+        "driftEvidence": {
+          "ruleText": null,
+          "docsText": "client.on(eventType: string): Observable<any>"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-010",
+        "driftId": "drift-008",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "create_rule",
+        "file": "rules/react/lifecycle/lifecycle-init-state.md",
+        "section": null,
+        "description": "Create new rule for useVeltInitState hook for conditional rendering",
+        "driftEvidence": {
+          "ruleText": null,
+          "docsText": "useVeltInitState() returns boolean when both user and document initialized"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-011",
+        "driftId": "drift-011",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/debugging-testing/debug-setup-verification.md",
+        "section": "Add fetchDebugInfo() and getDebugInfo() as programmatic verification methods",
+        "description": "Add debug APIs to debugging rule",
+        "driftEvidence": {
+          "ruleText": "No programmatic debug APIs documented",
+          "docsText": "client.fetchDebugInfo(): Promise<VeltDebugInfo>"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-012",
+        "driftId": "drift-012",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-setup-best-practices",
+        "action": "create_rule",
+        "file": "rules/shared/document-identity/document-folders.md",
+        "section": null,
+        "description": "Create new rule for folder-based document organization and fetchFolders API",
+        "driftEvidence": {
+          "ruleText": null,
+          "docsText": "client.setDocuments(docs, { folderId, allDocuments })"
+        },
+        "extraValidation": false
+      },
+      {
+        "patchId": "patch-013",
+        "driftId": "drift-013",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-crdt-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/core/core-debug-storemap.md",
+        "section": "Ensure VeltCrdtStoreMap.get(), getAll() and events documented; fix skillRuleMappings gap",
+        "description": "Verify and update CRDT debug store map rule (may be mapping gap)",
+        "driftEvidence": {
+          "ruleText": "Rule exists but not mapped to core.mdx",
+          "docsText": "window.VeltCrdtStoreMap global debugging interface"
+        },
+        "extraValidation": true
+      },
+      {
+        "patchId": "patch-014",
+        "driftId": "drift-014",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-crdt-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/core/core-message-stream.md",
+        "section": "Ensure all message stream methods documented with signatures matching docs",
+        "description": "Verify and update CRDT message stream rule (may be mapping gap)",
+        "driftEvidence": {
+          "ruleText": "Rule exists but not mapped to core.mdx",
+          "docsText": "crdtElement.pushMessage(), onMessage(), getMessages() etc."
+        },
+        "extraValidation": true
+      },
+      {
+        "patchId": "patch-015",
+        "driftId": "drift-015",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-crdt-best-practices",
+        "action": "update_rule",
+        "file": "rules/shared/core/core-webhooks.md",
+        "section": "Add setActivityDebounceTime reference (default: 10 min, minimum: 10 sec)",
+        "description": "Add activity debounce time API to webhooks rule",
+        "driftEvidence": {
+          "ruleText": "Only setWebhookDebounceTime documented",
+          "docsText": "setActivityDebounceTime default is 10 minutes; minimum enforced is 10 seconds"
+        },
+        "extraValidation": false
+      }
+    ]
+  },
+  "humanReviewRequired": {
+    "installer": [
+      {
+        "patchId": "patch-inst-001",
+        "driftId": "inst-drift-001",
+        "changeGroup": null,
+        "priority": "P0",
+        "target": "velt-mcp-installer",
+        "file": "src/utils/velt-docs-urls.js",
+        "description": "Fix stale CRDT overview URL (would 404)",
+        "suggestedFix": "Change line 64 URL from /multiplayer-editing/overview to /realtime-collaboration/crdt/overview",
+        "blocking": true
+      },
+      {
+        "patchId": "patch-inst-002",
+        "driftId": "inst-drift-003",
+        "changeGroup": null,
+        "priority": "P0",
+        "target": "velt-mcp-installer",
+        "file": "src/utils/validation.js",
+        "description": "Fix VeltProvider validation to check page.tsx (primary) not layout.tsx",
+        "suggestedFix": "Change Check 3 to scan page.tsx as primary and layout.tsx as fallback",
+        "blocking": true
+      },
+      {
+        "patchId": "patch-inst-003",
+        "driftId": "inst-drift-002",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-mcp-installer",
+        "file": "src/utils/velt-docs-urls.js",
+        "description": "Add missing 'stream' comment mode URL",
+        "suggestedFix": "Add stream: 'https://docs.velt.dev/async-collaboration/comments/setup/stream' to VELT_DOCS_URLS.comments.setup",
+        "blocking": false
+      },
+      {
+        "patchId": "patch-inst-004",
+        "driftId": "inst-drift-004",
+        "changeGroup": null,
+        "priority": "P2",
+        "target": "velt-mcp-installer",
+        "file": "src/utils/validation.js",
+        "description": "Fix VeltCommentsSidebar validation to check VeltCollaboration in page.tsx",
+        "suggestedFix": "Change Check 5 to look for VeltCollaboration or VeltCommentsSidebar in page.tsx",
+        "blocking": false
+      }
+    ]
+  },
+  "reportOnly": {
+    "cli": [
+      {
+        "driftId": "cli-drift-001",
+        "priority": "P0",
+        "description": "CLI pins @veltdev/react to ^4.0.0 but sample-apps use v5.x",
+        "suggestedFix": "Update to '^5.0.0'"
+      },
+      {
+        "driftId": "cli-drift-002",
+        "priority": "P0",
+        "description": "CLI pins @veltdev/reactflow-crdt to ^4.0.0 but sample-apps use 5.0.0",
+        "suggestedFix": "Update to '^5.0.0'"
+      },
+      {
+        "driftId": "cli-drift-003",
+        "priority": "P0",
+        "description": "CLI pins @veltdev/tiptap-crdt to ^4.0.0 but sample-apps use 5.0.0",
+        "suggestedFix": "Update to '^5.0.0'"
+      },
+      {
+        "driftId": "cli-drift-004",
+        "priority": "P0",
+        "description": "CLI pins @veltdev/codemirror-crdt to ^4.0.0 — needs v5 peer compat check",
+        "suggestedFix": "Verify and update to v5-compatible release"
+      },
+      {
+        "driftId": "cli-drift-005",
+        "priority": "P0",
+        "description": "VeltInitializeDocument template missing 'use client' directive — will fail to compile in Next.js App Router",
+        "suggestedFix": "Add '\"use client\";' as first line of TEMPLATE_VELT_INITIALIZE_DOCUMENT"
+      },
+      {
+        "driftId": "cli-drift-006",
+        "priority": "P0",
+        "description": "Auto-wiring injects 'use client' mid-file in layout.tsx — silently ignored by Next.js",
+        "suggestedFix": "Generate separate VeltClientWrapper.tsx file with 'use client' at top"
+      },
+      {
+        "driftId": "cli-drift-007",
+        "priority": "P2",
+        "description": "Tiptap CRDT uses @tiptap/extension-collaboration-caret instead of cursor for React",
+        "suggestedFix": "Replace with @tiptap/extension-collaboration-cursor"
+      },
+      {
+        "driftId": "cli-drift-008",
+        "priority": "P2",
+        "description": "VeltHuddleTool included without required VeltHuddle companion component",
+        "suggestedFix": "Add VeltHuddle to VeltCollaboration template"
+      }
+    ]
+  },
+  "skipped": {
+    "p3Items": []
+  }
+}

@@ -1,26 +1,26 @@
 {
-  "lastSyncTimestamp": "2026-03-30T20:50:00Z",
-  "docsCommit": "51af4eba296ee30710e8277cdaf2fb35942382be",
+  "lastSyncTimestamp": "2026-03-31T00:16:12Z",
+  "docsCommit": "5e2d5f820fcc5de6eed5b9f399b83708ce724823",
   "agentSkillsCommit": "88aa66e6f34879069666db3117fc14ed6b2475fb",
   "installerCommit": "78b1ac053456b45aba02821c0176f4c8d3d8e23c",
   "cliCommit": "68188c627efab7ebfb4de569324a18fd90513f85",
-  "lastRunArtifactDir": "docs-sync/artifacts/runs/2026-03-30T20-50-00/",
+  "lastRunArtifactDir": "docs-sync/artifacts/runs/2026-03-31T00-16-12/",
   "syncedTargets": {
     "cursorPlugin": true,
     "claudePlugin": true
   },
   "summary": {
-    "scanMode": "incremental",
-    "skillPatchesApplied": 1,
-    "skillFilesCreated": 0,
-    "skillFilesModified": 1,
-    "installerPatchesApplied": 0,
-    "cliDriftsReported": 0,
+    "scanMode": "full",
+    "skillPatchesApplied": 15,
+    "skillFilesCreated": 3,
+    "skillFilesModified": 8,
+    "installerPatchesApplied": 4,
+    "cliDriftsReported": 8,
     "ruleCountAfter": {
       "velt-comments-best-practices": 50,
       "velt-crdt-best-practices": 44,
       "velt-notifications-best-practices": 17,
-      "velt-setup-best-practices": 22
+      "velt-setup-best-practices": 24
     },
     "verdict": "PASS"
   }

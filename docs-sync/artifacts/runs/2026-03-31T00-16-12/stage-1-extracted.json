@@ -1,0 +1,1649 @@
+{
+  "meta": {
+    "runTimestamp": "2026-03-31T00-16-12",
+    "extractedAt": "2026-03-31T00:16:12Z",
+    "scanType": "FULL",
+    "docsRepoRoot": "/Users/yoenzhang/Downloads/docs",
+    "stats": {
+      "filesAttempted": 52,
+      "filesSuccessfullyProcessed": 47,
+      "filesNotFound": 5,
+      "filesNotFoundList": [
+        "realtime-collaboration/crdt/setup/core-stores/text.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/map.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/array.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/xml.mdx",
+        "async-collaboration/comments/setup/canvas-comments/overview.mdx"
+      ],
+      "totalSignaturesExtracted": 312,
+      "totalComponentsExtracted": 48,
+      "totalSetupStepsExtracted": 67,
+      "totalPackageNamesExtracted": 22,
+      "totalHooksExtracted": 68
+    }
+  },
+
+  "skills": {
+
+    "setup": {
+      "skillId": "setup",
+      "sourceFiles": [
+        "get-started/quickstart.mdx",
+        "get-started/advanced.mdx",
+        "get-started/overview.mdx",
+        "key-concepts/overview.mdx"
+      ],
+      "packages": [
+        {
+          "name": "@veltdev/react",
+          "installCommand": "npm install @veltdev/react",
+          "frameworks": ["React", "Next.js"],
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [27, 29]
+        },
+        {
+          "name": "@veltdev/client",
+          "installCommand": "npm install @veltdev/client",
+          "frameworks": ["Angular", "Vue.js"],
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [35, 39]
+        },
+        {
+          "name": "@veltdev/types",
+          "installCommand": "npm install --save-dev @veltdev/types",
+          "note": "Optional TypeScript types package",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [29, 29]
+        }
+      ],
+      "cdnScript": {
+        "url": "https://cdn.velt.dev/lib/sdk@latest/velt.js",
+        "usagePattern": "<script type=\"module\" src=\"https://cdn.velt.dev/lib/sdk@latest/velt.js\" onload=\"loadVelt()\"></script>",
+        "sourceFile": "get-started/quickstart.mdx",
+        "lineRange": [54, 56]
+      },
+      "setupSteps": [
+        {
+          "step": 1,
+          "title": "Install Dependencies",
+          "description": "Install @veltdev/react (React/Next.js), @veltdev/client (Angular/Vue), or use CDN script (HTML)",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [20, 58]
+        },
+        {
+          "step": 2,
+          "title": "Get Your API Key",
+          "description": "Go to console.velt.dev and copy your API key from the dashboard",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [60, 67]
+        },
+        {
+          "step": 3,
+          "title": "Safelist Your Domain",
+          "description": "Add app domain to Managed Domains in Velt Console",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [69, 75]
+        },
+        {
+          "step": 4,
+          "title": "Initialize Velt",
+          "description": "React: wrap with VeltProvider. Angular/Vue/HTML: call initVelt() or Velt.init()",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [77, 203]
+        },
+        {
+          "step": 5,
+          "title": "Authenticate Users",
+          "description": "Use authProvider on VeltProvider (recommended) or call identify(user, options) directly",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [205, 312]
+        },
+        {
+          "step": 6,
+          "title": "Initialize Document",
+          "description": "Call client.setDocuments() or setDocument() with a unique documentId and optional metadata",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [314, 488]
+        },
+        {
+          "step": 7,
+          "title": "Install Velt Feature Components",
+          "description": "Add VeltComments, VeltCommentTool, VeltPresence to enable comments and presence",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [490, 574]
+        },
+        {
+          "step": 8,
+          "title": "Verify Setup",
+          "description": "Run await Velt.getMetadata() in browser console to verify initialization",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [576, 595]
+        }
+      ],
+      "components": {
+        "react": [
+          {
+            "name": "VeltProvider",
+            "package": "@veltdev/react",
+            "props": {
+              "apiKey": { "type": "string", "required": true, "description": "Your Velt API key" },
+              "authProvider": { "type": "object", "required": false, "description": "Auth provider config with user, retryConfig, generateToken" },
+              "encryptionProvider": { "type": "VeltEncryptionProvider", "required": false, "description": "Custom encryption provider for data" }
+            },
+            "sourceFile": "get-started/quickstart.mdx",
+            "lineRange": [98, 107]
+          },
+          {
+            "name": "VeltComments",
+            "package": "@veltdev/react",
+            "props": {},
+            "sourceFile": "get-started/quickstart.mdx",
+            "lineRange": [504, 506]
+          },
+          {
+            "name": "VeltCommentTool",
+            "package": "@veltdev/react",
+            "props": {},
+            "sourceFile": "get-started/quickstart.mdx",
+            "lineRange": [511, 513]
+          },
+          {
+            "name": "VeltPresence",
+            "package": "@veltdev/react",
+            "props": {},
+            "sourceFile": "get-started/quickstart.mdx",
+            "lineRange": [511, 513]
+          }
+        ],
+        "html": [
+          { "name": "velt-comments", "sourceFile": "get-started/quickstart.mdx", "lineRange": [480, 480] },
+          { "name": "velt-presence", "sourceFile": "get-started/quickstart.mdx", "lineRange": [568, 568] },
+          { "name": "velt-comment-tool", "sourceFile": "get-started/quickstart.mdx", "lineRange": [569, 569] }
+        ]
+      },
+      "apiMethods": [
+        {
+          "signature": "initVelt(apiKey: string): Promise<Velt>",
+          "description": "Initialize the Velt client (Angular/Vue/non-React frameworks)",
+          "package": "@veltdev/client",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [141, 146]
+        },
+        {
+          "signature": "Velt.init(apiKey: string): Promise<void>",
+          "description": "Initialize Velt in HTML/CDN usage",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [196, 198]
+        },
+        {
+          "signature": "client.identify(user: User, options?: UserOptions): Promise<unknown>",
+          "description": "Authenticate the current user with Velt SDK",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [744, 744]
+        },
+        {
+          "signature": "client.setDocuments(documents: Document[], options?: SetDocumentsRequestOptions): Promise<void>",
+          "description": "Initialize and subscribe to one or multiple documents",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [338, 344]
+        },
+        {
+          "signature": "client.setDocument(documentId: string, metadata?: DocumentMetadata): Promise<void>",
+          "description": "Initialize and subscribe to a single document",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [747, 747]
+        },
+        {
+          "signature": "Velt.setVeltAuthProvider({ user, retryConfig, generateToken, options?, onError? }): void",
+          "description": "Configure auth provider for automatic token management (non-React)",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [270, 277]
+        },
+        {
+          "signature": "client.getVeltInitState(): Observable<boolean | undefined>",
+          "description": "Returns observable that fires true when Velt user and document are both initialized",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [656, 658]
+        },
+        {
+          "signature": "client.fetchDebugInfo(): Promise<VeltDebugInfo>",
+          "description": "Retrieve a one-time snapshot of debugging information about your Velt integration",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [797, 807]
+        },
+        {
+          "signature": "client.getDebugInfo(): Observable<VeltDebugInfo>",
+          "description": "Subscribe to real-time updates of debugging information",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [838, 844]
+        },
+        {
+          "signature": "client.on(eventType: string): Observable<any>",
+          "description": "Subscribe to Velt client events (initUpdate, userUpdate, documentInit, error, etc.)",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [564, 578]
+        },
+        {
+          "signature": "client.setDocuments(docs, { folderId, allDocuments }): Promise<void>",
+          "description": "Subscribe to a folder and all or specific documents within it",
+          "sourceFile": "key-concepts/overview.mdx",
+          "lineRange": [142, 157]
+        },
+        {
+          "signature": "client.fetchFolders({ organizationId, folderId? }): Promise<FetchFoldersResponse>",
+          "description": "Retrieve folder metadata and its subfolders with pagination support",
+          "sourceFile": "key-concepts/overview.mdx",
+          "lineRange": [213, 224]
+        }
+      ],
+      "hooks": [
+        {
+          "name": "useVeltClient",
+          "returns": "{ client: Velt }",
+          "description": "Access the Velt client instance in React components",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [335, 336]
+        },
+        {
+          "name": "useIdentify",
+          "params": "user: User",
+          "description": "Authenticate a user with Velt (React hook)",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [669, 669]
+        },
+        {
+          "name": "useSetDocument",
+          "params": "documentId: string, metadata?: DocumentMetadata",
+          "description": "Initialize a document for collaboration (React hook)",
+          "sourceFile": "get-started/quickstart.mdx",
+          "lineRange": [679, 679]
+        },
+        {
+          "name": "useSetDocuments",
+          "params": "documents: Document[], options?: SetDocumentsRequestOptions",
+          "description": "Initialize multiple documents at once (React hook)",
+          "sourceFile": "key-concepts/overview.mdx",
+          "lineRange": [94, 112]
+        },
+        {
+          "name": "useVeltInitState",
+          "returns": "boolean",
+          "description": "Returns true when both Velt user and document are initialized",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [630, 644]
+        },
+        {
+          "name": "useVeltEventCallback",
+          "params": "eventType: string",
+          "description": "Subscribe to Velt core events (error, initUpdate, userUpdate, etc.)",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [374, 393]
+        },
+        {
+          "name": "useCurrentUser",
+          "returns": "User | null",
+          "description": "Subscribe to changes in the current user object",
+          "sourceFile": "get-started/advanced.mdx",
+          "lineRange": [29, 29]
+        }
+      ],
+      "configValues": {
+        "authProviderShape": {
+          "user": "User object with userId, organizationId, name, email, photoUrl",
+          "retryConfig": "{ retryCount: number, retryDelay: number }",
+          "generateToken": "async () => string (JWT token from backend)"
+        },
+        "jwtTokenExpiry": "48 hours",
+        "jwtGenerateEndpoint": "POST https://api.velt.dev/v2/auth/generate_token",
+        "jwtHeaders": {
+          "x-velt-api-key": "YOUR_VELT_API_KEY",
+          "x-velt-auth-token": "your-generated-auth-token-from-console"
+        },
+        "userRequiredFields": ["userId", "organizationId"],
+        "userOptionalFields": ["name", "email", "photoUrl", "color", "textColor", "isAdmin", "isReadOnly", "isAnonymous"],
+        "documentSetLimit": 30,
+        "folderDocumentLimit": 50
+      },
+      "behavioralNotes": [
+        "SDK will not work without proper authentication and document initialization",
+        "In Next.js, add 'use client' directive at top of files containing Velt components",
+        "Call authentication and document setup in child components, never in the same file as VeltProvider",
+        "JWT tokens expire after 48 hours - use authProvider for automatic refresh, or manually re-identify on token_expired error",
+        "By default, authentication methods return null on failure; set throwError: true to throw instead",
+        "setDocuments() now filters out inaccessible documents instead of failing the entire operation",
+        "Users can subscribe to up to 30 documents at a time; first document is the root",
+        "setDocuments() with allDocuments flag and folderId retrieves max 50 documents",
+        "Angular: add CUSTOM_ELEMENTS_SCHEMA to NgModule to render Velt web components",
+        "Vue: set Vue.config.ignoredElements = [/velt-*/] to allow Velt custom elements"
+      ],
+      "clientEvents": [
+        { "event": "initUpdate", "description": "Initialization lifecycle updates", "dataModel": "InitUpdateEvent" },
+        { "event": "userUpdate", "description": "Fired when Velt user changes (login, logout, update)", "dataModel": "UserUpdateEvent" },
+        { "event": "documentInit", "description": "Document initialization status changes", "dataModel": "DocumentInitEvent" },
+        { "event": "error", "description": "Error events (e.g., token_expired)", "dataModel": "ErrorEvent" },
+        { "event": "veltButtonClick", "description": "Fired when a Velt Button is clicked", "dataModel": "VeltButtonClickEvent" },
+        { "event": "permissionProvider", "description": "Permission provider events for access requests", "dataModel": "PermissionProviderEvent" },
+        { "event": "dataProvider", "description": "Data provider debugging events", "dataModel": "DataProviderEvent" }
+      ]
+    },
+
+    "comments": {
+      "skillId": "comments",
+      "sourceFiles": [
+        "async-collaboration/comments/overview.mdx",
+        "async-collaboration/comments/customize-behavior.mdx",
+        "async-collaboration/comments/setup/freestyle.mdx",
+        "async-collaboration/comments/setup/popover.mdx",
+        "async-collaboration/comments/setup/page.mdx",
+        "async-collaboration/comments/setup/stream.mdx",
+        "async-collaboration/comments/setup/text.mdx",
+        "async-collaboration/comments/setup/inline-comments.mdx",
+        "async-collaboration/comments/setup/tiptap.mdx",
+        "async-collaboration/comments-sidebar/overview.mdx",
+        "async-collaboration/comments-sidebar/setup.mdx",
+        "async-collaboration/comments-sidebar/customize-behavior.mdx",
+        "async-collaboration/comments/notifications.mdx"
+      ],
+      "commentModes": [
+        { "mode": "Freestyle", "description": "Pin comments on any elements or draw area comments", "setupFile": "async-collaboration/comments/setup/freestyle.mdx" },
+        { "mode": "Popover", "description": "Add comments on table cells, like Google Sheets", "setupFile": "async-collaboration/comments/setup/popover.mdx" },
+        { "mode": "Stream", "description": "Comments appear in a column on right side, like Google Docs", "setupFile": "async-collaboration/comments/setup/stream.mdx" },
+        { "mode": "Text", "description": "Leave comments as text highlights (enabled by default)", "setupFile": "async-collaboration/comments/setup/text.mdx" },
+        { "mode": "Page", "description": "Leave comments at the page level via Comments Sidebar", "setupFile": "async-collaboration/comments/setup/page.mdx" },
+        { "mode": "Inline", "description": "Traditional inline comment style with section binding", "setupFile": "async-collaboration/comments/setup/inline-comments.mdx" },
+        { "mode": "Tiptap", "description": "Comments integrated into Tiptap rich text editor", "setupFile": "async-collaboration/comments/setup/tiptap.mdx" }
+      ],
+      "packages": [
+        {
+          "name": "@veltdev/tiptap-velt-comments",
+          "installCommand": "npm i @veltdev/tiptap-velt-comments",
+          "description": "Velt comments extension for Tiptap editor",
+          "sourceFile": "async-collaboration/comments/setup/tiptap.mdx",
+          "lineRange": [34, 34]
+        }
+      ],
+      "components": {
+        "react": [
+          {
+            "name": "VeltComments",
+            "package": "@veltdev/react",
+            "props": {
+              "popoverMode": { "type": "boolean", "default": false, "description": "Enable popover mode for cell-level comments" },
+              "popoverTriangleComponent": { "type": "boolean", "default": true, "description": "Show/hide triangle indicator in popover mode" },
+              "textMode": { "type": "boolean", "default": true, "description": "Enable text highlight comments mode" },
+              "streamMode": { "type": "boolean", "default": false, "description": "Enable stream mode (right-side comment column)" },
+              "streamViewContainerId": { "type": "string", "description": "ID of scrolling container for stream positioning" },
+              "commentPlaceholder": { "type": "string", "description": "Placeholder text for comment input" },
+              "replyPlaceholder": { "type": "string", "description": "Placeholder text for reply input" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/freestyle.mdx",
+            "lineRange": [31, 35]
+          },
+          {
+            "name": "VeltCommentTool",
+            "package": "@veltdev/react",
+            "props": {
+              "targetElementId": { "type": "string", "description": "DOM ID of element to attach comment to (popover mode)" },
+              "context": { "type": "object", "description": "Custom metadata to bind with comment" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/freestyle.mdx",
+            "lineRange": [45, 49]
+          },
+          {
+            "name": "VeltCommentBubble",
+            "package": "@veltdev/react",
+            "props": {
+              "targetElementId": { "type": "string", "description": "Must match associated element and comment tool ID" },
+              "commentCountType": { "type": "'total' | 'unread'", "default": "total", "description": "Which count to display on bubble" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/popover.mdx",
+            "lineRange": [214, 228]
+          },
+          {
+            "name": "VeltInlineCommentsSection",
+            "package": "@veltdev/react",
+            "props": {
+              "targetElementId": { "type": "string", "required": true, "description": "Must match the container element ID" },
+              "multiThread": { "type": "boolean", "default": true, "description": "Enable multi-threaded mode" },
+              "commentPlaceholder": { "type": "string", "description": "Placeholder for comment input" },
+              "replyPlaceholder": { "type": "string", "description": "Placeholder for reply input" },
+              "composerPlaceholder": { "type": "string", "description": "Placeholder for composer input" },
+              "shadowDom": { "type": "boolean", "description": "Shadow DOM mode" },
+              "dialogVariant": { "type": "string", "description": "Dialog variant style" },
+              "variant": { "type": "string", "description": "Section variant style" },
+              "darkMode": { "type": "boolean", "description": "Enable dark mode" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/inline-comments.mdx",
+            "lineRange": [50, 56]
+          },
+          {
+            "name": "VeltCommentsSidebar",
+            "package": "@veltdev/react",
+            "props": {
+              "pageMode": { "type": "boolean", "default": false, "description": "Enable page-level comments at bottom of sidebar" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/page.mdx",
+            "lineRange": [43, 43]
+          },
+          {
+            "name": "VeltSidebarButton",
+            "package": "@veltdev/react",
+            "props": {},
+            "description": "Button to toggle the VeltCommentsSidebar open and closed",
+            "sourceFile": "async-collaboration/comments/setup/page.mdx",
+            "lineRange": [52, 54]
+          }
+        ],
+        "html": [
+          {
+            "name": "velt-comments",
+            "props": {
+              "popover-mode": { "type": "boolean", "description": "Enable popover mode" },
+              "popover-triangle-component": { "type": "boolean", "description": "Show/hide popover triangle" },
+              "text-mode": { "type": "boolean", "description": "Enable text mode" },
+              "stream-mode": { "type": "boolean", "description": "Enable stream mode" },
+              "stream-view-container-id": { "type": "string", "description": "ID of scrolling container" },
+              "comment-placeholder": { "type": "string", "description": "Comment input placeholder" },
+              "reply-placeholder": { "type": "string", "description": "Reply input placeholder" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/freestyle.mdx",
+            "lineRange": [74, 78]
+          },
+          {
+            "name": "velt-comment-tool",
+            "props": {
+              "target-element-id": { "type": "string", "description": "DOM ID of element to attach comment to" },
+              "context": { "type": "JSON string", "description": "Custom metadata to bind with comment" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/freestyle.mdx",
+            "lineRange": [86, 92]
+          },
+          {
+            "name": "velt-comment-bubble",
+            "props": {
+              "target-element-id": { "type": "string", "description": "Element ID" },
+              "comment-count-type": { "type": "'total' | 'unread'", "description": "Which count to display" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/popover.mdx",
+            "lineRange": [237, 248]
+          },
+          {
+            "name": "velt-inline-comments-section",
+            "props": {
+              "target-element-id": { "type": "string", "required": true },
+              "multi-thread": { "type": "boolean", "default": "true" },
+              "shadow-dom": { "type": "boolean" },
+              "dialog-variant": { "type": "string" },
+              "variant": { "type": "string" },
+              "dark-mode": { "type": "boolean" },
+              "comment-placeholder": { "type": "string" },
+              "reply-placeholder": { "type": "string" },
+              "composer-placeholder": { "type": "string" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/inline-comments.mdx",
+            "lineRange": [123, 131]
+          },
+          {
+            "name": "velt-comments-sidebar",
+            "props": {
+              "page-mode": { "type": "boolean", "default": "false", "description": "Enable page-level comments" }
+            },
+            "sourceFile": "async-collaboration/comments/setup/page.mdx",
+            "lineRange": [83, 83]
+          },
+          {
+            "name": "velt-sidebar-button",
+            "sourceFile": "async-collaboration/comments/setup/page.mdx",
+            "lineRange": [101, 101]
+          }
+        ]
+      },
+      "apiMethods": [
+        {
+          "signature": "client.getCommentElement(): CommentElement",
+          "description": "Get the comment element instance to call comment-specific APIs",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [32, 33]
+        },
+        {
+          "signature": "commentElement.addCommentAnnotation(request: AddCommentAnnotationRequest): Promise<AddCommentAnnotationEvent>",
+          "description": "Programmatically add a new comment annotation",
+          "params": "AddCommentAnnotationRequest",
+          "returns": "AddCommentAnnotationEvent",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [32, 34]
+        },
+        {
+          "signature": "commentElement.addCommentOnSelectedText(): void",
+          "description": "Trigger adding comment on currently selected text via API (textMode)",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [71, 72]
+        },
+        {
+          "signature": "commentElement.addCommentOnElement(element: { targetElement, commentData, status? }): void",
+          "description": "Add a comment on a specific element by ID or target text",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [119, 121]
+        },
+        {
+          "signature": "commentElement.addManualComment(config: ManualCommentAnnotationConfig): void",
+          "description": "Manually set position of comment annotation (useful for canvas/complex UIs)",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [163, 168]
+        },
+        {
+          "signature": "commentElement.deleteCommentAnnotation(request: DeleteCommentAnnotationRequest): Promise<DeleteCommentAnnotationEvent>",
+          "description": "Delete a comment annotation by annotationId",
+          "sourceFile": "async-collaboration/comments/customize-behavior.mdx",
+          "lineRange": [223, 224]
+        },
+        {
+          "signature": "commentElement.enablePopoverTriangleComponent(): void",
+          "description": "Enable the triangle indicator in popover mode",
+          "sourceFile": "async-collaboration/comments/setup/popover.mdx",
+          "lineRange": [275, 275]
+        },
+        {
+          "signature": "commentElement.disablePopoverTriangleComponent(): void",
+          "description": "Disable the triangle indicator in popover mode",
+          "sourceFile": "async-collaboration/comments/setup/popover.mdx",
+          "lineRange": [276, 276]
+        }
+      ],
+      "hooks": [
+        {
+          "name": "useCommentUtils",
+          "returns": "CommentElement",
+          "description": "Hook to access comment utilities",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [7, 12]
+        },
+        {
+          "name": "useAddCommentAnnotation",
+          "params": "AddCommentAnnotationRequest",
+          "returns": "addCommentAnnotation()",
+          "description": "Hook to add a comment annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [16, 20]
+        },
+        {
+          "name": "useDeleteCommentAnnotation",
+          "params": "DeleteCommentAnnotationRequest",
+          "returns": "deleteCommentAnnotation()",
+          "description": "Hook to delete a comment annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [22, 26]
+        },
+        {
+          "name": "useCommentAnnotationsCount",
+          "params": "CommentRequestQuery (optional)",
+          "returns": "GetCommentAnnotationsCountResponse",
+          "description": "Hook to get total and unread comment annotations count",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [28, 33]
+        },
+        {
+          "name": "useUnreadCommentAnnotationCountByLocationId",
+          "params": "locationId: string",
+          "returns": "UnreadCommentsCount | null",
+          "description": "Hook to get unread comment annotation count by location",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [35, 39]
+        },
+        {
+          "name": "useGetCommentAnnotations",
+          "params": "CommentRequestQuery (optional)",
+          "returns": "GetCommentAnnotationsResponse",
+          "description": "Hook to get all comment annotations for specified documents",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [41, 45]
+        },
+        {
+          "name": "useCommentAnnotationById",
+          "params": "{ annotationId: string, documentId?: string }",
+          "returns": "CommentAnnotation",
+          "description": "Hook to get a specific comment annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [47, 51]
+        },
+        {
+          "name": "useSetContextProvider",
+          "description": "Hook to set a context provider function for comment annotations",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [53, 57]
+        },
+        {
+          "name": "useAddComment",
+          "params": "AddCommentRequest",
+          "returns": "addComment()",
+          "description": "Hook to add a comment to a specific annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [61, 65]
+        },
+        {
+          "name": "useUpdateComment",
+          "params": "UpdateCommentRequest",
+          "returns": "updateComment()",
+          "description": "Hook to update a comment in a specific annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [67, 71]
+        },
+        {
+          "name": "useDeleteComment",
+          "params": "DeleteCommentRequest",
+          "returns": "deleteComment()",
+          "description": "Hook to delete a comment from a specific annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [73, 77]
+        },
+        {
+          "name": "useGetComment",
+          "params": "GetCommentRequest",
+          "returns": "getComment()",
+          "description": "Hook to get comments from a specific annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [79, 83]
+        },
+        {
+          "name": "useUnreadCommentCountOnCurrentDocument",
+          "returns": "UnreadCommentsCount | null",
+          "description": "Hook to get number of unread comments on current document",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [85, 89]
+        },
+        {
+          "name": "useUnreadCommentCountByLocationId",
+          "params": "locationId: string",
+          "returns": "UnreadCommentsCount | null",
+          "description": "Hook to get number of unread comments by location",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [91, 95]
+        },
+        {
+          "name": "useUnreadCommentCountByAnnotationId",
+          "params": "annotationId: string",
+          "returns": "number",
+          "description": "Hook to get number of unread comments by annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [97, 101]
+        },
+        {
+          "name": "useContactUtils",
+          "returns": "ContactElement",
+          "description": "Hook to access contact utility methods",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [105, 108]
+        },
+        {
+          "name": "useAssignUser",
+          "params": "AssignUserRequest",
+          "returns": "assignUser()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [110, 114]
+        },
+        {
+          "name": "useContactSelected",
+          "returns": "User",
+          "description": "Hook to handle contact selection events",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [116, 120]
+        },
+        {
+          "name": "useContactList",
+          "returns": "GetContactListResponse",
+          "description": "Subscribe to list of users in organization, folder, document or user groups",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [122, 126]
+        },
+        {
+          "name": "useSubscribeCommentAnnotation",
+          "params": "SubscribeCommentAnnotationRequest",
+          "returns": "subscribeCommentAnnotation()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [128, 132]
+        },
+        {
+          "name": "useUnsubscribeCommentAnnotation",
+          "params": "UnsubscribeCommentAnnotationRequest",
+          "returns": "unsubscribeCommentAnnotation()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [134, 138]
+        },
+        {
+          "name": "useAutocompleteUtils",
+          "returns": "AutocompleteElement",
+          "description": "Hook to access autocomplete utilities for custom lists in comments",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [142, 145]
+        },
+        {
+          "name": "useAutocompleteChipClick",
+          "returns": "AutocompleteItem",
+          "description": "Hook to handle clicks on autocomplete chips in comments",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [147, 150]
+        },
+        {
+          "name": "useCommentEventCallback",
+          "params": "eventType: string",
+          "description": "Subscribe to comment events",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [153, 157]
+        },
+        {
+          "name": "useAddAttachment",
+          "params": "AddAttachmentRequest",
+          "returns": "addAttachment()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [161, 165]
+        },
+        {
+          "name": "useDeleteAttachment",
+          "params": "DeleteAttachmentRequest",
+          "returns": "deleteAttachment()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [167, 171]
+        },
+        {
+          "name": "useGetAttachment",
+          "params": "GetAttachmentRequest",
+          "returns": "getAttachment()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [173, 177]
+        },
+        {
+          "name": "useAddReaction",
+          "params": "AddReactionRequest",
+          "returns": "addReaction()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [182, 186]
+        },
+        {
+          "name": "useDeleteReaction",
+          "params": "DeleteReactionRequest",
+          "returns": "deleteReaction()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [188, 192]
+        },
+        {
+          "name": "useToggleReaction",
+          "params": "ToggleReactionRequest",
+          "returns": "toggleReaction()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [194, 198]
+        },
+        {
+          "name": "useUpdateStatus",
+          "params": "UpdateStatusRequest",
+          "returns": "updateStatus()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [203, 207]
+        },
+        {
+          "name": "useResolveCommentAnnotation",
+          "params": "ResolveCommentAnnotationRequest",
+          "returns": "resolveCommentAnnotation()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [209, 213]
+        },
+        {
+          "name": "useUpdatePriority",
+          "params": "UpdatePriorityRequest",
+          "returns": "updatePriority()",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [215, 219]
+        },
+        {
+          "name": "useCommentModeState",
+          "returns": "boolean",
+          "description": "Track current state of comment mode (active/inactive)",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [302, 306]
+        },
+        {
+          "name": "useGetLink",
+          "params": "GetLinkRequest",
+          "returns": "getLink()",
+          "description": "Hook to get a link to a specific comment annotation",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [236, 240]
+        },
+        {
+          "name": "useCopyLink",
+          "params": "CopyLinkRequest",
+          "returns": "copyLink()",
+          "description": "Hook to copy a comment annotation link to clipboard",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [242, 246]
+        },
+        {
+          "name": "useCommentSelectionChangeHandler",
+          "returns": "CommentSelectionChangeData",
+          "description": "Subscribe to comment selection changes",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [250, 255]
+        },
+        {
+          "name": "useApproveCommentAnnotation",
+          "params": "ApproveCommentAnnotationRequest",
+          "returns": "approveCommentAnnotation()",
+          "description": "Hook to approve comment annotations in moderator mode",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [283, 287]
+        },
+        {
+          "name": "useAcceptCommentAnnotation",
+          "params": "AcceptCommentAnnotationRequest",
+          "returns": "acceptCommentAnnotation()",
+          "description": "Hook to accept comment annotations in suggestion mode",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [289, 293]
+        },
+        {
+          "name": "useRejectCommentAnnotation",
+          "params": "RejectCommentAnnotationRequest",
+          "returns": "rejectCommentAnnotation()",
+          "description": "Hook to reject comment annotations in suggestion mode",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [295, 299]
+        },
+        {
+          "name": "useCommentDialogSidebarClickHandler",
+          "description": "Hook to handle clicks on sidebar button in comment dialog",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [277, 280]
+        }
+      ],
+      "editorIntegrations": {
+        "tiptap": {
+          "package": "@veltdev/tiptap-velt-comments",
+          "extension": "TiptapVeltComments",
+          "methods": ["addComment()", "renderComments()"],
+          "setupSteps": [
+            "Add VeltComments with textMode={false}",
+            "npm i @veltdev/tiptap-velt-comments",
+            "Import TiptapVeltComments and add to editor extensions",
+            "Add comment button using addComment() from @veltdev/tiptap-velt-comments"
+          ],
+          "sourceFile": "async-collaboration/comments/setup/tiptap.mdx",
+          "lineRange": [1, 80]
+        },
+        "slate": {
+          "functions": ["withVeltComments()", "addComment()", "renderComments()", "SlateVeltComment"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [223, 260]
+        },
+        "lexical": {
+          "functions": ["addComment()", "renderComments()", "exportJSONWithoutComments()"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [291, 318]
+        },
+        "plate": {
+          "extension": "VeltCommentsPlugin",
+          "functions": ["VeltCommentsPlugin.configure()", "addComment()", "renderComments()", "exportJSONWithoutComments()", "PlateVeltComment"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [320, 366]
+        },
+        "codemirror": {
+          "functions": ["CodemirrorVeltComments()", "addComment()", "renderComments()"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [368, 430]
+        },
+        "ace": {
+          "functions": ["AceVeltComments()", "addComment()", "renderComments()"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [400, 430]
+        },
+        "quill": {
+          "extension": "QuillVeltComments",
+          "functions": ["addComment()", "renderComments()"],
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [432, 462]
+        }
+      },
+      "sidebarComponents": {
+        "overview": {
+          "components": ["VeltComments", "VeltCommentsSidebar", "VeltSidebarButton", "VeltCommentTool"],
+          "htmlComponents": ["velt-comments", "velt-comments-sidebar", "velt-sidebar-button", "velt-comment-tool"],
+          "sourceFile": "async-collaboration/comments-sidebar/overview.mdx",
+          "lineRange": [7, 11]
+        }
+      },
+      "notificationOptions": {
+        "inApp": "Use VeltNotificationsTool and VeltNotificationsPanel components",
+        "email": "Configure SendGrid via Velt Console (Configurations -> Email Service). Requires: SendGrid API Key, Template ID, From Email Address",
+        "webhooks": "Trigger email notifications via webhooks for non-SendGrid services",
+        "sourceFile": "async-collaboration/comments/notifications.mdx",
+        "lineRange": [1, 50]
+      },
+      "behavioralNotes": [
+        "VeltComments must be added at the root of the app (inside VeltProvider)",
+        "textMode is enabled by default; disable with textMode={false}",
+        "In popover mode, add data-velt-target-comment-element-id attribute to enable single comment per element",
+        "Without data-velt-target-comment-element-id, multiple Comment Annotations can be added on same element",
+        "In stream mode, set streamViewContainerId to the scrolling container ID for robust positioning",
+        "VeltInlineCommentsSection is multithreaded by default; set multiThread={false} for single thread",
+        "VeltCommentBubble and default triangle should not be used together to avoid visual issues",
+        "For Tiptap: disable default text mode (textMode={false}) to avoid double comment UI"
+      ]
+    },
+
+    "notifications": {
+      "skillId": "notifications",
+      "sourceFiles": [
+        "async-collaboration/notifications/overview.mdx",
+        "async-collaboration/notifications/setup.mdx",
+        "async-collaboration/notifications/customize-behavior.mdx"
+      ],
+      "components": {
+        "react": [
+          {
+            "name": "VeltNotificationsTool",
+            "package": "@veltdev/react",
+            "props": {
+              "settings": { "type": "boolean", "default": false, "description": "Enable notification settings UI for users" },
+              "tabConfig": { "type": "object", "description": "Customize tab names or disable tabs (forYou, documents, all)" }
+            },
+            "sourceFile": "async-collaboration/notifications/setup.mdx",
+            "lineRange": [26, 30]
+          },
+          {
+            "name": "VeltNotificationsPanel",
+            "package": "@veltdev/react",
+            "props": {
+              "settings": { "type": "boolean", "default": false, "description": "Enable notification settings UI" },
+              "tabConfig": { "type": "object", "description": "Customize tab names or disable tabs" }
+            },
+            "sourceFile": "async-collaboration/notifications/setup.mdx",
+            "lineRange": [51, 55]
+          }
+        ],
+        "html": [
+          {
+            "name": "velt-notifications-tool",
+            "props": {
+              "settings": { "type": "boolean" }
+            },
+            "sourceFile": "async-collaboration/notifications/setup.mdx",
+            "lineRange": [35, 37]
+          },
+          {
+            "name": "velt-notifications-panel",
+            "props": {
+              "settings": { "type": "boolean" }
+            },
+            "sourceFile": "async-collaboration/notifications/setup.mdx",
+            "lineRange": [60, 62]
+          }
+        ]
+      },
+      "setupSteps": [
+        {
+          "step": 1,
+          "title": "Enable Notifications in Velt Console",
+          "description": "Go to Notifications section in Configurations in Velt Console and enable Notifications. Required before notifications will work.",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [10, 16]
+        },
+        {
+          "step": 2,
+          "title": "Add Notifications Tool component",
+          "description": "Place VeltNotificationsTool wherever you want the Notifications button to appear",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [18, 40]
+        },
+        {
+          "step": 3,
+          "title": "(Optional) Embed Notifications Panel",
+          "description": "If creating a dedicated notifications page, embed VeltNotificationsPanel directly",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [42, 67]
+        },
+        {
+          "step": 4,
+          "title": "(Optional) Enable Notification Settings for Users",
+          "description": "Enable in Console first, then enable via settings prop or API. Allows users to configure notification preferences.",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [70, 119]
+        },
+        {
+          "step": 5,
+          "title": "(Optional) Configure Notification Delivery",
+          "description": "Configure batching, delay, and digest in the Velt Console under API Key notification settings",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [121, 125]
+        }
+      ],
+      "apiMethods": [
+        {
+          "signature": "notificationElement.enableSettings(): void",
+          "description": "Enable notification settings feature",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [99, 99]
+        },
+        {
+          "signature": "notificationElement.disableSettings(): void",
+          "description": "Disable notification settings feature",
+          "sourceFile": "async-collaboration/notifications/setup.mdx",
+          "lineRange": [100, 100]
+        },
+        {
+          "signature": "notificationElement.setTabConfig(tabConfig: object): void",
+          "description": "Customize notification tab names or disable tabs (forYou, documents, all)",
+          "sourceFile": "async-collaboration/notifications/customize-behavior.mdx",
+          "lineRange": [69, 69]
+        }
+      ],
+      "hooks": [
+        {
+          "name": "useNotificationSettings",
+          "returns": "{ setSettingsInitialConfig, setSettings, settings }",
+          "description": "Hook to get and update notification settings for current user",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [310, 313]
+        },
+        {
+          "name": "useNotificationUtils",
+          "returns": "NotificationElement",
+          "description": "Hook to access notification element for utility methods",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [316, 319]
+        },
+        {
+          "name": "useNotificationsData",
+          "params": "query?: GetNotificationsDataQuery",
+          "returns": "Array<Notification>",
+          "description": "Hook to access notifications data for current user; automatically updates when notifications change",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [321, 330]
+        },
+        {
+          "name": "useUnreadNotificationsCount",
+          "returns": "{ forYou: number, all: number }",
+          "description": "Hook to get count of unread notifications by tab",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [334, 344]
+        }
+      ],
+      "defaults": {
+        "forYouTabMaxCount": 50,
+        "documentTabMaxCount": "15 notifications per 15 most recently active documents",
+        "maxAgeDays": 15,
+        "settingsEnabledByDefault": false,
+        "notificationsApplyToCurrentDocument": true
+      },
+      "behavioralNotes": [
+        "Notifications will NOT work unless enabled first in Velt Console",
+        "VeltNotificationsPanel is automatically added/removed when using VeltNotificationsTool",
+        "In-app notifications are only generated and fetched for documents the user has access to",
+        "By default only latest 50 notifications fetched for For You tab",
+        "Notifications older than 15 days are not fetched by default",
+        "Notification settings currently only update settings for current user in current Velt document",
+        "When using multiple documents or folders, settings apply to the root document",
+        "Custom notifications can be added from your app via REST API"
+      ]
+    },
+
+    "crdt": {
+      "skillId": "crdt",
+      "sourceFiles": [
+        "realtime-collaboration/crdt/overview.mdx",
+        "realtime-collaboration/crdt/setup/core.mdx",
+        "realtime-collaboration/crdt/setup/tiptap.mdx",
+        "realtime-collaboration/crdt/setup/blocknote.mdx",
+        "realtime-collaboration/crdt/setup/codemirror.mdx",
+        "realtime-collaboration/crdt/setup/reactflow.mdx"
+      ],
+      "missingFiles": [
+        "realtime-collaboration/crdt/setup/core-stores/text.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/map.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/array.mdx",
+        "realtime-collaboration/crdt/setup/core-stores/xml.mdx"
+      ],
+      "packages": [
+        {
+          "name": "@veltdev/crdt",
+          "installCommand": "npm install @veltdev/crdt",
+          "description": "Framework-agnostic CRDT core library (array, map, text, xml stores)",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [32, 34]
+        },
+        {
+          "name": "@veltdev/crdt-react",
+          "installCommand": "npm install @veltdev/crdt-react",
+          "description": "React Hook Wrapper for CRDT stores with minimal boilerplate",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [19, 21]
+        },
+        {
+          "name": "@veltdev/tiptap-crdt-react",
+          "installCommand": "npm install @veltdev/tiptap-crdt-react @tiptap/react @tiptap/starter-kit @tiptap/extension-collaboration @tiptap/extension-collaboration-cursor",
+          "description": "Real-time collaborative editing for Tiptap (React)",
+          "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+          "lineRange": [23, 25]
+        },
+        {
+          "name": "@veltdev/tiptap-crdt",
+          "installCommand": "npm install @veltdev/tiptap-crdt @veltdev/client @tiptap/core @tiptap/starter-kit @tiptap/extension-collaboration-caret",
+          "description": "Real-time collaborative editing for Tiptap (non-React)",
+          "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+          "lineRange": [28, 30]
+        },
+        {
+          "name": "@veltdev/blocknote-crdt-react",
+          "installCommand": "npm install @veltdev/blocknote-crdt-react",
+          "description": "Real-time collaborative editing for BlockNote (React)",
+          "sourceFile": "realtime-collaboration/crdt/setup/blocknote.mdx",
+          "lineRange": [22, 24]
+        },
+        {
+          "name": "@veltdev/codemirror-crdt-react",
+          "installCommand": "npm install @veltdev/codemirror-crdt-react @veltdev/react",
+          "description": "Real-time collaborative editing for CodeMirror (React)",
+          "sourceFile": "realtime-collaboration/crdt/setup/codemirror.mdx",
+          "lineRange": [23, 25]
+        },
+        {
+          "name": "@veltdev/codemirror-crdt",
+          "installCommand": "npm install @veltdev/codemirror-crdt @veltdev/client y-codemirror.next",
+          "description": "Real-time collaborative editing for CodeMirror (non-React)",
+          "sourceFile": "realtime-collaboration/crdt/setup/codemirror.mdx",
+          "lineRange": [29, 31]
+        },
+        {
+          "name": "@veltdev/reactflow-crdt",
+          "installCommand": "npm install @veltdev/reactflow-crdt @veltdev/react",
+          "description": "Real-time collaborative editing for React Flow diagrams",
+          "sourceFile": "realtime-collaboration/crdt/setup/reactflow.mdx",
+          "lineRange": [21, 23]
+        }
+      ],
+      "storeTypes": ["text", "array", "map", "xml"],
+      "setupSteps": {
+        "core": [
+          {
+            "step": 1,
+            "title": "Install Dependencies",
+            "react": "npm install @veltdev/crdt-react @veltdev/crdt @veltdev/react",
+            "other": "npm install @veltdev/crdt @veltdev/client",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [14, 41]
+          },
+          {
+            "step": 2,
+            "title": "Initialize Velt in your app",
+            "description": "Follow Velt Setup Docs - required for the collaboration engine",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [43, 45]
+          },
+          {
+            "step": 3,
+            "title": "Initialize a CRDT store",
+            "react": "useVeltCrdtStore<T>({ id, type, initialValue })",
+            "other": "createVeltStore<T>({ id, type, initialValue, veltClient })",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [47, 84]
+          },
+          {
+            "step": 4,
+            "title": "Set or update the store value",
+            "react": "const { update } = useVeltCrdtStore(...); update(newValue)",
+            "other": "store.update('new value')",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [86, 111]
+          },
+          {
+            "step": 5,
+            "title": "Listen for changes",
+            "react": "const { value } = useVeltCrdtStore(...); useEffect(() => {}, [value])",
+            "other": "store.subscribe((newValue) => { })",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [113, 145]
+          },
+          {
+            "step": 6,
+            "title": "Save and restore versions",
+            "react": "const { saveVersion, getVersions, setStateFromVersion } = useVeltCrdtStore(...)",
+            "other": "store.saveVersion(), store.getVersions(), store.setStateFromVersion()",
+            "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+            "lineRange": [147, 196]
+          }
+        ],
+        "tiptap": [
+          {
+            "step": 1,
+            "title": "Install Dependencies",
+            "react": "npm install @veltdev/tiptap-crdt-react @tiptap/react @tiptap/starter-kit @tiptap/extension-collaboration @tiptap/extension-collaboration-cursor",
+            "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+            "lineRange": [17, 32]
+          },
+          {
+            "step": 2,
+            "title": "Setup Velt",
+            "description": "Initialize Velt client following Velt Setup Docs",
+            "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+            "lineRange": [35, 37]
+          },
+          {
+            "step": 3,
+            "title": "Initialize Velt CRDT Extension",
+            "description": "Use useVeltTiptapCrdtExtension({ editorId }) and pass VeltCrdt to editor extensions",
+            "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+            "lineRange": [40, 64]
+          }
+        ]
+      },
+      "apiMethods": [
+        {
+          "signature": "createVeltStore<T>(config: StoreConfig<T>): Promise<Store<T> | null>",
+          "description": "Create and initialize a collaborative CRDT store (non-React)",
+          "package": "@veltdev/crdt",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [74, 81]
+        },
+        {
+          "signature": "store.update(newValue: T): void",
+          "description": "Update the store value and sync to peers",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [107, 108]
+        },
+        {
+          "signature": "store.subscribe((newValue: T) => void): () => void",
+          "description": "Subscribe to changes in the store; returns unsubscribe function",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [138, 141]
+        },
+        {
+          "signature": "store.getValue(): T",
+          "description": "Retrieve the current store value",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [375, 380]
+        },
+        {
+          "signature": "store.destroy(): void",
+          "description": "Clean up resources when done with the store",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [490, 492]
+        },
+        {
+          "signature": "store.saveVersion(versionName: string): Promise<string>",
+          "description": "Save a snapshot of current state as a named version; returns version ID",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [808, 810]
+        },
+        {
+          "signature": "store.getVersions(): Promise<Version[]>",
+          "description": "Fetch all saved versions",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [840, 843]
+        },
+        {
+          "signature": "store.getVersionById(versionId: string): Promise<Version | null>",
+          "description": "Fetch a specific version by ID",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [865, 867]
+        },
+        {
+          "signature": "store.setStateFromVersion(version: Version): Promise<void>",
+          "description": "Restore the store state from a specific version object",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [884, 886]
+        },
+        {
+          "signature": "store.restoreVersion(versionId: string): Promise<boolean>",
+          "description": "Restore the store to a specific version by ID (React hook convenience method)",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [910, 913]
+        },
+        {
+          "signature": "store.getDoc(): Y.Doc",
+          "description": "Get the underlying Yjs document",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [939, 941]
+        },
+        {
+          "signature": "store.getProvider(): Provider",
+          "description": "Get the provider instance for the store",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [947, 950]
+        },
+        {
+          "signature": "store.getText(): Y.Text | null",
+          "description": "Get the Y.Text instance if store type is 'text'",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [956, 960]
+        },
+        {
+          "signature": "store.getXml(): Y.XmlFragment | null",
+          "description": "Get the Y.XmlFragment instance if store type is 'xml'",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [966, 970]
+        },
+        {
+          "signature": "crdtElement.on(eventType: 'updateData'): Observable<CrdtUpdateDataEvent>",
+          "description": "Subscribe to CRDT events; currently supports 'updateData' event",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [538, 540]
+        },
+        {
+          "signature": "crdtElement.pushMessage(query: CrdtPushMessageQuery): Promise<void>",
+          "description": "Push a raw Yjs message into the unified message stream",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [593, 601]
+        },
+        {
+          "signature": "crdtElement.onMessage(query: CrdtOnMessageQuery): () => void",
+          "description": "Subscribe to incoming messages on the unified message stream; returns unsubscribe function",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [630, 636]
+        },
+        {
+          "signature": "crdtElement.getMessages(query: CrdtGetMessagesQuery): Promise<CrdtMessageData[]>",
+          "description": "Retrieve historical messages for message replay during initial load",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [669, 675]
+        },
+        {
+          "signature": "crdtElement.getSnapshot(query: CrdtGetSnapshotQuery): Promise<CrdtSnapshotData | null>",
+          "description": "Retrieve the latest CRDT state snapshot for a document",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [705, 710]
+        },
+        {
+          "signature": "crdtElement.saveSnapshot(query: CrdtSaveSnapshotQuery): Promise<void>",
+          "description": "Persist a CRDT state snapshot; called periodically to create checkpoints",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [734, 742]
+        },
+        {
+          "signature": "crdtElement.pruneMessages(query: CrdtPruneMessagesQuery): Promise<void>",
+          "description": "Delete historical messages older than given timestamp; called after saving snapshot",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [769, 774]
+        },
+        {
+          "signature": "crdtElement.enableWebhook(): void",
+          "description": "Enable webhook notifications for CRDT data changes",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [1165, 1166]
+        },
+        {
+          "signature": "crdtElement.disableWebhook(): void",
+          "description": "Disable webhook notifications for CRDT data changes",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [1229, 1230]
+        },
+        {
+          "signature": "crdtElement.setWebhookDebounceTime(debounceTime: number): void",
+          "description": "Set debounce time for webhook notifications (minimum 5000ms)",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [1193, 1194]
+        },
+        {
+          "signature": "crdtElement.setActivityDebounceTime(time: number): void",
+          "description": "Control how long CRDT keystrokes are batched before activity log record is flushed",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [1250, 1253]
+        },
+        {
+          "signature": "client.getCrdtElement(): CrdtElement",
+          "description": "Get the CRDT element for accessing CRDT-specific APIs",
+          "sourceFile": "api-reference/sdk/api/api-methods.mdx",
+          "lineRange": [2751, 2758]
+        },
+        {
+          "signature": "useVeltTiptapCrdtExtension({ editorId: string }): { VeltCrdt }",
+          "description": "React hook to initialize Velt CRDT Tiptap extension",
+          "package": "@veltdev/tiptap-crdt-react",
+          "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+          "lineRange": [49, 51]
+        },
+        {
+          "signature": "createVeltTipTapStore({ editorId, veltClient }): Promise<Store>",
+          "description": "Create a Tiptap CRDT store (non-React)",
+          "package": "@veltdev/tiptap-crdt",
+          "sourceFile": "realtime-collaboration/crdt/setup/tiptap.mdx",
+          "lineRange": [71, 73]
+        },
+        {
+          "signature": "useVeltReactFlowCrdtExtension({ editorId, initialNodes, initialEdges }): { nodes, edges, onNodesChange, onEdgesChange, onConnect }",
+          "description": "React hook to initialize Velt CRDT extension for React Flow",
+          "package": "@veltdev/reactflow-crdt",
+          "sourceFile": "realtime-collaboration/crdt/setup/reactflow.mdx",
+          "lineRange": [35, 39]
+        }
+      ],
+      "hooks": [
+        {
+          "name": "useVeltCrdtStore",
+          "params": "{ id: string, type: 'text'|'array'|'map'|'xml', initialValue?: T, debounceMs?: number, enablePresence?: boolean }",
+          "returns": "{ value, versions, store, update, saveVersion, getVersions, getVersionById, restoreVersion, setStateFromVersion }",
+          "description": "React hook to create and sync a collaborative CRDT store",
+          "package": "@veltdev/crdt-react",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [55, 63]
+        },
+        {
+          "name": "useCrdtUtils",
+          "returns": "CrdtElement",
+          "description": "Hook to access CRDT element for utility methods",
+          "sourceFile": "api-reference/sdk/api/react-hooks.mdx",
+          "lineRange": [2802, 2808]
+        },
+        {
+          "name": "useCrdtEventCallback",
+          "params": "eventType: 'updateData'",
+          "returns": "CrdtUpdateDataEvent",
+          "description": "Hook to subscribe to CRDT events",
+          "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+          "lineRange": [514, 520]
+        }
+      ],
+      "debuggingInterface": {
+        "name": "window.VeltCrdtStoreMap",
+        "description": "Global debugging interface that exposes all active CRDT stores",
+        "methods": [
+          {
+            "signature": "VeltCrdtStoreMap.get(id?: string): VeltCrdtStore | undefined",
+            "description": "Get a store by ID; if omitted returns first registered store"
+          },
+          {
+            "signature": "VeltCrdtStoreMap.getAll(): { [id: string]: VeltCrdtStore }",
+            "description": "Get all registered stores as an object"
+          }
+        ],
+        "events": [
+          { "event": "veltCrdtStoreRegister", "description": "Fired when a new store is registered; detail: { id: string }" },
+          { "event": "veltCrdtStoreUnregister", "description": "Fired when a store is unregistered/destroyed; detail: { id: string }" }
+        ],
+        "sourceFile": "realtime-collaboration/crdt/setup/core.mdx",
+        "lineRange": [975, 1120]
+      },
+      "backendRestAPIs": [
+        {
+          "endpoint": "GET /api-reference/rest-apis/v2/crdt/get-crdt-data",
+          "description": "Fetch CRDT data for a specific editor by editorId, or all editors in a document"
+        },
+        {
+          "endpoint": "POST /api-reference/rest-apis/v2/crdt/add-crdt-data",
+          "description": "Create new CRDT editor data on the backend (errors if editorId already exists)"
+        },
+        {
+          "endpoint": "PUT /api-reference/rest-apis/v2/crdt/update-crdt-data",
+          "description": "Replace existing CRDT editor data with proper CRDT operations"
+        }
+      ],
+      "behavioralNotes": [
+        "Framework agnostic - use core library for any framework; React hook available for faster integration",
+        "Yjs ensures eventual consistency without merge conflicts (CRDT conflict-free sync)",
+        "Local-first reads/writes with automatic re-sync when back online (offline-first)",
+        "Same user can edit in multiple tabs simultaneously with full synchronization",
+        "editorId must be unique per editor instance, especially important with multiple editors",
+        "React hook cleanup is automatic on component unmount; non-React requires manual store.destroy()",
+        "Webhook debounce minimum is 5 seconds (5000ms)",
+        "Activity log debounce default is 10 minutes; minimum enforced is 10 seconds",
+        "CRDT webhooks are disabled by default",
+        "core-stores subdirectory (text, map, array, xml) was not found in the repository"
+      ]
+    }
+  },
+
+  "dataModels": {
+    "User": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [4465, 4494],
+      "fields": {
+        "userId": { "type": "string", "required": true, "description": "Unique user identifier" },
+        "organizationId": { "type": "string", "required": true, "description": "Organization the user belongs to" },
+        "name": { "type": "string", "required": false, "description": "Full name; defaults to random avatar name" },
+        "photoUrl": { "type": "string", "required": false, "description": "Display picture URL; defaults to random avatar" },
+        "email": { "type": "string", "required": false, "description": "Required for email/Slack notifications" },
+        "plan": { "type": "string", "required": false },
+        "color": { "type": "string", "required": false, "description": "Color for avatar border, cursor, selection" },
+        "textColor": { "type": "string", "required": false, "description": "Text color when photoUrl not present" },
+        "type": { "type": "string", "required": false },
+        "isReadOnly": { "type": "boolean", "required": false },
+        "isAnonymous": { "type": "boolean", "required": false, "description": "View-only access" },
+        "isGuest": { "type": "boolean", "required": false },
+        "isAdmin": { "type": "boolean", "required": false, "description": "JWT token must also have isAdmin=true" },
+        "initial": { "type": "string", "required": false, "description": "First letter of first name" },
+        "accessRole": { "type": "'viewer' | 'editor'", "required": false, "default": "editor", "description": "Set only via REST API, not frontend SDK" }
+      }
+    },
+    "UserOptions": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [4496, 4503],
+      "fields": {
+        "replaceContacts": { "type": "boolean", "required": false },
+        "authToken": { "type": "string", "required": false, "description": "JWT authentication token" },
+        "throwError": { "type": "boolean", "required": false, "default": false, "description": "Throw error if authentication fails" }
+      }
+    },
+    "Document": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3509, 3515],
+      "fields": {
+        "id": { "type": "string", "required": true, "description": "Unique identifier for the document" },
+        "metadata": { "type": "DocumentMetadata", "required": true }
+      }
+    },
+    "DocumentMetadata": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3204, 3215],
+      "fields": {
+        "documentId": { "type": "string", "required": true, "description": "Unique document id generated from client document id" },
+        "documentName": { "type": "string", "required": false, "description": "Display name of the document" },
+        "folderId": { "type": "string", "required": false },
+        "apiKey": { "type": "string", "required": false },
+        "organizationId": { "type": "string", "required": true },
+        "locations": { "type": "{ [locationId: number]: LocationMetadata }", "required": false }
+      }
+    },
+    "SetDocumentsRequestOptions": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3517, 3527],
+      "fields": {
+        "organizationId": { "type": "string", "required": false },
+        "folderId": { "type": "string", "required": false, "description": "Subscribe to documents in given folder" },
+        "locationId": { "type": "string", "required": false },
+        "allDocuments": { "type": "boolean", "required": false, "description": "Subscribe to all documents in folder (max 50)" },
+        "rootDocumentId": { "type": "string", "required": false },
+        "context": { "type": "SetDocumentsContext", "required": false, "description": "Filter comments by custom context fields (AND logic)" }
+      }
+    },
+    "VeltAuthTokenRequest": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3462, 3469],
+      "fields": {
+        "apiKey": { "type": "string", "required": true },
+        "userId": { "type": "string", "required": true },
+        "userProperties": { "type": "UserProperties", "required": false },
+        "permissions": { "type": "{ resources: Resource[] }", "required": false }
+      }
+    },
+    "StoreConfig": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [5009, 5018],
+      "fields": {
+        "id": { "type": "string", "required": true, "description": "Unique identifier for the collaborative store" },
+        "veltClient": { "type": "Velt", "required": true, "description": "Velt client instance from initVelt()" },
+        "type": { "type": "'array' | 'map' | 'text' | 'xml'", "required": true, "description": "Backing CRDT data type" },
+        "initialValue": { "type": "T", "required": false },
+        "enablePresence": { "type": "boolean", "required": false, "default": true },
+        "debounceMs": { "type": "number", "required": false, "description": "Debounce interval in ms for batching local updates" }
+      }
+    },
+    "useVeltCrdtStoreReturn": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [5024, 5036],
+      "fields": {
+        "value": { "type": "T | null", "description": "Current value of the store" },
+        "versions": { "type": "Version[]", "description": "List of all stored versions" },
+        "store": { "type": "Store<T> | null", "description": "The underlying Velt Store instance" },
+        "update": { "type": "(newValue: T) => void" },
+        "saveVersion": { "type": "(name: string) => Promise<string>" },
+        "getVersions": { "type": "() => Promise<Version[]>" },
+        "getVersionById": { "type": "(id: string) => Promise<Version | null>" },
+        "restoreVersion": { "type": "(id: string) => Promise<boolean>" },
+        "setStateFromVersion": { "type": "(version: Version) => Promise<void>" }
+      }
+    },
+    "CrdtUpdateDataEvent": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [5064, 5086],
+      "fields": {
+        "methodName": { "type": "string", "required": true },
+        "uniqueId": { "type": "string", "required": true },
+        "timestamp": { "type": "number", "required": true },
+        "source": { "type": "string", "required": true },
+        "payload": { "type": "CrdtUpdateDataPayload", "required": true }
+      }
+    },
+    "CrdtPushMessageQuery": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [5088, 5101],
+      "fields": {
+        "id": { "type": "string", "required": true, "description": "Document or store identifier" },
+        "data": { "type": "number[]", "required": true, "description": "Raw Yjs message bytes" },
+        "yjsClientId": { "type": "number", "required": true },
+        "messageType": { "type": "'sync' | 'awareness'", "required": false, "default": "'sync'" },
+        "eventData": { "type": "unknown", "required": false },
+        "type": { "type": "string", "required": false },
+        "contentKey": { "type": "string", "required": false },
+        "source": { "type": "string", "required": false, "description": "e.g. 'tiptap', 'plate', 'codemirror'" }
+      }
+    },
+    "Notification": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [2531, 2553]
+    },
+    "NotificationSettingsConfig": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [2583, 2601]
+    },
+    "ErrorEvent": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3261, 3272],
+      "fields": {
+        "event": { "type": "string" },
+        "sourceMethod": { "type": "string" },
+        "documentIds": { "type": "string[]" },
+        "userId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "error": { "type": "string" },
+        "code": { "type": "string", "note": "e.g. 'token_expired'" },
+        "message": { "type": "string" }
+      }
+    },
+    "VeltDebugInfo": {
+      "sourceFile": "api-reference/sdk/models/data-models.mdx",
+      "lineRange": [3557, 3564],
+      "fields": {
+        "veltVersion": { "type": "string" },
+        "apiKey": { "type": "string" },
+        "serverMap": { "type": "DebugInfoMap" },
+        "clientMap": { "type": "DebugInfoMap" }
+      }
+    }
+  }
+}

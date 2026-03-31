@@ -1,0 +1,373 @@
+{
+  "runTimestamp": "2026-03-31T00:16:12Z",
+  "skillsAnalyzed": [
+    "velt-setup-best-practices",
+    "velt-comments-best-practices",
+    "velt-notifications-best-practices",
+    "velt-crdt-best-practices"
+  ],
+  "totalRulesRead": 133,
+  "drifts": [
+    {
+      "id": "drift-001",
+      "type": "stale_api_signature",
+      "severity": "high",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/identity/identity-jwt-generation.md",
+      "ruleEvidence": {
+        "text": "const response = await fetch(\"https://api.velt.dev/v2/auth/token/get\", {",
+        "lineRange": [66, 66]
+      },
+      "docSource": "get-started/advanced.mdx",
+      "docEvidence": {
+        "text": "\"jwtGenerateEndpoint\": \"POST https://api.velt.dev/v2/auth/generate_token\"",
+        "lineRange": [297, 297]
+      },
+      "description": "JWT token generation endpoint URL in rule files uses '/v2/auth/token/get' but docs specify '/v2/auth/generate_token'. This mismatch appears in identity-jwt-generation.md (lines 19, 66, 141, 183), config-auth-token-security.md (lines 22, 76), and debug-common-issues.md (line 116).",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/identity/identity-jwt-generation.md",
+      "suggestedSection": "All fetch() calls to token endpoint and API Request/Response section",
+      "ambiguityNote": "Both URLs may work if Velt maintains backward compatibility, but the canonical docs endpoint is /v2/auth/generate_token. Verify with live API before updating all 7 occurrences across 3 rule files."
+    },
+    {
+      "id": "drift-002",
+      "type": "stale_api_signature",
+      "severity": "high",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/identity/identity-user-object-shape.md",
+      "ruleEvidence": {
+        "text": "| name | string | Yes | Display name shown in UI |\n| email | string | Yes | Email for @mentions and notifications |",
+        "lineRange": [52, 53]
+      },
+      "docSource": "api-reference/sdk/models/data-models.mdx",
+      "docEvidence": {
+        "text": "\"name\": { \"type\": \"string\", \"required\": false, \"description\": \"Full name; defaults to random avatar name\" },\n\"email\": { \"type\": \"string\", \"required\": false, \"description\": \"Required for email/Slack notifications\" }",
+        "lineRange": [1498, 1500]
+      },
+      "description": "Rule marks 'name' and 'email' as Required (Yes) in the User object field reference table, but docs data model shows both as optional (required: false). Only userId and organizationId are truly required per docs. The rule also lists only userId and organizationId in the configValues.userRequiredFields extraction.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/identity/identity-user-object-shape.md",
+      "suggestedSection": "Field Reference table - change name and email from Required: Yes to Required: No (Recommended)",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-003",
+      "type": "stale_api_signature",
+      "severity": "high",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/document-identity/document-set-document.md",
+      "ruleEvidence": {
+        "text": "client.setDocuments(documents: DocumentConfig[]): void;",
+        "lineRange": [110, 110]
+      },
+      "docSource": "get-started/quickstart.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"client.setDocuments(documents: Document[], options?: SetDocumentsRequestOptions): Promise<void>\"",
+        "lineRange": [186, 189]
+      },
+      "description": "Rule shows setDocuments with return type 'void' and no options parameter. Docs show it returns 'Promise<void>' and accepts an optional second parameter 'options?: SetDocumentsRequestOptions' which supports folderId, allDocuments, organizationId, locationId, rootDocumentId, and context fields. The rule also uses 'DocumentConfig' as the type name while docs use 'Document'.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/document-identity/document-set-document.md",
+      "suggestedSection": "setDocuments API Reference - update signature, return type, add options parameter, rename DocumentConfig to Document",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-004",
+      "type": "stale_code_example",
+      "severity": "high",
+      "confidence": "high",
+      "skillTarget": "velt-crdt-best-practices",
+      "ruleFile": "rules/shared/tiptap/tiptap-disable-history.md",
+      "ruleEvidence": {
+        "text": "StarterKit.configure({\n      undoRedo: false,  // CRITICAL: Disable history (Tiptap v3 uses undoRedo)\n    }),",
+        "lineRange": [29, 31]
+      },
+      "docSource": "realtime-collaboration/crdt/setup/tiptap.mdx",
+      "docEvidence": {
+        "text": "StarterKit.configure({\n      history: false,\n    }),",
+        "lineRange": [55, 57]
+      },
+      "description": "Rule uses 'undoRedo: false' to disable Tiptap history (claiming Tiptap v3 syntax), but all code examples in the docs consistently use 'history: false' (Tiptap v2 syntax). The docs use 'history: false' in at least 4 separate code blocks (lines 56, 81, 176, 230). If users are on Tiptap v2 (which the docs target), using 'undoRedo' will silently fail to disable history, causing CRDT desync.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/tiptap/tiptap-disable-history.md",
+      "suggestedSection": "Correct code example and Verification checklist - change undoRedo to history, or document both v2 and v3 variants",
+      "ambiguityNote": "If Velt officially supports Tiptap v3 with undoRedo, both variants should be documented. Currently docs only show history: false."
+    },
+    {
+      "id": "drift-005",
+      "type": "behavioral_mismatch",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/document-identity/document-set-document.md",
+      "ruleEvidence": {
+        "text": "interface DocumentConfig {\n  id: string;              // Required: unique document identifier\n  metadata?: {             // Optional: document metadata\n    documentName?: string;\n    [key: string]: any;    // Custom metadata fields\n  };\n}",
+        "lineRange": [113, 119]
+      },
+      "docSource": "api-reference/sdk/models/data-models.mdx",
+      "docEvidence": {
+        "text": "\"Document\": { \"fields\": { \"id\": { \"type\": \"string\", \"required\": true }, \"metadata\": { \"type\": \"DocumentMetadata\", \"required\": true } } }",
+        "lineRange": [1522, 1528]
+      },
+      "description": "Rule shows metadata as optional ('metadata?') in the DocumentConfig interface, but the docs data model shows metadata as required (required: true) in the Document type. This could cause runtime issues if users follow the rule and omit metadata.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/document-identity/document-set-document.md",
+      "suggestedSection": "DocumentConfig interface definition",
+      "ambiguityNote": "The docs quickstart examples also show metadata being optional in practice (setDocuments([{ id: 'doc-123' }]) works). The data model may reflect the stored shape rather than the input shape. Confidence is high for the textual mismatch but the runtime behavior may differ."
+    },
+    {
+      "id": "drift-006",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule exists for useSetDocuments hook pattern",
+        "lineRange": []
+      },
+      "docSource": "get-started/quickstart.mdx",
+      "docEvidence": {
+        "text": "\"name\": \"useSetDocuments\",\n\"params\": \"documents: Document[], options?: SetDocumentsRequestOptions\",\n\"description\": \"Initialize multiple documents at once (React hook)\"",
+        "lineRange": [262, 267]
+      },
+      "description": "The docs document a useSetDocuments hook that accepts documents and options. The rule document-set-document.md references this hook in code examples (line 80: 'const { setDocuments } = useSetDocuments()') but does not document its full API signature or the SetDocumentsRequestOptions parameter. There is no dedicated hook rule for useSetDocuments.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/document-identity/document-set-document.md",
+      "suggestedSection": "Add useSetDocuments hook reference with full parameter types",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-007",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule covers client.on() event subscription API or useVeltEventCallback hook",
+        "lineRange": []
+      },
+      "docSource": "get-started/advanced.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"client.on(eventType: string): Observable<any>\",\n\"description\": \"Subscribe to Velt client events (initUpdate, userUpdate, documentInit, error, etc.)\"",
+        "lineRange": [221, 224]
+      },
+      "description": "Docs describe client.on() for subscribing to lifecycle events (initUpdate, userUpdate, documentInit, error, veltButtonClick, permissionProvider, dataProvider) and the useVeltEventCallback hook. No setup skill rule covers these APIs despite them being documented in get-started/advanced.mdx which maps to the setup skill.",
+      "suggestedAction": "create_rule",
+      "suggestedFile": "rules/shared/events/events-client-lifecycle.md",
+      "suggestedSection": "New rule covering client.on() and useVeltEventCallback for error handling and lifecycle monitoring",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-008",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule covers useVeltInitState hook or client.getVeltInitState()",
+        "lineRange": []
+      },
+      "docSource": "get-started/advanced.mdx",
+      "docEvidence": {
+        "text": "\"name\": \"useVeltInitState\",\n\"returns\": \"boolean\",\n\"description\": \"Returns true when both Velt user and document are initialized\"",
+        "lineRange": [269, 273]
+      },
+      "description": "Docs describe useVeltInitState hook and client.getVeltInitState() Observable for checking if Velt user and document are both initialized. This is a critical pattern for conditionally rendering collaborative features. No setup skill rule covers it.",
+      "suggestedAction": "create_rule",
+      "suggestedFile": "rules/react/lifecycle/lifecycle-init-state.md",
+      "suggestedSection": "New rule covering useVeltInitState for conditional rendering of Velt features",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-009",
+      "type": "behavioral_mismatch",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/document-identity/document-set-document.md",
+      "ruleEvidence": {
+        "text": "No mention of 30-document limit or folder support in setDocuments rule",
+        "lineRange": []
+      },
+      "docSource": "get-started/quickstart.mdx",
+      "docEvidence": {
+        "text": "\"documentSetLimit\": 30,\n\"folderDocumentLimit\": 50",
+        "lineRange": [304, 305]
+      },
+      "description": "Docs specify that users can subscribe to up to 30 documents at a time, and setDocuments with allDocuments flag and folderId retrieves max 50 documents. The setDocuments rule has no mention of these limits, which could lead to silent failures when users exceed them.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/document-identity/document-set-document.md",
+      "suggestedSection": "Add behavioral limits section: max 30 documents per setDocuments call, max 50 with folder+allDocuments",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-010",
+      "type": "stale_api_signature",
+      "severity": "high",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": "rules/shared/config/config-auth-token-security.md",
+      "ruleEvidence": {
+        "text": "const response = await fetch(\"https://api.velt.dev/v2/auth/token/get\", {",
+        "lineRange": [76, 76]
+      },
+      "docSource": "get-started/advanced.mdx",
+      "docEvidence": {
+        "text": "\"jwtGenerateEndpoint\": \"POST https://api.velt.dev/v2/auth/generate_token\"",
+        "lineRange": [297, 297]
+      },
+      "description": "Same JWT endpoint URL drift as drift-001 but in a different rule file. config-auth-token-security.md uses '/v2/auth/token/get' in both the incorrect example (line 22) and correct example (line 76).",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/config/config-auth-token-security.md",
+      "suggestedSection": "All fetch() calls to token endpoint",
+      "ambiguityNote": "See drift-001 for full context. Update both files simultaneously."
+    },
+    {
+      "id": "drift-011",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule for client.fetchDebugInfo() or client.getDebugInfo() APIs",
+        "lineRange": []
+      },
+      "docSource": "get-started/advanced.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"client.fetchDebugInfo(): Promise<VeltDebugInfo>\",\n\"description\": \"Retrieve a one-time snapshot of debugging information about your Velt integration\"",
+        "lineRange": [209, 212]
+      },
+      "description": "Docs describe fetchDebugInfo() and getDebugInfo() APIs in get-started/advanced.mdx for debugging Velt integrations. The existing debug-setup-verification.md rule does not reference these programmatic debugging APIs.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/debugging-testing/debug-setup-verification.md",
+      "suggestedSection": "Add fetchDebugInfo() and getDebugInfo() as programmatic verification methods",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-012",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "medium",
+      "skillTarget": "velt-setup-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule covers folder-based document organization via setDocuments with folderId",
+        "lineRange": []
+      },
+      "docSource": "key-concepts/overview.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"client.setDocuments(docs, { folderId, allDocuments }): Promise<void>\",\n\"description\": \"Subscribe to a folder and all or specific documents within it\"",
+        "lineRange": [227, 230]
+      },
+      "description": "Docs describe folder-based document subscription via setDocuments with folderId option and the client.fetchFolders() API. No setup rule covers this pattern despite it being documented in key-concepts/overview.mdx.",
+      "suggestedAction": "create_rule",
+      "suggestedFile": "rules/shared/document-identity/document-folders.md",
+      "suggestedSection": "New rule covering folder-based document organization and fetchFolders API",
+      "ambiguityNote": null
+    },
+    {
+      "id": "drift-013",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "medium",
+      "skillTarget": "velt-crdt-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule covers VeltCrdtStoreMap debugging interface",
+        "lineRange": []
+      },
+      "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+      "docEvidence": {
+        "text": "\"name\": \"window.VeltCrdtStoreMap\",\n\"description\": \"Global debugging interface that exposes all active CRDT stores\"",
+        "lineRange": [1443, 1444]
+      },
+      "description": "Docs describe window.VeltCrdtStoreMap as a global debugging interface with .get(), .getAll() methods and veltCrdtStoreRegister/veltCrdtStoreUnregister events. The existing core-debug-storemap.md rule may cover this but was not in the skillRuleMappings for core.mdx.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/core/core-debug-storemap.md",
+      "suggestedSection": "Ensure VeltCrdtStoreMap.get(), getAll() and events are documented",
+      "ambiguityNote": "core-debug-storemap.md exists but is not mapped to core.mdx in skillRuleMappings. This may be a mapping gap rather than a content gap."
+    },
+    {
+      "id": "drift-014",
+      "type": "missing_rule",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-crdt-best-practices",
+      "ruleFile": null,
+      "ruleEvidence": {
+        "text": "No rule covers crdtElement.pushMessage(), onMessage(), getMessages(), getSnapshot(), saveSnapshot(), pruneMessages() APIs",
+        "lineRange": []
+      },
+      "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"crdtElement.pushMessage(query: CrdtPushMessageQuery): Promise<void>\",\n\"description\": \"Push a raw Yjs message into the unified message stream\"",
+        "lineRange": [1329, 1332]
+      },
+      "description": "Docs describe a full message stream API on crdtElement (pushMessage, onMessage, getMessages, getSnapshot, saveSnapshot, pruneMessages) for advanced CRDT use cases. The existing core-message-stream.md rule may cover this but is not in the skillRuleMappings for core.mdx.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/core/core-message-stream.md",
+      "suggestedSection": "Ensure all message stream methods are documented with signatures matching docs",
+      "ambiguityNote": "core-message-stream.md exists but is not mapped in skillRuleMappings. This may be a mapping gap."
+    },
+    {
+      "id": "drift-015",
+      "type": "behavioral_mismatch",
+      "severity": "medium",
+      "confidence": "high",
+      "skillTarget": "velt-crdt-best-practices",
+      "ruleFile": "rules/shared/core/core-webhooks.md",
+      "ruleEvidence": {
+        "text": "| `setWebhookDebounceTime(ms)` | Set debounce interval in milliseconds (default: 5000, minimum: 5000) |",
+        "lineRange": [69, 69]
+      },
+      "docSource": "realtime-collaboration/crdt/setup/core.mdx",
+      "docEvidence": {
+        "text": "\"signature\": \"crdtElement.setWebhookDebounceTime(debounceTime: number): void\",\n\"description\": \"Set debounce time for webhook notifications (minimum 5000ms)\"",
+        "lineRange": [1377, 1379]
+      },
+      "description": "Rule and docs agree on the 5000ms minimum for webhook debounce. However, the docs also describe setActivityDebounceTime with 'default is 10 minutes; minimum enforced is 10 seconds' which is not covered in the webhooks rule.",
+      "suggestedAction": "update_rule",
+      "suggestedFile": "rules/shared/core/core-webhooks.md",
+      "suggestedSection": "Add setActivityDebounceTime method reference (default: 10 min, minimum: 10 sec) or cross-reference to activity debounce rule",
+      "ambiguityNote": "core-activity-debounce.md exists and may cover this. This is a coverage completeness issue."
+    }
+  ],
+  "stats": {
+    "totalDriftsFound": 15,
+    "bySeverity": {
+      "high": 5,
+      "medium": 10,
+      "low": 0
+    },
+    "byType": {
+      "stale_api_signature": 4,
+      "stale_code_example": 1,
+      "missing_rule": 7,
+      "behavioral_mismatch": 3,
+      "missing_docs_coverage": 0,
+      "new_component": 0,
+      "deprecated_removal": 0
+    },
+    "bySkill": {
+      "velt-setup-best-practices": 10,
+      "velt-comments-best-practices": 0,
+      "velt-notifications-best-practices": 0,
+      "velt-crdt-best-practices": 5
+    },
+    "byConfidence": {
+      "high": 13,
+      "medium": 2,
+      "low": 0
+    },
+    "docsFilesAnalyzed": 47,
+    "ruleFilesRead": 133,
+    "mappedPairsChecked": 82
+  }
+}
