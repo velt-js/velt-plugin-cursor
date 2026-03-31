@@ -8,16 +8,15 @@ Use when the user wants notification features: bell icon, notification panel, em
 ## Workflow
 
 1. Verify Velt is set up. If not, run /install-velt first.
-2. Use the `install_velt_interactive` MCP tool with notifications feature.
-3. Follow the guided flow (plan → approve → apply).
+2. Call the `install_velt_interactive` MCP tool with notifications feature.
+3. Follow the MCP plan — it tells you which skill files to read (from `velt-notifications-best-practices`).
 4. Ask if they want email (SendGrid) or webhook integrations configured.
 
-## Guardrails
+## Key Rules
 - Notifications must be enabled in Velt Console FIRST (console.velt.dev > Configuration).
 - VeltNotificationsTool provides the bell icon — place it in the toolbar/header.
 - Use tabConfig to customize which tabs appear (forYou, all, documents).
 - For email: requires SendGrid API key configured in Velt Console.
-- Consult the installed **velt-notifications-best-practices** skill for detailed implementation patterns.
 
 ## Output
 - VeltNotificationsTool added to UI

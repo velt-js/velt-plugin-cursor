@@ -1,5 +1,5 @@
 ---
-description: Velt best practices - document-identity
+description: Velt document identity patterns including setDocuments, document ID strategies
 alwaysApply: true
 ---
 

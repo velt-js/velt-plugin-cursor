@@ -14,15 +14,15 @@ Use when the user wants to show real-time cursor positions of other users on the
 
 1. Verify Velt is set up. If not, run /install-velt first.
 2. Use the `install_velt_interactive` MCP tool with cursors feature.
-3. Follow the guided flow (plan → approve → apply).
+3. Follow the MCP plan — it tells you which skill files to read.
 
-## Guardrails
-- No dedicated agent-skill exists for cursors. Use velt-docs MCP as primary reference.
-- Query velt-docs MCP with: "How to add Velt cursors to a React app?"
-- VeltCursor component renders remote user cursors.
-- Cursors are scoped to the current document.
+## Cursor Types
+There are two distinct cursor types — make sure you implement the right one:
+
+- **Page-level cursors** (`VeltCursor` component): Shows mouse cursor positions of other users anywhere on the page. Use the MCP plan for setup.
+- **Editor cursors** (Tiptap CRDT): Shows text cursor positions inside a Tiptap editor. The CSS for these is in `velt-crdt-best-practices` → `tiptap-cursor-css` rule. If the user has a Tiptap editor, read that rule and add the CSS to `globals.css`.
 
 ## Output
-- VeltCursor component added
+- VeltCursor component added (page-level cursors)
+- And/or editor cursor CSS added (if Tiptap CRDT is in use)
 - Live cursor positions displayed for all active users
-- Cursor labels showing user names

@@ -32,22 +32,35 @@ const editor = useEditor({
 ```tsx
 const commentAnnotations = useCommentAnnotations();
 
+// v4 API:
 useEffect(() => {
   if (editor && commentAnnotations?.length) {
     highlightComments(editor, commentAnnotations);
   }
 }, [editor, commentAnnotations]);
+
+// v5 API (MUST include editorId):
+useEffect(() => {
+  if (editor && commentAnnotations) {
+    renderComments({ editor, editorId, commentAnnotations });
+  }
+}, [editor, editorId, commentAnnotations]);
 ```
 
 ### Part 3: Add a comment trigger button
 
 ```tsx
+// v4 API:
 <button onClick={() => triggerAddComment(editor)}>💬 Comment</button>
+
+// v5 API (MUST include editorId):
+<button onClick={() => addComment({ editor, editorId })}>💬 Comment</button>
 ```
 
 **API version note:**
 - v4.x exports: `TiptapVeltComments`, `triggerAddComment`, `highlightComments`
 - v5.x exports: `TiptapVeltComments`, `addComment`, `renderComments`
+- **CRITICAL:** v5 `renderComments` and `addComment` require `editorId` to associate comments with the correct editor instance
 
 Check your installed version's actual exports if unsure.
 
@@ -65,8 +78,10 @@ Check your installed version's actual exports if unsure.
 
 **Verification:**
 - [ ] `TiptapVeltComments` is in the editor's extensions array
-- [ ] `useCommentAnnotations()` is called and wired to `highlightComments`
-- [ ] Comment button calls `triggerAddComment(editor)` (v4) or `addComment({ editor })` (v5)
+- [ ] `useCommentAnnotations()` is called and wired to `highlightComments` (v4) or `renderComments` (v5)
+- [ ] v5: `renderComments({ editor, editorId, commentAnnotations })` includes `editorId`
+- [ ] v5: `addComment({ editor, editorId })` includes `editorId`
+- [ ] Comment button calls `triggerAddComment(editor)` (v4) or `addComment({ editor, editorId })` (v5)
 - [ ] Selecting text and clicking comment does NOT freeze the page
 - [ ] Comment highlights appear on annotated text
 

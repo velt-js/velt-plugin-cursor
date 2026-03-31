@@ -8,14 +8,13 @@ Use when the user wants to show who is currently viewing or active on a page/doc
 ## Workflow
 
 1. Verify Velt is set up. If not, run /install-velt first.
-2. Use the `install_velt_interactive` MCP tool with presence feature.
-3. Follow the guided flow (plan → approve → apply).
+2. Call the `install_velt_interactive` MCP tool with presence feature.
+3. Follow the MCP plan — it tells you what to implement.
 
-## Guardrails
-- No dedicated agent-skill exists for presence. Use velt-docs MCP as primary reference.
-- Query velt-docs MCP with: "How to add Velt presence to a React app?"
+## Key Rules
 - VeltPresence component shows user avatars of active users.
 - Presence is scoped to the current document (set via setDocuments).
+- Place VeltPresence in the header/toolbar area.
 
 ## Output
 - VeltPresence component added to UI

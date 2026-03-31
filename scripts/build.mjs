@@ -50,12 +50,12 @@ const SKILL_DESCRIPTIONS = {
 const RULES_SRC = resolve(SHARED, "rules-src");
 
 const CURSOR_RULE_CONFIG = [
-  { file: "velt-core.md", mdc: "velt-core-setup.mdc", alwaysApply: true, globs: null },
-  { file: "velt-auth.md", mdc: "velt-auth-patterns.mdc", alwaysApply: true, globs: null },
-  { file: "velt-document-identity.md", mdc: "velt-document-identity.mdc", alwaysApply: true, globs: null },
-  { file: "velt-comments.md", mdc: "velt-comments-patterns.mdc", alwaysApply: false, globs: '["**/*comment*", "**/*velt*", "**/*Comment*"]' },
-  { file: "velt-crdt.md", mdc: "velt-crdt-patterns.mdc", alwaysApply: false, globs: '["**/*editor*", "**/*crdt*", "**/*tiptap*", "**/*Editor*"]' },
-  { file: "velt-notifications.md", mdc: "velt-notifications-patterns.mdc", alwaysApply: false, globs: '["**/*notification*", "**/*Notification*"]' },
+  { file: "velt-core.md", mdc: "velt-core-setup.mdc", alwaysApply: true, globs: null, description: "Velt SDK setup, VeltProvider configuration, API key, and domain safelist patterns" },
+  { file: "velt-auth.md", mdc: "velt-auth-patterns.mdc", alwaysApply: true, globs: null, description: "Velt authentication patterns including user object shape, authProvider, and JWT generation" },
+  { file: "velt-document-identity.md", mdc: "velt-document-identity.mdc", alwaysApply: true, globs: null, description: "Velt document identity patterns including setDocuments, document ID strategies" },
+  { file: "velt-comments.md", mdc: "velt-comments-patterns.mdc", alwaysApply: true, globs: null, description: "Velt Comments patterns for all modes including TipTap editor integration with BubbleMenu" },
+  { file: "velt-crdt.md", mdc: "velt-crdt-patterns.mdc", alwaysApply: true, globs: null, description: "Velt CRDT + Tiptap integration patterns including complete editor component, cursor CSS, and critical rules" },
+  { file: "velt-notifications.md", mdc: "velt-notifications-patterns.mdc", alwaysApply: false, globs: '["**/*notification*", "**/*Notification*"]', description: "Velt Notifications setup including panel configuration, email, and webhooks" },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
@@ -114,7 +114,8 @@ function buildCursorRules() {
 
   for (const rule of CURSOR_RULE_CONFIG) {
     const content = readRuleContent(rule.file);
-    let frontmatter = `---\ndescription: Velt best practices - ${rule.file.replace(".md", "").replace("velt-", "")}\nalwaysApply: ${rule.alwaysApply}\n`;
+    const desc = rule.description || `Velt best practices - ${rule.file.replace(".md", "").replace("velt-", "")}`;
+    let frontmatter = `---\ndescription: ${desc}\nalwaysApply: ${rule.alwaysApply}\n`;
     if (rule.globs) {
       frontmatter += `globs: ${rule.globs}\n`;
     }

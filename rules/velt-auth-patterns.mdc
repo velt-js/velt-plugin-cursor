@@ -1,5 +1,5 @@
 ---
-description: Velt best practices - auth
+description: Velt authentication patterns including user object shape, authProvider, and JWT generation
 alwaysApply: true
 ---
 

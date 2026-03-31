@@ -43,21 +43,52 @@ Comments in a side column, scroll-synced.
 ```
 
 ### TipTap Editor Integration
+
+"TipTap Comments" means comments INSIDE a TipTap editor using the `TiptapVeltComments` extension.
+This is NOT freestyle pin comments on a page that contains a TipTap editor.
+
 ```bash
 npm install @veltdev/tiptap-velt-comments
 ```
-```jsx
-import { TiptapVeltComments, addComment, renderComments } from '@veltdev/tiptap-velt-comments';
 
-// Disable default text mode when using editor
+When using Comments with a Tiptap editor, ALL of the following are REQUIRED:
+
+```tsx
+import { BubbleMenu } from "@tiptap/react/menus"; // SUBPATH EXPORT — only this path works
+import { TiptapVeltComments, addComment, renderComments } from "@veltdev/tiptap-velt-comments";
+import { useCommentAnnotations } from "@veltdev/react";
+
+// 1. VeltComments with textMode={false}
 <VeltComments textMode={false} />
 
-// Add extension to editor
-extensions: [StarterKit, TiptapVeltComments]
+// 2. Extensions — TiptapVeltComments BEFORE VeltCrdt (wrong order = FREEZE)
+extensions: [
+  StarterKit.configure({ undoRedo: false }),
+  TiptapVeltComments,              // BEFORE VeltCrdt
+  ...(VeltCrdt ? [VeltCrdt] : []), // LAST
+]
+
+// 3. renderComments in useEffect — ALL THREE params required
+const commentAnnotations = useCommentAnnotations();
+useEffect(() => {
+  if (editor && commentAnnotations) {
+    renderComments({ editor, editorId, commentAnnotations });
+  }
+}, [editor, editorId, commentAnnotations]);
+
+// 4. BubbleMenu with onClick (NOT onMouseDown)
+<BubbleMenu editor={editor}>
+  <button onClick={(e) => {
+    e.preventDefault();
+    addComment({ editor, editorId });
+  }}>Add Comment</button>
+</BubbleMenu>
 ```
 
 ## Key Rules
 - VeltCommentTool is required for users to initiate freestyle comments
-- For popover mode: each element needs a unique ID + matching targetElementId
-- For editor integrations (TipTap/Lexical/Slate): disable textMode={false}
+- For editor integrations (TipTap/Lexical/Slate): set `textMode={false}` on VeltComments
+- BubbleMenu: import from `@tiptap/react/menus` (NOT `@tiptap/react`)
+- Use `onClick`, NOT `onMouseDown` for comment buttons
+- `addComment` and `renderComments` REQUIRE `editorId` parameter
 - Comments sidebar: use VeltCommentsSidebar + VeltSidebarButton

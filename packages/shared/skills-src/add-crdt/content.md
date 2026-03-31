@@ -14,15 +14,14 @@ Use when the user wants collaborative editing with Tiptap, BlockNote, CodeMirror
    - **ReactFlow**: Node-based diagrams
    - **Custom CRDT store**: Raw text/array/map/xml stores
 2. Verify Velt is set up. If not, run /install-velt first.
-3. Use the `install_velt_interactive` MCP tool with CRDT feature and the selected editor type.
-4. Follow the guided flow (plan → approve → apply).
+3. Call the `install_velt_interactive` MCP tool with CRDT feature and the selected editor type.
+4. Follow the MCP plan — it tells you which skill files to read (from `velt-crdt-best-practices`).
 
-## Guardrails
-- CRITICAL: When using Tiptap, MUST disable undo/redo: `StarterKit.configure({ undoRedo: false })` (NOT `history` — StarterKit has no "history" option)
+## Key Rules
+- When using Tiptap, MUST disable undo/redo: `StarterKit.configure({ undoRedo: false })` (NOT `history`)
 - Each editor instance needs a unique `editorId`.
-- Add CSS for collaboration cursors.
+- Add CSS for collaboration cursors (see `velt-crdt-best-practices` → `tiptap-cursor-css` rule).
 - Choose the correct store type: text for plain text, xml for rich text editors, map for key-value, array for lists.
-- Consult the installed **velt-crdt-best-practices** skill for detailed implementation patterns.
 
 ## Output
 - CRDT packages installed

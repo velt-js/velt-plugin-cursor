@@ -1,5 +1,5 @@
 ---
-description: Velt best practices - notifications
+description: Velt Notifications setup including panel configuration, email, and webhooks
 alwaysApply: false
 globs: ["**/*notification*", "**/*Notification*"]
 ---

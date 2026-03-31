@@ -15,16 +15,14 @@ Use when the user wants to add any type of comment feature: freestyle (click-any
    - **Page**: Page-level comments via sidebar
    - **TipTap/Lexical/Slate**: Editor-integrated text comments
 2. Verify Velt is set up (VeltProvider, auth, document). If not, run /install-velt first.
-3. Use the `install_velt_interactive` MCP tool with the selected comment type.
-4. Follow the guided installation flow (plan → approve → apply).
+3. Call the `install_velt_interactive` MCP tool with the selected comment type.
+4. Follow the MCP plan — it tells you which skill files to read and in what order.
 5. Validate the installation.
 
-## Guardrails
-- Follow embedded velt-comments rules for correct component placement.
-- For popover mode: every commentable element needs a unique ID + matching targetElementId.
-- For editor integrations: MUST set `textMode={false}` on VeltComments.
-- VeltCommentTool is required for freestyle mode — users can't initiate comments without it.
-- Consult the installed **velt-comments-best-practices** skill for detailed implementation patterns.
+## Disambiguation
+- "TipTap Comments" = `TiptapVeltComments` extension with BubbleMenu inside the editor. Users select text and add comments within the editor.
+- "Freestyle" = `VeltComments + VeltCommentTool` (click anywhere on page to pin a comment). Comments float on top of the page.
+- These are completely different implementations. If the user says both "TipTap" and "freestyle", ask which they mean.
 
 ## Output
 - VeltComments component added with correct mode

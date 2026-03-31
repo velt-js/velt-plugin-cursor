@@ -1,5 +1,5 @@
 ---
-description: Velt best practices - core
+description: Velt SDK setup, VeltProvider configuration, API key, and domain safelist patterns
 alwaysApply: true
 ---
 
