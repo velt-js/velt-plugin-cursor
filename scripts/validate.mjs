@@ -79,12 +79,6 @@ function checkPathTraversal(obj, label, path = "") {
 
 const REQUIRED_SKILLS = [
   "install-velt",
-  "add-comments",
-  "add-crdt",
-  "add-notifications",
-  "add-presence",
-  "add-cursors",
-  "screenshot",
   "velt-help",
 ];
 
@@ -146,6 +140,9 @@ function validateCursor() {
     "velt-comments-best-practices",
     "velt-crdt-best-practices",
     "velt-notifications-best-practices",
+    "velt-recorder-best-practices",
+    "velt-self-hosting-data-best-practices",
+    "velt-single-editor-mode-best-practices",
   ];
   for (const skill of agentSkills) {
     checkFileExists(resolve(CURSOR, "skills", skill, "SKILL.md"), `Bundled: ${skill}`);

@@ -3,7 +3,7 @@
 /**
  * sync-agent-skills.mjs
  *
- * Copies the 4 agent-skills from the agent-skills repo into both the
+ * Copies agent-skills from the agent-skills repo into both the
  * Cursor plugin and Claude plugin as bundled skills.
  *
  * This ensures the AI always has access to the full rule files
@@ -36,6 +36,9 @@ const AGENT_SKILLS = [
   "velt-comments-best-practices",
   "velt-crdt-best-practices",
   "velt-notifications-best-practices",
+  "velt-recorder-best-practices",
+  "velt-self-hosting-data-best-practices",
+  "velt-single-editor-mode-best-practices",
 ];
 
 console.log(`[sync] Source: ${source}`);
