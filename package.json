@@ -2,13 +2,14 @@
   "name": "velt-plugin",
   "version": "1.0.3",
   "private": true,
-  "description": "Cursor and Claude Code plugins for the Velt collaboration SDK",
+  "description": "Cursor plugin for the Velt collaboration SDK",
   "type": "module",
   "scripts": {
     "sync": "node scripts/sync-agent-skills.mjs",
     "build": "node scripts/build.mjs",
+    "deploy": "node scripts/deploy-skills.mjs",
     "validate": "node scripts/validate.mjs",
-    "all": "npm run sync && npm run build && npm run validate"
+    "all": "npm run sync && npm run build && npm run deploy && npm run validate"
   },
   "author": {
     "name": "Velt",

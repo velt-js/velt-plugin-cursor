@@ -7,3 +7,5 @@ node_modules/
 tmp/
 temp/
 docs-sync/artifacts/
+CLAUDE.md
+.claude/
