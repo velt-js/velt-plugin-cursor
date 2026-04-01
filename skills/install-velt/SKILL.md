@@ -12,7 +12,7 @@ Use when the user wants to set up Velt from scratch, add Velt to an existing pro
 
 ## Workflow
 
-1. Ask the user which features they want: Comments, Presence, Cursors, Notifications, Recorder, CRDT (collaborative editing), Single Editor Mode. If unsure, recommend starting with Comments + Presence.
+1. Ask the user which features they want: Comments, Presence, Cursors, Notifications, Recorder, CRDT (collaborative editing), Single Editor Mode, Self-Hosting Data. If unsure, recommend starting with Comments + Presence.
 2. Call the `install_velt_interactive` MCP tool in **guided** mode with `stage: "plan"`.
    - If the tool returns `awaiting_discovery_consent`: ask the user YES/NO for codebase scanning.
    - If the tool returns `awaiting_discovery_verification`: show scan results, ask the user to verify.
