@@ -95,7 +95,6 @@ liveStateSyncElement.enableDefaultSingleEditorUI();
 | Prop | Type | Description |
 |------|------|-------------|
 | `shadowDom` | `boolean` | Enable/disable shadow DOM |
-| `darkMode` | `boolean` | Enable dark mode |
 | `variant` | `string` | UI variant styling |
 
 **Key details:**
