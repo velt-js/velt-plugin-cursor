@@ -60,6 +60,39 @@ After implementing SEM, verify ALL of the following before reporting success. Th
 
 If any item above is missing, go back and implement it before proceeding to the "apply" stage.
 
+### Self-Hosting Data
+
+After implementing self-hosting, verify ALL of the following:
+
+**VeltDataProviders.ts MUST contain:**
+- [ ] Comment provider with get/save/delete functions
+- [ ] User provider with get function (read-only)
+- [ ] Attachment provider with save/delete functions + base64 conversion
+- [ ] Reaction provider with get/save/delete functions
+- [ ] All providers return `{ data, success, statusCode }` format
+
+**VeltProvider MUST have:**
+- [ ] `dataProviders={{ comment, user, attachment, reaction }}` prop
+- [ ] dataProviders set BEFORE identify() is called
+
+**API routes MUST exist:**
+- [ ] `app/api/velt/comments/get/route.ts`, `comments/save/route.ts`, `comments/delete/route.ts`
+- [ ] `app/api/velt/users/get/route.ts` and `app/api/velt/users/save/route.ts` (save persists user PII on login)
+- [ ] `app/api/velt/attachments/save/route.ts` and `attachments/delete/route.ts`
+- [ ] `app/api/velt/attachments/get/[attachmentId]/route.ts` (serves stored files as binary)
+- [ ] `app/api/velt/reactions/get/route.ts`, `reactions/save/route.ts`, `reactions/delete/route.ts`
+
+**Database store MUST have:**
+- [ ] PostgreSQL connection pool in `app/api/velt/store.ts`
+- [ ] UPSERT semantics (ON CONFLICT DO UPDATE)
+- [ ] Tables: comment_annotations, reaction_annotations, attachments, users
+- [ ] Indexes on annotation_id, document_id, organization_id
+
+**Environment:**
+- [ ] `DATABASE_URL` in `.env.local`
+
+If any item above is missing, go back and implement it before proceeding to the "apply" stage.
+
 ## Output
 - Fully installed and configured Velt SDK
 - Working VeltProvider with auth
