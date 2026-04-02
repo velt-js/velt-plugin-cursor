@@ -12,7 +12,7 @@ Use when the user wants to set up Velt from scratch, add Velt to an existing pro
 
 ## Workflow
 
-1. Ask the user which features they want: Comments, Presence, Cursors, Notifications, Recorder, CRDT (collaborative editing), Single Editor Mode, Self-Hosting Data. If unsure, recommend starting with Comments + Presence.
+1. Ask the user which features they want: Comments, Presence, Cursors, Notifications, Recorder, CRDT (collaborative editing), Single Editor Mode, Self-Hosting Data, Activity Logs. If unsure, recommend starting with Comments + Presence.
 2. Call the `install_velt_interactive` MCP tool in **guided** mode with `stage: "plan"`.
    - If the tool returns `awaiting_discovery_consent`: ask the user YES/NO for codebase scanning.
    - If the tool returns `awaiting_discovery_verification`: show scan results, ask the user to verify.
@@ -90,6 +90,22 @@ After implementing self-hosting, verify ALL of the following:
 
 **Environment:**
 - [ ] `DATABASE_URL` in `.env.local`
+
+If any item above is missing, go back and implement it before proceeding to the "apply" stage.
+
+### Activity Logs
+
+After implementing activity logs, verify:
+
+**ActivityLog component MUST:**
+- [ ] Use `useAllActivities({ documentIds: [docId] })` hook
+- [ ] Handle null (loading) state
+- [ ] Group events by date
+- [ ] Show icon + description + timestamp for each event
+- [ ] Be toggleable via a button on the document page
+
+**Console MUST be configured:**
+- [ ] Activity Logs enabled in Velt Console (console.velt.dev > Configuration)
 
 If any item above is missing, go back and implement it before proceeding to the "apply" stage.
 
