@@ -66,8 +66,38 @@ The component supports full structural customization via `VeltActivityLogWirefra
 
 <!-- TODO (v5.0.2-beta.10): Verify the full list of 27 wireframe primitive component names and the accepted variant values. Release note confirms 27 primitives and wireframe support but does not enumerate them. See https://docs.velt.dev/async-collaboration/activity/customize-ui for the complete wireframe primitive reference. -->
 
+### Common Mistakes — DO NOT
+
+**1. DO NOT replace `VeltActivityLog` with a custom `useAllActivities()` implementation.** The component handles date grouping, filtering, icons, loading states, and all activity types automatically. If it appears empty or shows a loading skeleton, that is NORMAL — it means either Activity Logs aren't enabled in the Console yet or no activities have been recorded on this document. Do NOT rewrite it as a custom component.
+
+**2. DO NOT conditionally render `VeltActivityLog` with `{show && <VeltActivityLog />}`.** The component is a web component that needs to stay mounted to maintain its connection to the Velt backend. Mounting and unmounting it on toggle causes it to re-initialize each time, showing a loading state. Instead, always render it and toggle visibility with `display: none`:
+
+```jsx
+// WRONG — remounts on every toggle, loses connection
+{showPanel && <VeltActivityLog />}
+
+// CORRECT — always mounted, toggle visibility
+<div style={{ display: showPanel ? "flex" : "none" }}>
+  <VeltActivityLog />
+</div>
+```
+
+**3. DO NOT pass `style` or `className` as props to `VeltActivityLog`.** It is a Velt web component, not a standard React element. Styling props are silently ignored and can prevent the component from rendering. To control sizing/positioning, wrap it in a `<div>` with your styles:
+
+```jsx
+// WRONG — style prop is ignored, component may not render
+<VeltActivityLog style={{ flex: 1 }} />
+
+// CORRECT — wrap in a styled div
+<div style={{ flex: 1 }}>
+  <VeltActivityLog />
+</div>
+```
+
 **Verification:**
 - [ ] `VeltActivityLog` imported from `'@veltdev/react'` (React) or used as `<velt-activity-log>` (HTML)
+- [ ] NO `style` or `className` props passed directly to `VeltActivityLog`
+- [ ] Component is always mounted (use `display: none` to hide, NOT conditional rendering)
 - [ ] Activity Logs enabled in Velt Console (see `core-setup` rule)
 - [ ] `useDummyData` used only during development, not in production
 - [ ] Wireframe customization references Velt docs for primitive component names
