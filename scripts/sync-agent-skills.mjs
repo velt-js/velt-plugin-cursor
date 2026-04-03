@@ -17,7 +17,7 @@
  * Default Claude plugin: ../velt-plugin-claude/skills (sibling directory)
  */
 
-import { existsSync, cpSync, rmSync, mkdirSync } from "node:fs";
+import { existsSync, cpSync, rmSync, mkdirSync, readdirSync } from "node:fs";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -31,15 +31,15 @@ const CURSOR = resolve(ROOT, "skills");
 const CLAUDE_ROOT = resolve(ROOT, "..", "velt-plugin-claude");
 const CLAUDE = resolve(CLAUDE_ROOT, "skills");
 
-const AGENT_SKILLS = [
-  "velt-setup-best-practices",
-  "velt-comments-best-practices",
-  "velt-crdt-best-practices",
-  "velt-notifications-best-practices",
-  "velt-recorder-best-practices",
-  "velt-self-hosting-data-best-practices",
-  "velt-single-editor-mode-best-practices",
-];
+// Auto-discover all agent-skills from source directory (any folder with a SKILL.md)
+function discoverAgentSkills(sourceDir) {
+  if (!existsSync(sourceDir)) return [];
+  return readdirSync(sourceDir, { withFileTypes: true })
+    .filter(d => d.isDirectory() && existsSync(resolve(sourceDir, d.name, "SKILL.md")))
+    .map(d => d.name);
+}
+
+const AGENT_SKILLS = discoverAgentSkills(source);
 
 console.log(`[sync] Source: ${source}`);
 

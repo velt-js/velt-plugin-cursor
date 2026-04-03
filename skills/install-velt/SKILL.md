@@ -97,12 +97,11 @@ If any item above is missing, go back and implement it before proceeding to the 
 
 After implementing activity logs, verify:
 
-**ActivityLog component MUST:**
-- [ ] Use `useAllActivities({ documentIds: [docId] })` hook
-- [ ] Handle null (loading) state
-- [ ] Group events by date
-- [ ] Show icon + description + timestamp for each event
-- [ ] Be toggleable via a button on the document page
+**Activity Log MUST use the pre-built component:**
+- [ ] `<VeltActivityLog />` imported from `@veltdev/react` — do NOT build a custom feed from `useAllActivities`
+- [ ] Component placed in a toggleable right-side panel on the document page
+- [ ] Toggle button ("View Activity Log" or similar) in the document page header
+- [ ] `@veltdev/react` version is `5.0.2-beta.13` or later (required for `VeltActivityLog`)
 
 **Console MUST be configured:**
 - [ ] Activity Logs enabled in Velt Console (console.velt.dev > Configuration)
