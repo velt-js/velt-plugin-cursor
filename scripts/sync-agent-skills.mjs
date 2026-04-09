@@ -67,10 +67,9 @@ function copySkill(skillName, targetDir) {
   cpSync(src, dest, {
     recursive: true,
     filter: (path) => {
-      // Skip .git, node_modules, and AGENTS.full.md (too large for context)
+      // Skip .git and node_modules
       if (path.includes("/.git/") || path.includes("/node_modules/")) return false;
       if (path.endsWith("/.git") || path.endsWith("/node_modules")) return false;
-      if (path.endsWith("/AGENTS.full.md")) return false;
       return true;
     },
   });
