@@ -108,3 +108,39 @@ if response.success:
 - [ ] Error responses are handled with `error` and `error_code`
 
 **Source Pointer:** `https://docs.velt.dev/api-reference/sdk/python/comments` (## Python SDK > ### Comments)
+
+---
+
+## All Request Type Imports
+
+Every SDK method uses a typed request object. Import from the `velt` package:
+
+```python
+from velt import (
+    # Comments
+    GetCommentResolverRequest,
+    SaveCommentResolverRequest,
+    DeleteCommentResolverRequest,
+    # Reactions
+    GetReactionResolverRequest,
+    SaveReactionResolverRequest,
+    DeleteReactionResolverRequest,
+    # Users
+    GetUserResolverRequest,
+    # Attachments
+    SaveAttachmentResolverRequest,
+    DeleteAttachmentResolverRequest,
+)
+```
+
+| Module | Request Type | SDK Method |
+|--------|-------------|------------|
+| Comments | `GetCommentResolverRequest` | `sdk.selfHosting.comments.getComments()` |
+| Comments | `SaveCommentResolverRequest` | `sdk.selfHosting.comments.saveComments()` |
+| Comments | `DeleteCommentResolverRequest` | `sdk.selfHosting.comments.deleteComment()` |
+| Reactions | `GetReactionResolverRequest` | `sdk.selfHosting.reactions.getReactions()` |
+| Reactions | `SaveReactionResolverRequest` | `sdk.selfHosting.reactions.saveReactions()` |
+| Reactions | `DeleteReactionResolverRequest` | `sdk.selfHosting.reactions.deleteReaction()` |
+| Users | `GetUserResolverRequest` | `sdk.selfHosting.users.getUsers()` |
+| Attachments | `SaveAttachmentResolverRequest` | `sdk.selfHosting.attachments.saveAttachment()` |
+| Attachments | `DeleteAttachmentResolverRequest` | `sdk.selfHosting.attachments.deleteAttachment()` |

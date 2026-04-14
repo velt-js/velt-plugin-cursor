@@ -101,3 +101,73 @@ sdk = VeltSdk(config)
 - [ ] S3 config is included if attachment features are needed
 
 **Source Pointer:** `https://docs.velt.dev/api-reference/sdk/python/overview` (## Python SDK > ### Installation & Configuration)
+
+---
+
+## Error Codes Reference
+
+All SDK methods return consistent error responses when operations fail:
+
+```python
+# Error response format
+{
+    'success': False,
+    'statusCode': 400,       # or 500, 404
+    'error': 'Description of what went wrong',
+    'errorCode': 'INVALID_INPUT'   # or INTERNAL_ERROR, NOT_FOUND
+}
+```
+
+| Error Code | Status Code | Description |
+|------------|-------------|-------------|
+| `INVALID_INPUT` | 400 | Malformed request data — check required fields |
+| `NOT_FOUND` | 404 | Resource not found — verify IDs |
+| `INTERNAL_ERROR` | 500 | Server-side error — retry or contact support |
+
+---
+
+## Custom Collection Names
+
+Map Velt data to custom MongoDB collection names if your database has existing naming conventions:
+
+```python
+config = VeltSdkConfig(
+    database={
+        'connection_string': os.environ['MONGODB_URI'],
+        'database_name': 'my_app_db',
+    },
+    collections={
+        'comments': 'velt_comment_annotations',
+        'reactions': 'velt_reactions',
+        'users': 'app_users',
+        'attachments': 'velt_attachments',
+    },
+    api_key=os.environ['VELT_API_KEY'],
+    auth_token=os.environ['VELT_AUTH_TOKEN'],
+)
+```
+
+---
+
+## User Schema Field Mapping
+
+Map your database's user fields to Velt's expected field names:
+
+```python
+config = VeltSdkConfig(
+    database={
+        'connection_string': os.environ['MONGODB_URI'],
+        'database_name': 'my_app_db',
+    },
+    user_schema={
+        'userId': '_id',           # Your DB field for user ID
+        'name': 'display_name',   # Your DB field for user name
+        'email': 'email_address', # Your DB field for email
+        'photoUrl': 'avatar_url', # Your DB field for avatar
+    },
+    api_key=os.environ['VELT_API_KEY'],
+    auth_token=os.environ['VELT_AUTH_TOKEN'],
+)
+```
+
+This mapping ensures the SDK can resolve user data from your existing user collection without requiring schema changes.

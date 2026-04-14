@@ -117,3 +117,76 @@ client.on('token_expired', async () => {
 - [ ] `userProperties` includes required fields (organizationId, email)
 
 **Source Pointer:** `https://docs.velt.dev/api-reference/rest-apis/auth/get-token` (## Auth > ### Get Token)
+
+---
+
+## Permissions Management
+
+Manage user permissions at the organization, document, or folder level via REST API.
+
+**Add Permissions:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/auth/permissions/add \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": {
+      "userId": "user-123",
+      "permissions": {
+        "resources": [
+          { "type": "organization", "id": "org-abc", "accessRole": "editor" },
+          { "type": "document", "id": "doc-456", "accessRole": "viewer" }
+        ]
+      }
+    }
+  }'
+```
+
+**Get Permissions:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/auth/permissions/get \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "data": { "userId": "user-123", "organizationId": "org-abc" } }'
+```
+
+**Remove Permissions:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/auth/permissions/remove \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "data": {
+      "userId": "user-123",
+      "permissions": {
+        "resources": [
+          { "type": "document", "id": "doc-456" }
+        ]
+      }
+    }
+  }'
+```
+
+**Generate Signature:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/auth/generate_signature \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "data": { "userId": "user-123" } }'
+```
+
+**Access Roles:**
+- `viewer` — read-only access to the resource
+- `editor` — read/write access to the resource
+
+**Resource Types:** `organization`, `document`, `folder`
+
+**Source Pointer:** `https://docs.velt.dev/api-reference/rest-apis/auth/permissions`

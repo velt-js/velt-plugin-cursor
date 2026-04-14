@@ -135,3 +135,31 @@ POST https://api.velt.dev/v2/organizations/usergroups/users/delete
 - [ ] Both required headers are included
 
 **Source Pointer:** `https://docs.velt.dev/api-reference/rest-api/organizations` (## REST API > ### Organizations, Documents, Folders)
+
+---
+
+## Workspace Domain Management
+
+Manage custom domains for your Velt workspace.
+
+**Add Domain:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/workspace/domains/add \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "data": { "domainName": "app.yourcompany.com" } }'
+```
+
+**Delete Domain:**
+
+```bash
+curl -X POST https://api.velt.dev/v2/workspace/domains/delete \
+  -H "x-velt-api-key: YOUR_API_KEY" \
+  -H "x-velt-auth-token: YOUR_AUTH_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{ "data": { "domainName": "app.yourcompany.com" } }'
+```
+
+**Source Pointer:** `https://docs.velt.dev/api-reference/rest-api/workspace`
