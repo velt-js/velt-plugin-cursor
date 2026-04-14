@@ -1,6 +1,6 @@
-# Velt Backend SDKs Best Practices — Full Reference
+# Velt REST APIs Best Practices — Full Reference
 
-Compiled verbose guide with all 14 rules expanded inline.
+Compiled verbose guide with all 9 rules expanded inline. For Python SDK (velt-py) rules, see velt-self-hosting-data-best-practices.
 All Velt REST API v2 calls require: `x-velt-api-key` + `x-velt-auth-token` headers. Base URL: `https://api.velt.dev/v2`. All endpoints use POST.
 
 ---

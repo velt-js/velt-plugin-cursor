@@ -1,4 +1,4 @@
-# Velt Backend SDKs Best Practices
+# Velt REST APIs Best Practices
 |v1.0.0|Velt|April 2026
 |IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any Velt tasks.
 |IMPORTANT: All Velt REST API v2 calls require two headers: `x-velt-api-key` (your API key) and `x-velt-auth-token` (auth token from Velt console). Base URL: `https://api.velt.dev/v2`. All endpoints use POST method.

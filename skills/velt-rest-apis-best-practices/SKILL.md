@@ -1,5 +1,5 @@
 ---
-name: velt-backend-sdks-best-practices
+name: velt-rest-apis-best-practices
 description: "Velt REST API v2 and webhook best practices for server-side integration. Use when calling Velt REST API v2 endpoints, generating JWT tokens for frontend authentication, handling Velt webhooks (comment events, huddle events, CRDT updates), managing users/documents/organizations via REST, or implementing server-side Velt operations. Triggers on any task involving Velt REST API, JWT token generation for Velt, Velt webhooks, x-velt-api-key headers, or server-side comment/notification/activity management — even if the user doesn't explicitly say 'REST API'. For the Python SDK (velt-py) for self-hosting, see velt-self-hosting-data-best-practices instead."
 license: MIT
 metadata:
@@ -7,9 +7,9 @@ metadata:
   version: "1.0.0"
 ---
 
-# Velt Backend SDKs Best Practices
+# Velt REST APIs Best Practices
 
-Comprehensive guide for Velt server-side integration — Python SDK, REST API v2, JWT authentication, and webhooks. Contains 14 rules across 5 categories covering setup, Python SDK modules, REST API endpoints, webhook handling, and debugging.
+Comprehensive guide for Velt REST API v2, JWT authentication, and webhooks. Contains 14 rules across 5 categories covering setup, Python SDK modules, REST API endpoints, webhook handling, and debugging.
 
 ## When to Apply
 
