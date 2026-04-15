@@ -31,11 +31,14 @@ const CURSOR = resolve(ROOT, "skills");
 const CLAUDE_ROOT = resolve(ROOT, "..", "velt-plugin-claude");
 const CLAUDE = resolve(CLAUDE_ROOT, "skills");
 
+// Skills to exclude from plugin sync (kept in agent-skills source only)
+const EXCLUDED_SKILLS = ["yjs-best-practices"];
+
 // Auto-discover all agent-skills from source directory (any folder with a SKILL.md)
 function discoverAgentSkills(sourceDir) {
   if (!existsSync(sourceDir)) return [];
   return readdirSync(sourceDir, { withFileTypes: true })
-    .filter(d => d.isDirectory() && existsSync(resolve(sourceDir, d.name, "SKILL.md")))
+    .filter(d => d.isDirectory() && !EXCLUDED_SKILLS.includes(d.name) && existsSync(resolve(sourceDir, d.name, "SKILL.md")))
     .map(d => d.name);
 }
 
@@ -67,9 +70,9 @@ function copySkill(skillName, targetDir) {
   cpSync(src, dest, {
     recursive: true,
     filter: (path) => {
-      // Skip .git and node_modules
-      if (path.includes("/.git/") || path.includes("/node_modules/")) return false;
-      if (path.endsWith("/.git") || path.endsWith("/node_modules")) return false;
+      // Skip .git, node_modules, and evals
+      if (path.includes("/.git/") || path.includes("/node_modules/") || path.includes("/evals/")) return false;
+      if (path.endsWith("/.git") || path.endsWith("/node_modules") || path.endsWith("/evals")) return false;
       return true;
     },
   });
