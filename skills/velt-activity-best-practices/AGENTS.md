@@ -1,7 +1,6 @@
 # Velt Activity Best Practices
-|v1.0.0|Velt|March 2026
+|v1.2.0|Velt|March 2026
 |IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any Velt tasks.
-|IMPORTANT: VeltProvider requires the `authProvider` prop for authentication. Do NOT use the deprecated `useIdentify` hook. Pattern: `<VeltProvider apiKey={KEY} authProvider={{ user: { userId, organizationId, name, email }, retryConfig: { retryCount: 3, retryDelay: 1000 }, generateToken: async () => { /* fetch from /api/velt/token */ } }}>`. See core-setup.md for details.
 |root: ./rules
 
 ## 1. Core Setup — CRITICAL
@@ -19,3 +18,9 @@
 
 ## 5. Debugging & Testing — LOW-MEDIUM
 |shared/debug:{debug-common-issues.md}
+
+## 6. Wireframe Variables — MEDIUM
+|shared/wireframe-variables:{wireframe-variables-activity-log.md}
+
+## 7. UI Wireframes — MEDIUM
+|shared/ui:{ui-wireframes.md}

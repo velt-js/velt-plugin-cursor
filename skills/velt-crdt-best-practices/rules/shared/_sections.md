@@ -13,8 +13,10 @@ Rules are organized into category folders under `rules/`.
 **Rules:**
 - `core-install` - Install correct packages
 - `core-velt-init` - Initialize Velt client
-- `core-store-create-react` - useVeltCrdtStore hook (React)
-- `core-store-create-vanilla` - createVeltStore (non-React)
+- `core-store-v2-api` - **v2** `useStore<T>` + `useAwareness` React hooks; `createVeltStore` v2 config surface (`forceResetInitialContent`, `contentKey`, `userId`, `collection`, `logLevel`); status/sync/error reactivity
+- `core-v1-to-v2-migration` - Migrate from `useVeltCrdtStore` to `useStore` (id → storeId, new status/sync/error/onError, `useAwareness` hook)
+- `core-store-create-react` - useVeltCrdtStore hook (React, v1 — deprecated; see `core-v1-to-v2-migration`)
+- `core-store-create-vanilla` - createVeltStore (non-React; entry point unchanged in v2 — new optional config fields documented in `core-store-v2-api`)
 - `core-store-types` - Choose correct store type
 - `core-store-subscribe` - Subscribe to changes
 - `core-store-update` - Update store values
@@ -37,25 +39,29 @@ Rules are organized into category folders under `rules/`.
 **Description:** Rich text collaborative editing with Tiptap. Covers installation, setup, history conflict, cursor styling, and testing.
 
 **Rules:**
-- `tiptap-install` - Install Tiptap packages
-- `tiptap-setup-react` - useVeltTiptapCrdtExtension (React)
-- `tiptap-setup-vanilla` - createVeltTipTapStore (non-React)
+- `tiptap-install` - Install Tiptap packages (v2: drops `@tiptap/react` & `@tiptap/extension-collaboration*`, adds `yjs` & `@veltdev/types`)
+- `tiptap-setup-react` - useVeltTiptapCrdtExtension (React, v1 — deprecated; see `tiptap-v1-to-v2-migration`)
+- `tiptap-setup-vanilla` - createVeltTipTapStore (non-React, v1 — deprecated; see `tiptap-v1-to-v2-migration`)
+- `tiptap-collaboration-manager` - v2 `useCollaboration` / `createCollaboration` + `CollaborationManager` API (status, sync, versions, Yjs escape hatches)
+- `tiptap-v1-to-v2-migration` - Migrate from `useVeltTiptapCrdtExtension` / `createVeltTiptapCrdtExtension` to v2
 - `tiptap-disable-history` - Disable Tiptap history
 - `tiptap-editor-id` - Unique editorId
 - `tiptap-comments-integration` - CRITICAL: Add TiptapVeltComments extension when using comments + CRDT (prevents freeze)
 - `tiptap-cursor-css` - Collaboration cursor CSS (y-prosemirror + Tiptap extension classes)
-- `tiptap-initial-content` - Use HTML string format for initialContent (not JSON)
+- `tiptap-initial-content` - Use HTML string format for initialContent (not JSON); `forceResetInitialContent` for template resets
 - `tiptap-nextjs-ssr` - Load Tiptap with SSR disabled in Next.js
 - `tiptap-testing` - Test collaboration
 
 ## 3. BlockNote Integration (blocknote/)
 
 **Impact:** HIGH
-**Description:** Block-based collaborative editing with BlockNote. React-only support currently.
+**Description:** Block-based collaborative editing with BlockNote. v2 adds non-React support and a unified `CollaborationManager` API.
 
 **Rules:**
-- `blocknote-install` - Install BlockNote package
-- `blocknote-setup-react` - useVeltBlockNoteCrdtExtension (React)
+- `blocknote-install` - Install BlockNote packages (v2: adds `@veltdev/blocknote-crdt` core, `@veltdev/types`, `yjs`; non-React now supported)
+- `blocknote-collaboration-manager` - v2 `useCollaboration` / `createCollaboration` + `CollaborationManager` API (status, sync, versions, Yjs escape hatches)
+- `blocknote-v1-to-v2-migration` - Migrate from `useVeltBlockNoteCrdtExtension` to v2
+- `blocknote-setup-react` - useVeltBlockNoteCrdtExtension (React, v1 — deprecated; see `blocknote-v1-to-v2-migration`)
 - `blocknote-editor-id` - Unique editorId
 - `blocknote-testing` - Test collaboration
 
@@ -65,10 +71,12 @@ Rules are organized into category folders under `rules/`.
 **Description:** Collaborative code editing with CodeMirror. Covers yCollab wiring and both React and vanilla setups.
 
 **Rules:**
-- `codemirror-install` - Install CodeMirror packages
-- `codemirror-setup-react` - useVeltCodeMirrorCrdtExtension (React)
-- `codemirror-setup-vanilla` - createVeltCodeMirrorStore (non-React)
-- `codemirror-ycollab` - Wire yCollab extension
+- `codemirror-install` - Install CodeMirror packages (v2: adds `@veltdev/codemirror-crdt` core, `@veltdev/types`, `@codemirror/view`, `yjs`)
+- `codemirror-setup-react` - useVeltCodeMirrorCrdtExtension (React, v1 — deprecated; see `codemirror-v1-to-v2-migration`)
+- `codemirror-setup-vanilla` - createVeltCodeMirrorStore (non-React, v1 — deprecated; see `codemirror-v1-to-v2-migration`)
+- `codemirror-collaboration-manager` - v2 `useCollaboration` / `createCollaboration` + `CollaborationManager` API (status, sync, versions, Yjs escape hatches)
+- `codemirror-v1-to-v2-migration` - Migrate from `useVeltCodeMirrorCrdtExtension` / `createVeltCodeMirrorStore` to v2
+- `codemirror-ycollab` - Wire yCollab extension with v2 `primitives`
 - `codemirror-editor-id` - Unique editorId
 - `codemirror-testing` - Test collaboration
 

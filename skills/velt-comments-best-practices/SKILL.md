@@ -1,15 +1,15 @@
 ---
 name: velt-comments-best-practices
-description: Velt Comments implementation patterns and best practices for React, Next.js, and web applications. Use when adding collaborative commenting features, comment modes (Freestyle, Popover, Stream, Text, Page), rich text editor comments (TipTap, SlateJS, Lexical), media player comments, or chart comments.
+description: Velt Comments implementation patterns and best practices for React, Next.js, and web applications. Use when adding collaborative commenting features, comment modes (Freestyle, Popover, Stream, Text, Page), rich text editor comments (TipTap, SlateJS, Lexical), media player comments, chart comments, or binding Comment Bubble / Comment Dialog / Comment Tool wireframe slots via template variables (velt-data, velt-if, velt-class).
 license: MIT
 metadata:
   author: velt
-  version: "1.0.0"
+  version: "1.1.3"
 ---
 
 # Velt Comments Best Practices
 
-Comprehensive implementation guide for Velt's collaborative comments feature in React and Next.js applications. Contains 71 rules across 12 categories, prioritized by impact to guide automated code generation and integration patterns.
+Comprehensive implementation guide for Velt's collaborative comments feature in React and Next.js applications. Contains 80 rules across 13 categories, prioritized by impact to guide automated code generation and integration patterns.
 
 ## When to Apply
 
@@ -34,6 +34,7 @@ Reference these guidelines when:
 | 7 | Debugging & Testing | LOW-MEDIUM | `debug-` |
 | 8 | Moderation & Permissions | LOW | `permissions-` |
 | 9 | Attachments & Reactions | MEDIUM | `attach-` |
+| 10 | Wireframe Variables | MEDIUM | `wireframe-variables-` |
 
 ## Quick Reference
 
@@ -110,6 +111,32 @@ Reference these guidelines when:
 ### 9. Attachments & Reactions (MEDIUM)
 
 - `attach-download-control` - Control attachment download behavior and intercept clicks
+
+### 10. Configuration (MEDIUM)
+
+- `config-mentions-contacts` - @Mentions, contacts, user assignment, autocomplete
+- `config-status-priority` - Custom status and priority levels, resolve/update workflows
+- `config-reactions` - Emoji reactions — enable, customize, add/delete/toggle
+- `config-attachments` - File attachments — enable, upload, delete, allowed types
+- `config-text-formatting` - Rich text formatting options in composer
+- `config-navigation` - Navigation, deep linking, scroll-to-comment, shareable links
+- `config-dom-controls` - Restrict comment placement to specific DOM elements
+- `config-sidebar-management` - Programmatic sidebar data, filtering, and configuration
+- `config-ui-behavior` - UI/UX toggle methods — display, interaction, behavior (20+ methods)
+- `config-moderation` - Moderation workflows — approve, accept, reject, read-only
+- `config-component-props` - Typed props interfaces for VeltComments, VeltCommentDialog, VeltCommentsSidebar, VeltInlineCommentsSection — edit-mode placeholder overrides, assignToType, focus behavior
+
+### 11. Wireframe Variables (MEDIUM)
+
+- `wireframe-variables-comment-bubble` - Bind Comment Bubble + Comment Pin wireframe slots via `{annotation.*}`, `{selectedAnnotationsMap[...]}`, `globalConfigSignal.featureState.*`
+- `wireframe-variables-comment-dialog` - Bind the ~110-slot Comment Dialog wireframe family (App / Data / UI / Feature State namespaces, `comment` / `commentIndex` loop-scope, root-level placeholder + unread-map paths, v1 aliases)
+- `wireframe-variables-comment-tool` - Bind the Comment Tool wireframe via the flat-config `{addCommentMode}` / `{commentToolEnabled}` aliases and the canonical `globalConfig.featureState.*` / `componentConfig.*` paths
+- `wireframe-variables-inline-comments-section` - Bind the Inline Comments Section wireframe (`{annotations}`, `{skeletonLoading}`, `{filterState.*}` / `{sortState.*}`, per-row loop-scope `filter` / `sortOption` / `isActive` / `isAscending`, `featureState.*` conflict-paths, nested Comment Dialog primitives in list + composer)
+- `wireframe-variables-multithread-comments` - Bind the Multithread Comments wireframe (`{nonDraftCommentsCount}`, `{minimalFilter}`, empty-state + reset-filter gates, minimal filter / sort + bulk-actions dropdowns with `isSelected` loop-scope, `data.user` / `uiState.shadowDom` conflict-paths)
+- `wireframe-variables-autocomplete` - Bind the Autocomplete @-mention picker wireframes (flat-config `componentConfig.<path>` access for `flattenedItems` / `customGroupsEnabled` / `newUserContactError`, loop-scope `option` / `chip`, option / group-option / chip / empty-state subcomponents, chip tooltip descendants)
+- `wireframe-variables-text-comment` - Bind the Text Comment toolbar wireframes (`{selectedWordsCount}` / `{selectedCharactersCount}` / `{position.*}`, capability flags `isUserAllowed` / `enableTextComments` / `rewriterEnabled`, five conflict-name explicit paths)
+- `wireframe-variables-comment-sidebar-button` - Bind the Comment Sidebar Button wireframe via flat-config (`globalConfig.featureState.sidebarVisible`, `componentConfig.data.unreadCount` / `annotations.length`, `componentConfig.uiState.commentCountType` / `floatingMode`)
+- `wireframe-variables-comment-sidebar` - Bind the ~80-tag Comment Sidebar wireframe family — hybrid access (mapped `focusedAnnotation` / `appliedFiltersCount` / `unreadCommentAnnotationCount` alongside flat `componentConfig.skeletonLoading` / `noCommentsFound*` / `virtualScrollData` / `filterConfig.*`), loop-scope (`focusedAnnotation`, `filter`, `item`, `group`, `tag`), nested Comment Dialog scope in list / focused-thread / page-mode composer
 
 ## How to Use
 

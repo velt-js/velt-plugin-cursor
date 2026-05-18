@@ -114,6 +114,24 @@ commentElement.deleteThreadWithFirstComment(true);
 commentElement.enableDeleteReplyConfirmation();
 ```
 
+**Confirm Dialog Variant CSS Classes:**
+
+The confirm dialog element automatically receives a BEM modifier class based on the `type` field in `ConfirmDialogComponentConfig`. This enables independent styling for comment-delete vs. reply-delete confirmations without additional SDK configuration. The base class `velt-confirm-dialog` is always present; the SDK sets `type` to `'comment'` or `'reply'` automatically.
+
+```css
+/* Base class — always present */
+.velt-confirm-dialog { }
+
+/* Automatically added when deleting a top-level comment */
+.velt-confirm-dialog--comment { border-left: 4px solid red; }
+
+/* Automatically added when deleting a reply */
+.velt-confirm-dialog--reply { border-left: 4px solid orange; }
+
+/* For a custom type string supplied via ConfirmDialogComponentConfig.type */
+.velt-confirm-dialog--archive { /* custom logic */ }
+```
+
 **Page Mode:**
 
 ```tsx
@@ -215,6 +233,17 @@ commentElement.enableRecordingCountdown();
 commentElement.enableRecordingTranscription();
 commentElement.disableRecordingTranscription();
 ```
+
+**Edit Draft Preservation (v5.0.2-beta.18+):**
+
+When a user dismisses the edit composer without submitting — via click-outside, dialog destroy, or back navigation — the in-progress edits are preserved in memory as a draft. The collapsed thread card shows the pending draft with a `(DRAFT)` badge in italic styling, and clicking it re-opens the edit composer pre-filled with the saved changes.
+
+Drafts are session-only and are cleared on:
+- Successful submit
+- Explicit Escape key press
+- Page refresh
+
+There is no API surface for this behavior — it is fully automatic. Developers should be aware of the session-only scoping: drafts do not survive a page reload.
 
 **Key details:**
 - All toggle methods have corresponding `disable` variants

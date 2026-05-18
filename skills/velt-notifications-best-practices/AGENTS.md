@@ -1,7 +1,6 @@
 # Velt Notifications Best Practices
-|v1.0.0|Velt|January 2026
+|v1.1.0|Velt|January 2026
 |IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any Velt tasks.
-|IMPORTANT: VeltProvider requires the `authProvider` prop for authentication. Do NOT use the deprecated `useIdentify` hook or pass `user` directly. Pattern: `<VeltProvider apiKey={KEY} authProvider={{ user: { userId, organizationId, name, email }, retryConfig: { retryCount: 3, retryDelay: 1000 }, generateToken: async () => { /* fetch from /api/velt/token */ } }}>`. Always set `shadowDom={false}` on VeltNotificationsTool and VeltNotificationsPanel for CSS styling access.
 |root: ./rules
 
 ## 1. Core Setup — CRITICAL
@@ -27,5 +26,8 @@
 ## 7. UI Customization — MEDIUM
 |shared/ui:{ui-wireframes.md}
 
-## 8. Debugging & Testing — LOW-MEDIUM
+## 8. Wireframe Variables — MEDIUM
+|shared/wireframe-variables:{wireframe-variables-notifications-panel.md,wireframe-variables-notifications-tool.md}
+
+## 9. Debugging & Testing — LOW-MEDIUM
 |react/debug:{debug-common-issues.md}

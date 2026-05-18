@@ -9,50 +9,32 @@ tags: python, attachments, s3, upload, self-hosting
 
 Attachment operations require S3 to be configured during SDK initialization. The save method accepts file data alongside the request object, while delete removes files from both the database and S3.
 
-**Incorrect (attempting attachment operations without S3 config):**
-
-```python
-from velt import VeltSdk, VeltSdkConfig, MongoDBConfig
-
-# Missing S3 config — attachment operations will fail
-config = VeltSdkConfig(
-    api_key="your_api_key",
-    auth_token="your_auth_token",
-    mongodb=MongoDBConfig(
-        connection_string="mongodb+srv://user:pass@cluster.mongodb.net/velt_db"
-    )
-)
-
-sdk = VeltSdk(config)
-# sdk.selfHosting.attachments.saveAttachment(...) will raise an error
-```
+Do not attempt attachment operations without providing `aws` config in `VeltSDK.initialize`. Without S3 configuration, `sdk.selfHosting.attachments.saveAttachment(...)` will raise an error at runtime.
 
 **Correct (SDK init with S3 for attachments):**
 
 ```python
-from velt import VeltSdk, VeltSdkConfig, MongoDBConfig, S3Config
+from velt_py import VeltSDK
 
-config = VeltSdkConfig(
-    api_key="your_api_key",
-    auth_token="your_auth_token",
-    mongodb=MongoDBConfig(
-        connection_string="mongodb+srv://user:pass@cluster.mongodb.net/velt_db"
-    ),
-    s3=S3Config(
-        region="us-east-1",
-        access_key="AKIA...",
-        secret_key="secret...",
-        bucket="velt-attachments"
-    )
-)
-
-sdk = VeltSdk(config)
+sdk = VeltSDK.initialize({
+    'apiKey': 'YOUR_VELT_API_KEY',
+    'authToken': 'YOUR_VELT_AUTH_TOKEN',
+    'database': {
+        'connection_string': 'mongodb+srv://user:pass@cluster.mongodb.net/velt-db'
+    },
+    'aws': {
+        'bucket_name': 'velt-attachments',
+        'region': 'us-east-1',
+        'access_key_id': 'AKIA...',
+        'secret_access_key': 'secret...'
+    }
+})
 ```
 
 **Correct (upload an attachment):**
 
 ```python
-from velt import SaveAttachmentResolverRequest
+from velt_py import SaveAttachmentResolverRequest
 
 # Read file data as bytes
 with open("report.pdf", "rb") as f:
@@ -61,7 +43,7 @@ with open("report.pdf", "rb") as f:
 request = SaveAttachmentResolverRequest(
     organization_id="org_123",
     document_id="doc_456",
-    comment_id="comment_1"
+    attachment_id="attachment_789"
 )
 
 response = sdk.selfHosting.attachments.saveAttachment(
@@ -71,28 +53,27 @@ response = sdk.selfHosting.attachments.saveAttachment(
     mime_type="application/pdf"
 )
 
-if response.success:
-    attachment_url = response.data
+if response['success']:
+    attachment_url = response['data']
     print(f"Uploaded: {attachment_url}")
 else:
-    print(f"Upload failed: {response.error}")
+    print(f"Upload failed: {response['error']}")
 ```
 
 **Correct (delete an attachment):**
 
 ```python
-from velt import DeleteAttachmentResolverRequest
+from velt_py import DeleteAttachmentResolverRequest
 
 request = DeleteAttachmentResolverRequest(
     organization_id="org_123",
     document_id="doc_456",
-    comment_id="comment_1",
     attachment_id="attachment_789"
 )
 
 response = sdk.selfHosting.attachments.deleteAttachment(request)
 
-if response.success:
+if response['success']:
     print("Attachment deleted from database and S3")
 ```
 
@@ -105,11 +86,11 @@ if response.success:
 - File data should be read as bytes (`"rb"` mode), not as a string.
 
 **Verification:**
-- [ ] S3Config is included in VeltSdkConfig initialization
+- [ ] `aws` config is included in `VeltSDK.initialize` config dict
 - [ ] S3 bucket exists and IAM credentials have correct permissions
 - [ ] File data is read as bytes, not text
 - [ ] `mime_type` matches the actual file type
-- [ ] Response `success` is checked before using the returned URL
-- [ ] Delete operations specify `attachment_id`
+- [ ] Response is accessed as a dict: `response['success']`, `response['data']`
+- [ ] Delete operations specify `attachment_id` only (no `comment_id`)
 
 **Source Pointer:** `https://docs.velt.dev/api-reference/sdk/python/attachments` (## Python SDK > ### Attachments)

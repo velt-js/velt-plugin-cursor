@@ -116,6 +116,7 @@ The section prefix (in parentheses) is the filename prefix used to group rules.
 - `config-sidebar-management` - Programmatic sidebar data, filtering, and configuration
 - `config-ui-behavior` - UI/UX toggle methods — display, interaction, behavior (20+ methods)
 - `config-moderation` - Moderation workflows — approve, accept, reject, read-only
+- `config-component-props` - Typed props interfaces for VeltComments, VeltCommentDialog, VeltCommentsSidebar, and VeltInlineCommentsSection — placeholder overrides (including edit-mode variants), assignToType, focus behavior
 
 ---
 
@@ -137,3 +138,21 @@ The section prefix (in parentheses) is the filename prefix used to group rules.
 **Rules:**
 - `rest-comment-annotations-api` - Annotation CRUD (add, get, update, delete, count)
 - `rest-comments-api` - Individual comment CRUD within annotations (add, get, update, delete)
+
+---
+
+## 13. Wireframe Variables (wireframe-variables)
+
+**Impact:** MEDIUM
+**Description:** Template-variable binding patterns for the Comment Bubble, Comment Dialog, Comment Tool, Text Comment, Inline Comments Section, Multithread Comments, Comment Sidebar, and Comment Sidebar Button wireframes. Documents the `velt-data` / `velt-if` / `velt-class` directive system layered on top of the structural wireframe catalog in `ui/ui-wireframes.md` — variable namespaces (App / Data / UI / Feature State), loop-scope iteration variables, `defaultCondition` overrides, Angular signal inputs, and common `shouldShow` gates.
+
+**Rules:**
+- `wireframe-variables-comment-bubble` - Bind Comment Bubble and Comment Pin wireframe slots via `{annotation.*}`, `{selectedAnnotationsMap[...]}`, and `globalConfigSignal.featureState.*`
+- `wireframe-variables-comment-dialog` - Bind the ~110-slot Comment Dialog wireframe family — App / Data / UI / Feature State namespaces, loop-scope (`comment`, `commentIndex`), root-level placeholder / unread-map paths, v1 backward-compat aliases
+- `wireframe-variables-comment-tool` - Bind the Comment Tool wireframe via the flat-config `{addCommentMode}` / `{commentToolEnabled}` aliases (and the canonical `globalConfig.featureState.*` / `componentConfig.*` paths)
+- `wireframe-variables-inline-comments-section` - Bind the Inline Comments Section wireframe — `{annotations}` / `{skeletonLoading}` / `{filterState.*}` / `{sortState.*}`, per-row loop-scope (`filter`, `sortOption`, `isActive`, `isAscending`), `featureState.*` conflict-paths, and nested Comment Dialog primitives in the list / composer
+- `wireframe-variables-multithread-comments` - Bind the Multithread Comments wireframe — `{nonDraftCommentsCount}`, `{minimalFilter}`, empty-state + reset-filter gates, minimal filter/sort + bulk-actions dropdowns (`isSelected` loop-scope), `data.user` / `uiState.shadowDom` conflict-paths
+- `wireframe-variables-autocomplete` - Bind the Autocomplete @-mention picker wireframes — flat-config `componentConfig.<path>` access for panel state (`flattenedItems`, `customGroupsEnabled`, `newUserContactError`), loop-scope `option` / `chip` iteration variables, option / group-option / chip / empty-state subcomponents, and chip tooltip descendants
+- `wireframe-variables-text-comment` - Bind the Text Comment toolbar wireframes — `{selectedWordsCount}` / `{selectedCharactersCount}` / `{position.*}`, capability flags (`isUserAllowed`, `enableTextComments`, `rewriterEnabled`), and the five explicit-path conflict names (`data.user`, `uiState.disabled`, `uiState.left`, `uiState.isPlanExpired`, `parentLocalUIState.shadowDom`)
+- `wireframe-variables-comment-sidebar-button` - Bind the Comment Sidebar Button wireframe via the flat-config namespaces (`globalConfig.featureState.sidebarVisible`, `componentConfig.data.unreadCount` / `annotations.length`, `componentConfig.uiState.commentCountType` / `floatingMode`)
+- `wireframe-variables-comment-sidebar` - Bind the Comment Sidebar wireframe family (~80 tags) — hybrid access (mapped `focusedAnnotation` / `appliedFiltersCount` / `unreadCommentAnnotationCount` alongside flat `componentConfig.skeletonLoading` / `noCommentsFound*` / `virtualScrollData` / `filterConfig.*`), loop-scope (`focusedAnnotation`, `filter`, `item`, `group`, `tag`), filter-panel + minimal-dropdown + standalone-dropdown subtrees, nested Comment Dialog scope inside list / focused-thread / page-mode composer

@@ -1,25 +1,25 @@
 # Velt Crdt Best Practices
-|v2.0.0|Velt|January 2026
+|v2.1.0|Velt|January 2026
 |IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for any Velt tasks.
-|IMPORTANT: VeltProvider requires the `authProvider` prop for authentication. Do NOT use the deprecated `useIdentify` hook. Pattern: `<VeltProvider apiKey={KEY} authProvider={{ user: { userId, organizationId, name, email }, retryConfig: { retryCount: 3, retryDelay: 1000 }, generateToken: async () => { /* fetch from /api/velt/token */ } }}>`. See velt-setup-best-practices for the full pattern.
 |root: ./rules
 
 ## 1. Core CRDT — CRITICAL
 |react/core:{core-crdt-utils-hooks.md,core-store-create-react.md}
-|shared/core:{core-store-types.md,core-velt-init.md,core-install.md,core-store-lifecycle.md,core-version-save.md,core-event-subscription.md,core-store-subscribe.md,core-debug-testing.md,core-activity-action-types.md,core-message-stream.md,core-encryption.md,core-rest-api.md,core-activity-debounce.md,core-store-update.md,core-debug-storemap.md,core-webhooks.md}
+|shared/core:{core-store-types.md,core-velt-init.md,core-install.md,core-store-lifecycle.md,core-v1-to-v2-migration.md,core-version-save.md,core-event-subscription.md,core-store-subscribe.md,core-debug-testing.md,core-activity-action-types.md,core-message-stream.md,core-encryption.md,core-rest-api.md,core-activity-debounce.md,core-store-array.md,core-store-map.md,core-store-text.md,core-store-xml.md,core-store-update.md,core-store-v2-api.md,core-debug-storemap.md,core-webhooks.md}
 |non-react/core:{core-store-create-vanilla.md}
 
 ## 2. Tiptap Integration — CRITICAL
 |react/tiptap:{tiptap-nextjs-ssr.md,tiptap-setup-react.md}
-|shared/tiptap:{tiptap-cursor-css.md,tiptap-disable-history.md,tiptap-install.md,tiptap-comments-integration.md,tiptap-testing.md,tiptap-initial-content.md,tiptap-editor-id.md}
+|shared/tiptap:{tiptap-cursor-css.md,tiptap-disable-history.md,tiptap-install.md,tiptap-comments-integration.md,tiptap-v1-to-v2-migration.md,tiptap-testing.md,tiptap-initial-content.md,tiptap-collaboration-manager.md,tiptap-editor-id.md}
 |non-react/tiptap:{tiptap-setup-vanilla.md}
 
 ## 3. BlockNote Integration — HIGH
 |react/blocknote:{blocknote-install.md,blocknote-testing.md,blocknote-editor-id.md,blocknote-setup-react.md}
+|shared/blocknote:{blocknote-v1-to-v2-migration.md,blocknote-collaboration-manager.md}
 
 ## 4. CodeMirror Integration — HIGH
 |react/codemirror:{codemirror-setup-react.md}
-|shared/codemirror:{codemirror-install.md,codemirror-testing.md,codemirror-editor-id.md,codemirror-ycollab.md}
+|shared/codemirror:{codemirror-install.md,codemirror-v1-to-v2-migration.md,codemirror-testing.md,codemirror-collaboration-manager.md,codemirror-editor-id.md,codemirror-ycollab.md}
 |non-react/codemirror:{codemirror-setup-vanilla.md}
 
 ## 5. ReactFlow Integration — HIGH
