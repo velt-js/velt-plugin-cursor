@@ -194,6 +194,50 @@ app.post('/api/velt/attachments/save', upload.single('file'), async (req, res) =
 | Get operation | Not supported | Supported |
 | Save response | Must include `{ url }` | Can be empty |
 
+**Two storage scopes — keep them separate:**
+
+`AttachmentDataProvider` is used in two distinct positions on the `VeltDataProvider` object, and they route to independent destinations. Wire each scope you need; do not consolidate them.
+
+| Scope | Configured via | Used for |
+|---|---|---|
+| Comment attachments | `dataProviders.attachment` | Files attached to comments |
+| Recording files | `dataProviders.recorder.storage` | Video/audio recording binaries |
+
+```ts
+await Velt.setDataProviders({
+  // Comment attachments — your S3/GCS/Azure bucket A
+  attachment: {
+    async save({ file, name, metadata }) {
+      const url = await commentBucket.put(file, name);
+      return { data: { url }, success: true, statusCode: 200 };
+    },
+    async delete({ attachmentId, metadata }) {
+      await commentBucket.remove(attachmentId);
+      return { success: true, statusCode: 200 };
+    },
+  },
+
+  // Recording metadata → your DB; recording binaries → bucket B (can be the same bucket)
+  recorder: {
+    async get(req)    { /* … */ },
+    async save(req)   { /* … */ },
+    async delete(req) { /* … */ },
+    storage: {
+      async save({ file, name }) {
+        const url = await recordingBucket.put(file, name);
+        return { data: { url }, success: true, statusCode: 200 };
+      },
+      async delete({ attachmentId }) {
+        await recordingBucket.remove(attachmentId);
+        return { success: true, statusCode: 200 };
+      },
+    },
+  },
+});
+```
+
+When `recorder.storage` is set, Velt uploads the entire recording to your bucket once (after the recording stops and the annotation is saved), patches the returned `url` onto the annotation, and skips its own server-side encoding/transcription post-processing — you own those files end to end. Deletes for both scopes receive the minimized metadata `{ apiKey, documentId, organizationId, folderId? }` plus the `attachmentId`.
+
 **Key details:**
 - Do **NOT** set `Content-Type` header for save requests — the browser sets it automatically with the correct multipart boundary
 - The save response **must** include `{ data: { url: string } }` — the URL where the attachment can be accessed
@@ -220,6 +264,63 @@ const deleteAttachmentFromDB = async (request: AttachmentDeleteRequest) => {
 };
 ```
 
+### Upload payload field inventory
+
+The attachment provider sits **outside** the `Partial<X>` strip model used by every other provider. There is no `get` and no `Partial<Attachment>` — attachments are binary files. When Velt hands a save call to your storage provider, the payload is a fixed shape:
+
+```typescript
+interface SaveAttachmentResolverRequest {
+  file: File;                                            // raw binary; multipart `file` part in URL mode, provider.save arg in function mode
+  attachment: {
+    attachmentId: number;                                // required (random 6-digit id, also at metadata.attachmentId)
+    name?: string;                                       // original file name (optional)
+    mimeType?: string;                                   // MIME type (optional)
+  };
+  metadata: AttachmentResolverMetadata;
+  event?: ResolverActions;                               // e.g. ATTACHMENT_ADD ("attachment.add") on save
+}
+
+interface AttachmentResolverMetadata {
+  organizationId: string | null;                         // org scope
+  documentId: string | null;                             // document scope
+  folderId?: string | null;                              // folder scope; on delete only when truthy
+  attachmentId: number | null;                           // mirror of top-level attachmentId
+  commentAnnotationId: string | null;                    // owning comment annotation; dropped on delete
+  apiKey: string | null;                                 // Velt public API key
+}
+
+// Required return shape
+interface SaveAttachmentResolverData { url: string; }   // persisted back onto Attachment.url
+```
+
+The JSON `request` body in URL (endpoint) mode is exactly `{ attachment: { attachmentId, name, mimeType }, metadata, event }` — the `File` is destructured out and sent as a separate multipart binary part to your storage, **never to Velt**. On delete, Velt sends `{ attachmentId, metadata: { apiKey, documentId, organizationId, folderId? }, event }` where `event` is `ATTACHMENT_DELETE` (`"attachment.delete"`).
+
+What persists on Velt's side after a successful save (everything except the binary bytes): `attachmentId` (PK), `name`, `bucketPath`, `size`, `type`, `url` (the URL **your** storage returned), `thumbnail`, `thumbnailWithPlayIconUrl`, `metadata` (arbitrary), `mimeType`, `previewImages`, and the `isAttachmentResolverUsed` flag. The `url` is the only field that comes from your `save` response; the rest are structural.
+
+**Incorrect (assuming `request.attachment` is a full `Attachment` object — only three sub-fields are guaranteed):**
+
+```tsx
+const saveAttachment = async (request: SaveAttachmentResolverRequest) => {
+  // BUG: `bucketPath`, `size`, `thumbnail`, `previewImages` are not in `request.attachment`.
+  // Velt computes those on its side from the `{ url }` you return plus the binary it just handed you.
+  const { attachmentId, name, mimeType, bucketPath, size } = request.attachment as any;
+  const url = await storage.put(request.file, { bucketPath }); // `bucketPath` is undefined
+  return { data: { url }, success: true, statusCode: 200 };
+};
+```
+
+**Correct (only `attachmentId` / `name` / `mimeType` are in the request; choose your own bucket path):**
+
+```tsx
+const saveAttachment = async (request: SaveAttachmentResolverRequest) => {
+  const { attachmentId, name = 'untitled', mimeType } = request.attachment;
+  const { organizationId, documentId, folderId } = request.metadata;
+  const key = `attachments/${organizationId}/${documentId}/${attachmentId}-${name}`;
+  const url = await storage.put(request.file, key, { contentType: mimeType });
+  return { data: { url }, success: true, statusCode: 200 };
+};
+```
+
 **Verification:**
 - [ ] Backend parses multipart/form-data (not JSON) for save
 - [ ] Content-Type header NOT manually set for save requests
@@ -227,5 +328,8 @@ const deleteAttachmentFromDB = async (request: AttachmentDeleteRequest) => {
 - [ ] Delete uses standard JSON format
 - [ ] Timeout is longer than for other providers (file upload latency)
 - [ ] Delete handler reads `attachmentId` from the top-level request field, not from `metadata`
+- [ ] Comment attachments wired on `dataProviders.attachment`; recording files wired on `dataProviders.recorder.storage` — separate scopes, never collapsed
+- [ ] Save handler only reads `attachmentId`, `name`, `mimeType` from `request.attachment` — does not assume `bucketPath` / `size` / `thumbnail` etc. are present (Velt populates those from the returned `url` and the binary)
+- [ ] `event` is treated as one of `ResolverActions` (`ATTACHMENT_ADD` / `ATTACHMENT_DELETE`); handlers gate side effects on it rather than HTTP method alone
 
-**Source Pointer:** https://docs.velt.dev/self-host-data/attachments - Endpoint-Based, Function-Based
+**Source Pointer:** https://docs.velt.dev/self-host-data/attachments - Endpoint-Based, Function-Based; https://docs.velt.dev/self-host-data/overview - "Attachment & recording storage"; https://docs.velt.dev/self-host-data/field-inventory - "Attachments"
